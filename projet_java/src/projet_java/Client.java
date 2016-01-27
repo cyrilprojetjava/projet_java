@@ -7,8 +7,8 @@ public class Client {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Connect !");
-		System.out.println("Annuaire partagÈ");
-		System.out.println("Tapez 1 pour vous connecter si vous avez dÈj‡ un compte");
+		System.out.println("Annuaire partag√©");
+		System.out.println("Tapez 1 pour vous connecter si vous avez d√©j√† un compte");
 		System.out.println("Tapez 2 pour vous inscrire");
 		Integer menuIncorrect = 1;
 		while (menuIncorrect == 1)
@@ -16,15 +16,39 @@ public class Client {
 			Integer choixMenu = LireIntClavier();
 			switch (choixMenu) {
 			case 1:
+			{
 				menuIncorrect = 0;
 				System.out.println("Connexion");
+				System.out.println("Veuillez entrer votre adresse mail");
+				String adresseMail = LireStringClavier();
+				System.out.println("Veuillez entrer votre mot de passe");
+				String motdepasse = LireStringClavier();
+				String messageConnect = "CONNECT#".concat(adresseMail).concat("#").concat(motdepasse);
 				break;
+				}
 			case 2:
+			{
 				menuIncorrect = 0;
 				System.out.println("Inscription");
+				System.out.println("Veuillez entrer votre nom");
+				String nom = LireStringClavier();
+				System.out.println("Veuillez entrer votre pr√©nom");
+				String prenom = LireStringClavier();
+				System.out.println("Veuillez entrer votre adresse mail");
+				String adresseMail = LireStringClavier();
+				System.out.println("Veuillez entrer votre mot de passe");
+				String motdepasse = LireStringClavier();
+				System.out.println("Veuillez entrer votre numero de telephone");
+				String numTel = LireStringClavier();
+				System.out.println("Veuillez entrer le nom de votre formation");
+				String formation = LireStringClavier();
+				System.out.println("Veuillez entrer votre ann√©e de diplomation");
+				int anneeDiplomation = LireIntClavier();
 				break;
+				
+			}
 			default:
-				System.out.println("Choix inconnu, veuillez rÈessayer.");
+				System.out.println("Choix inconnu, veuillez r√©essayer.");
 				menuIncorrect = 1;
 				break;
 			}
