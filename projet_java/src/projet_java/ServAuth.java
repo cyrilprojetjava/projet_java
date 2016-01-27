@@ -4,6 +4,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -37,8 +38,14 @@ public class ServAuth {
 			catch(IOException ioe){
 				System.out.println("Erreur de lecture : "+ioe.getMessage());
 			}
-			
-			
+			try{
+				PrintStream pStream = new PrintStream(sockService.getOutputStream());
+				pStream.println("OK");
+			   }
+			catch(IOException ioe){
+				System.out.println("Erreur d'écriture : "+ioe.getMessage());
+				break;
+			}
 		}
 
 	}

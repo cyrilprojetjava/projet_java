@@ -16,6 +16,7 @@ public class Client {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Utilisateur user1 = new Utilisateur();
 		PrintStream     fluxSortieSocket;
 		BufferedReader  fluxEntreeSocket;
 		Socket sockCom;
