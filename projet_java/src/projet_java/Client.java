@@ -16,7 +16,6 @@ public class Client {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BufferedReader  fluxEntreeStandard;
 		PrintStream     fluxSortieSocket;
 		BufferedReader  fluxEntreeSocket;
 		Socket sockCom;
@@ -40,16 +39,14 @@ public class Client {
 				String motdepasse = LireStringClavier();
 				String messageConnect = "CONNECT".concat("#").concat(adresseMail).concat("#").concat(motdepasse);
 				try {
-					fluxEntreeStandard = new BufferedReader(new InputStreamReader(System.in));
-					sockCom = new Socket("localhost",13214);
 					
+					sockCom = new Socket("localhost",13214);
 					fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
 					fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
-					while(true){
-						messageConnect = fluxEntreeStandard.readLine();
-						if (messageConnect.equals("fin")){
-							break;
-						}
+					fluxSortieSocket.println(messageConnect);
+					String retour = fluxEntreeSocket.readLine();
+					System.out.println(retour);
+
 				}
 				catch(IOException ioe){
 					System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
@@ -76,9 +73,21 @@ public class Client {
 				System.out.println("Veuillez entrer votre année de diplomation");
 				int anneeDiplomation = LireIntClavier();
 				String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
-				System.out.println(messageInscription);
-				break;
+				try {
+					
+					sockCom = new Socket("localhost",13214);
+					fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
+					fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+					fluxSortieSocket.println(messageInscription);
+					String retour = fluxEntreeSocket.readLine();
+					System.out.println(retour);
+					}
 				
+				catch(IOException ioe){
+					System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
+					return;
+				}
+				break;
 			}
 			default:
 				System.out.println("Choix inconnu, veuillez réessayer.");
