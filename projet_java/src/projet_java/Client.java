@@ -1,11 +1,26 @@
 package projet_java;
 
 import java.util.Scanner;
+import java.net.Socket;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+
 
 public class Client {
 
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		BufferedReader  fluxEntreeStandard;
+		PrintStream     fluxSortieSocket;
+		BufferedReader  fluxEntreeSocket;
+		Socket sockCom;
+		
 		System.out.println("Connect !");
 		System.out.println("Annuaire partagé");
 		System.out.println("Tapez 1 pour vous connecter si vous avez déjà un compte");
@@ -23,7 +38,23 @@ public class Client {
 				String adresseMail = LireStringClavier();
 				System.out.println("Veuillez entrer votre mot de passe");
 				String motdepasse = LireStringClavier();
-				String messageConnect = "CONNECT#".concat(adresseMail).concat("#").concat(motdepasse);
+				String messageConnect = "CONNECT".concat("#").concat(adresseMail).concat("#").concat(motdepasse);
+				try {
+					fluxEntreeStandard = new BufferedReader(new InputStreamReader(System.in));
+					sockCom = new Socket("localhost",13214);
+					
+					fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
+					fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+					while(true){
+						messageConnect = fluxEntreeStandard.readLine();
+						if (messageConnect.equals("fin")){
+							break;
+						}
+				}
+				catch(IOException ioe){
+					System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
+					return;
+				}
 				break;
 				}
 			case 2:
@@ -44,6 +75,8 @@ public class Client {
 				String formation = LireStringClavier();
 				System.out.println("Veuillez entrer votre année de diplomation");
 				int anneeDiplomation = LireIntClavier();
+				String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
+				System.out.println(messageInscription);
 				break;
 				
 			}
