@@ -15,19 +15,11 @@ public class Utilisateur {
 	
 	private Bd BdAuth = new Bd();
 	
-	public void creerCompte(String nom, String prenom, String telephone, String mail, String formation, String anneeDiplomation) {
+	public void creerCompte(String pnom, String pprenom, String ptelephone, String pmail, String pformation, String panneeDiplomation) {
 		
 		BdAuth.ConnexionBd();
-		
-		
-		}
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Bd BdAuth = new Bd();
-		BdAuth.ConnexionBd();
-		ResultSet rs = BdAuth.requete("SELECT * FROM Authentification;");
+		/*Trouver comment utiliser pmail*/
+		ResultSet rs = BdAuth.requete("SELECT email FROM Authentification WHERE email = pmail;");
 		try {
 			while (rs.next())
 			{
@@ -39,6 +31,16 @@ public class Utilisateur {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		BdAuth.insererBd(pnom,pprenom,ptelephone,pmail,pformation,panneeDiplomation);
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Bd BdAuth = new Bd();
+		BdAuth.ConnexionBd();
+		
 		
 	}
 

@@ -43,6 +43,11 @@ public class Bd {
 
 	}
 	
+	public void insererBd(String nom, String prenom, String telephone, String mail, String formation, String anneeDiplomation) {
+		//String sql = "INSERT INTO Authentification VALUES ('"
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
