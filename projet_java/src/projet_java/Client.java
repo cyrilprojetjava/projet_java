@@ -11,7 +11,7 @@ import java.io.DataOutputStream;
 
 
 
-public class Client {
+public class Client extends Object {
 
 	
 	public static void main(String[] args) {

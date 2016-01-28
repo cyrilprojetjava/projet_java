@@ -9,6 +9,7 @@ import java.sql.Statement;
 public class Bd {
 
 	Statement st =null;
+	Connection cn =null;
 
 	
 	public void ConnexionBd(){
@@ -21,7 +22,7 @@ public class Bd {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			System.out.println("Connecté");
+			System.out.println("Connexion BD reussie");
         	}
 		catch (SQLException e) {
 		e.printStackTrace();
@@ -30,9 +31,18 @@ public class Bd {
 		} 
 	}
 	
+	public void DeconnexionBd(){
+		try {
+			cn.close();
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public ResultSet requete(String req){
 		try {
-				return st.executeQuery(req);
+				return (st.executeQuery(req));
 				
 			
 		} catch (SQLException e) {
@@ -48,24 +58,4 @@ public class Bd {
 		
 	}
 	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	    
-        Integer num;
-        String test;
-	    
-			
-            ResultSet rs = st.executeQuery(sql);
-            
-	    finally {
-			try {
-				cn.close();
-				st.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-                }
-    }
-
 }

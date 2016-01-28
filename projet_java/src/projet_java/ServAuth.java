@@ -11,43 +11,46 @@ import java.io.DataOutputStream;
 
 public class ServAuth {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ServerSocket sockEcoute;
-		Socket sockService;
-		try{
-			sockEcoute = new ServerSocket(13214);
-		}
-		catch(IOException ioe){
-			System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
-			return;
-		}
-		while(true){
-			try{
-				sockService = sockEcoute.accept();
-			   }
-			catch(IOException ioe){
-				System.out.println("Erreur d'accept : "+ioe.getMessage());
-				break;
-			}
-			try{
-				BufferedReader reader = new BufferedReader(new InputStreamReader(sockService.getInputStream()));
-				String recu = reader.readLine();
-				System.out.println(recu);
-			}
-			catch(IOException ioe){
-				System.out.println("Erreur de lecture : "+ioe.getMessage());
-			}
-			try{
-				PrintStream pStream = new PrintStream(sockService.getOutputStream());
-				pStream.println("OK");
-			   }
-			catch(IOException ioe){
-				System.out.println("Erreur d'écriture : "+ioe.getMessage());
-				break;
-			}
-		}
+	ServerSocket sockEcoute;  // Déclaration du ServerSocket 
+	
+	//constructeur par défaut sans paramètre
+	public ServAuth(){
 
+		//  Instanciation du ServerSocket en utilisant le constr. le plus simple (choix port) 
+		try { 
+			sockEcoute = new ServerSocket(13214); 
+		} 
+		catch(IOException ioe) { 
+			System.out.println("Erreur de création du server socket: " + ioe.getMessage()); 
+			return; 
+		}
 	}
 
+	public void Service(){
+		Socket sockService; // Declaration du socket de service
+
+		// On appelle accept() sur le ServerSocket pour accepter les connections, // quand une connexion est reçue, un nouvel objet de la classe Socket est // renvoyé
+		GestionProtoAuth gp = new GestionProtoAuth();  
+		while(true) {
+
+			try {
+				sockService = sockEcoute.accept(); 
+				ThreadTCP th = new ThreadTCP(sockService,gp);
+				th.start();
+			}
+			catch(IOException ioe) 
+			{
+				System.out.println("Erreur d’écriture : " + ioe.getMessage());
+			}
+		}
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ServAuth srv = new ServAuth();
+		srv.Service();
+	}
 }
+
+
+
