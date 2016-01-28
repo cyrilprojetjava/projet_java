@@ -18,26 +18,26 @@ public class Utilisateur {
 	
 	private Bd BdAuth = new Bd();
 	
-	public int creerCompte(String pnom, String pprenom, String ptelephone, String pemail, String pformation, String panneeDiplomation) {
+	public int creerCompte(String pnom, String pprenom,  String pemail, String pmdp, String ptelephone, String pformation, String panneeDiplomation) {
 		System.out.println("Création de compte");
 		BdAuth.ConnexionBd();
 		/*Trouver comment utiliser pemail*/
 		ResultSet rs = BdAuth.requete("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+pemail+"';");
 		try {
-			if (!rs.next() ) 
+			rs.last(); 
+		    Integer nbItem = rs.getRow(); 
+		    rs.beforeFirst();
+		    if(nbItem ==0)
 				{
-					    System.out.println("no data");
-					    return(0);
+					    System.out.println("Création de compte réalisé");
+					    BdAuth.updateRequete("INSERT INTO Authentification VALUES(67,'"+pemail+"','"+pmdp+"');");
+					    //On doit communiquer avec l'autre serveur pour lui dire d'inserer les autres données
+					    //Numéro fiche AUTO INCREMENT DANS LA BD ?
+					    return(1);
 				} 
 				else 
 				{
-					while (rs.next())
-					{
-					    System.out.println(rs.getInt("numero_fiche"));
-					    System.out.println(rs.getString("email"));
-					    System.out.println(rs.getString("mdp"));
-					}
-					return(1);
+					return(0);
 				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -46,62 +46,6 @@ public class Utilisateur {
 		return -1;
 	}
 		
-		
-	
-	
-	/*public int connexion(String pemail, String pmdp){
-		System.out.println("Essaie de connexion d'un client en cours");
-		Statement st =null;
-		Connection cn =null;
-		String url = "jdbc:mysql://binary-digit.net:3305/bd_auth";
-	    String login = "cyrilloicludo";
-	    String passwd = "cyrilloicludo";
-		String sql="SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+pemail+"';";
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection(url, login, passwd);
-			st = cn.createStatement();
-			ResultSet rs = st.executeQuery(sql);
-			rs.last(); 
-		    Integer nbItem = rs.getRow(); 
-		    rs.beforeFirst();
-		    if(nbItem ==0)
-		    {
-			    System.out.println(nbItem);
-			    System.out.println("Echec de connexion");    
-				return(0);
-		    }else
-		    {
-				while (rs.next())
-				{
-					if(pmdp.equals(rs.getString("mdp")))
-					{
-						System.out.println("Connexion réussie");
-						return(rs.getInt("numero_fiche"));
-					}
-					else
-					{
-						System.out.println("Echec de connexion identifiants incorrects");
-						return(0);
-					}
-				}
-		    }
-                        
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				cn.close();
-				st.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-                }
-		return -1;
-	}*/
 	
 	public int connexion(String pemail, String pmdp){
 		System.out.println("Essaie de connexion d'un client en cours");

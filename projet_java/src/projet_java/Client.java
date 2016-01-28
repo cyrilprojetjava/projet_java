@@ -82,8 +82,13 @@ public class Client extends Object {
 					fluxSortieSocket.println(messageInscription);
 					String retour = fluxEntreeSocket.readLine();
 					System.out.println(retour);
+					if(retour.indexOf("CREATIONOK") != -1)
+					{
+						menuIncorrect=1;
+						System.out.println("Tapez 1 pour vous connecter si vous avez déjà un compte");
+						System.out.println("Tapez 2 pour vous inscrire");
 					}
-				
+				}
 				catch(IOException ioe){
 					System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
 					return;

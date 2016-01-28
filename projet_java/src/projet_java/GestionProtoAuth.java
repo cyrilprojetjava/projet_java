@@ -15,12 +15,12 @@ public class GestionProtoAuth {
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
 			if (requete.length==8 ){
-				validerCreation = user.creerCompte(requete[1],requete[2],requete[3],requete[4],requete[5],requete[6]);
+				validerCreation = user.creerCompte(requete[1],requete[2],requete[3],requete[4],requete[5],requete[6],requete[7]);
 				if(validerCreation == 0)
 				{	
 					return ("CREATIONREFUSEE");
 				}
-				return ("OK CREATION");
+				return ("CREATIONOK");
 			}
 			else
 				return("ERREUR : REQUETE MAL FORMEE");

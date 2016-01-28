@@ -53,6 +53,20 @@ public class Bd {
 
 	}
 	
+	public int updateRequete(String req){
+		try {
+				st.executeUpdate(req);
+				return(1);
+				
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return 0;
+
+	}
+	
 	public void insererBd(String nom, String prenom, String telephone, String mail, String formation, String anneeDiplomation) {
 		//String sql = "INSERT INTO Authentification VALUES ('"
 		
