@@ -15,12 +15,20 @@ public class GestionProtoAuth {
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
 			if (requete.length==8 ){
-				validerCreation = user.creerCompte(requete[1],requete[2],requete[3],requete[4],requete[5],requete[6],requete[7]);
+				user.setNom(requete[1]);
+				user.setPrenom(requete[2]);
+				user.setEmail(requete[3]);
+				user.setMdp(requete[4]);
+				user.setTelephone(requete[5]);
+				user.setFormation(requete[6]);
+				user.setAnneeDiplome(requete[7]);
+				validerCreation = user.creerCompte(user);
 				if(validerCreation == 0)
 				{	
 					return ("CREATIONREFUSEE");
 				}
-				return ("CREATIONOK");
+				else
+					return ("CREATIONOK"+user.getNumeroFiche());
 			}
 			else
 				return("ERREUR : REQUETE MAL FORMEE");
@@ -32,12 +40,13 @@ public class GestionProtoAuth {
 				{
 					return("CONNEXIONREFUSEE");
 				}
-				return ("CONNEXIONOK#"+validerConnexion);
+				else
+					return ("CONNEXIONOK#"+validerConnexion);
 			}
 			else
 				return("ERREUR : REQUETE MAL FORMEE");
 		}
-		return("toto");
+		return("ERREURSRV");
 	}
 
 }

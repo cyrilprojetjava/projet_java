@@ -10,6 +10,7 @@ public class ThreadTCP extends Thread{
 
 	private Socket sockService;
 	private GestionProtoAuth gpa;
+	private GestionProtoAnnuaire gpannuaire;
 	
 	
 public ThreadTCP(Socket sockService, GestionProtoAuth gpa) {
@@ -17,6 +18,12 @@ public ThreadTCP(Socket sockService, GestionProtoAuth gpa) {
 		this.sockService = sockService;
 		this.gpa = gpa;
 	}
+
+public ThreadTCP(Socket sockService, GestionProtoAnnuaire gpannuaire) {
+	super();
+	this.sockService = sockService;
+	this.gpannuaire = gpannuaire;
+}
 
 
 public void run() {

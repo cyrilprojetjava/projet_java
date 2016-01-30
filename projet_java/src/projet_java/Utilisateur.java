@@ -1,10 +1,20 @@
 package projet_java;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.print.attribute.standard.NumberOfInterveningJobs;
+
+import com.sun.javafx.geom.transform.GeneralTransform3D;
 
 public class Utilisateur {
 	
@@ -12,17 +22,19 @@ public class Utilisateur {
 	private String nom;
 	private String prenom;
 	private String telephone;
-	private String mail;
+	private String mdp;
+	private String email;
 	private String formation;
-	private String anneeDiplomation;
+	private String anneeDiplome;
+	private Integer numeroFiche;
 	
 	private Bd BdAuth = new Bd();
 	
-	public int creerCompte(String pnom, String pprenom,  String pemail, String pmdp, String ptelephone, String pformation, String panneeDiplomation) {
-		System.out.println("Création de compte");
+	public int creerCompte(Utilisateur user) {
+		System.out.println("Essaie de Création de compte");
 		BdAuth.ConnexionBd();
 		/*Trouver comment utiliser pemail*/
-		ResultSet rs = BdAuth.requete("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+pemail+"';");
+		ResultSet rs = BdAuth.requete("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+user.email+"';");
 		try {
 			rs.last(); 
 		    Integer nbItem = rs.getRow(); 
@@ -30,13 +42,35 @@ public class Utilisateur {
 		    if(nbItem ==0)
 				{
 					    System.out.println("Création de compte réalisé");
-					    BdAuth.updateRequete("INSERT INTO Authentification VALUES(67,'"+pemail+"','"+pmdp+"');");
-					    //On doit communiquer avec l'autre serveur pour lui dire d'inserer les autres données
-					    //Numéro fiche AUTO INCREMENT DANS LA BD ?
-					    return(1);
+					    BdAuth.updateRequete("INSERT INTO Authentification(email,mdp) VALUES('"+user.email+"','"+user.mdp+"');");
+					    rs =  BdAuth.requete("SELECT numero_fiche FROM Authentification WHERE email ='"+user.email+"';");
+					    Integer numFiche = rs.getInt("numero_fiche");
+					    this.numeroFiche = numFiche;
+					    PrintStream     fluxSortieSocket;
+						BufferedReader  fluxEntreeSocket;
+						Socket sockCom;
+						
+						try {
+							sockCom = new Socket("localhost",13215);
+							fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
+							fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+							String messageInscription = "CREATE#"+user.getNumeroFiche()+"#"+user.getNom()+"#"+user.getPrenom()+"#"+user.getTelephone()+"#"+user.getFormation()+"#"+user.getAnneeDiplome();
+							fluxSortieSocket.println(messageInscription);
+							if(fluxEntreeSocket.equals("CREATIONOK"))
+							{
+								return(1);
+							}
+						} catch (UnknownHostException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}						
 				} 
 				else 
 				{
+					System.out.println("Echec de Création de compte");
 					return(0);
 				}
 		} catch (SQLException e) {
@@ -104,11 +138,17 @@ public class Utilisateur {
 		this.nom = nom;
 	}
 
+	public void setNumeroFiche(Integer numeroFiche) {
+		this.numeroFiche = numeroFiche;
+	}
+	
+	public Integer getNumeroFiche() {
+		return numeroFiche;
+	}
 
 	public String getPrenom() {
 		return prenom;
 	}
-
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
@@ -125,15 +165,22 @@ public class Utilisateur {
 	}
 
 
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
+	
+	public String getMdp() {
+		return mdp;
+	}
+	
+	 public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
 
 	public String getFormation() {
 		return formation;
@@ -145,13 +192,12 @@ public class Utilisateur {
 	}
 
 
-	public String getAnneeDiplomation() {
-		return anneeDiplomation;
+	public String getAnneeDiplome() {
+		return anneeDiplome;
 	}
-
-
-	public void setAnneeDiplomation(String anneeDiplomation) {
-		this.anneeDiplomation = anneeDiplomation;
+	
+	public void setAnneeDiplome(String anneeDiplome) {
+		this.anneeDiplome = anneeDiplome;
 	}
 
 }
