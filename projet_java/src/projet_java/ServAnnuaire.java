@@ -35,7 +35,7 @@ public class ServAnnuaire {
 
 			try {
 				sockService = sockEcoute.accept(); 
-				ThreadTCP th = new ThreadTCP(sockService,gpannuaire);
+				ThreadTCPAnnuaire th = new ThreadTCPAnnuaire(sockService,gpannuaire);
 				th.start();
 			}
 			catch(IOException ioe) 

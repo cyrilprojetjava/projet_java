@@ -6,24 +6,20 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-public class ThreadTCP extends Thread{
+public class ThreadTCPAuth extends Thread{
 
 	private Socket sockService;
 	private GestionProtoAuth gpauth;
-	private GestionProtoAnnuaire gpannuaire;
+
 	
 	
-public ThreadTCP(Socket sockService, GestionProtoAuth gpauth) {
+public ThreadTCPAuth(Socket sockService, GestionProtoAuth gpauth) {
 		super();
 		this.sockService = sockService;
 		this.gpauth = gpauth;
 	}
 
-public ThreadTCP(Socket sockService, GestionProtoAnnuaire gpannuaire) {
-	super();
-	this.sockService = sockService;
-	this.gpannuaire = gpannuaire;
-}
+
 
 
 public void run() {
@@ -41,7 +37,6 @@ public void run() {
 					break;
 				}
 				String reponse = gpauth.analyserTraiter(requete);
-				String reponse = gpannuaire.analyserTraiter(requete);
 				
 				// Instancie un PrintStream travaillant sur lâ€™output stream de la socket PrintStream pStream = new PrintStream(sockService.getOutputStream());
 				// eÌ�crit une ligne de caracteÌ€res sur le flux, et donc lâ€™envoie au client

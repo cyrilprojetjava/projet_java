@@ -35,7 +35,7 @@ public class ServAuth {
 
 			try {
 				sockService = sockEcoute.accept(); 
-				ThreadTCP th = new ThreadTCP(sockService,gp);
+				ThreadTCPAuth th = new ThreadTCPAuth(sockService,gp);
 				th.start();
 			}
 			catch(IOException ioe) 

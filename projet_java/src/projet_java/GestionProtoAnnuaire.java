@@ -8,9 +8,10 @@ public class GestionProtoAnnuaire {
 	private Bd bdAnnu = new Bd();
 	
 	
+
 	public String analyserTraiter(String req) {
 		String[] requete = req.split("#");		
-		
+		System.out.println("ceezfzfzfezfezverv !");
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
 			if (requete.length==7 ){
