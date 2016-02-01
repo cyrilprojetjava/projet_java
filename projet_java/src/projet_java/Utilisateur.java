@@ -29,11 +29,11 @@ public class Utilisateur {
 	private Integer numeroFiche;
 	
 	private Bd BdAuth = new Bd();
+	private Bd BdAnnuaire = new Bd();
 	
 	public int creerCompte(Utilisateur user) {
-		System.out.println("Essaie de Création de compte");
+		System.out.println("Essaie de Crï¿½ation de compte");
 		BdAuth.ConnexionBd();
-		/*Trouver comment utiliser pemail*/
 		ResultSet rs = BdAuth.requete("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+user.email+"';");
 		try {
 			rs.last(); 
@@ -41,7 +41,7 @@ public class Utilisateur {
 		    rs.beforeFirst();
 		    if(nbItem ==0)
 				{
-					    System.out.println("Création de compte réalisé");
+					    System.out.println("Crï¿½ation de compte rï¿½alisï¿½");
 					    BdAuth.updateRequete("INSERT INTO Authentification(email,mdp) VALUES('"+user.email+"','"+user.mdp+"');");
 					    rs =  BdAuth.requete("SELECT numero_fiche FROM Authentification WHERE email ='"+user.email+"';");
 					    Integer numFiche = rs.getInt("numero_fiche");
@@ -59,6 +59,10 @@ public class Utilisateur {
 							if(fluxEntreeSocket.equals("CREATIONOK"))
 							{
 								return(1);
+								/*
+								 BdAnnuaire.ConnexionBdAnnuaire(); a creer avec un copiercoller dans Bd.
+							Remplacer les bons parametres	 BdAnnuaire.insererBd(String nom, String prenom, String telephone, String mail, String formation, String anneeDiplomation);
+								 */
 							}
 						} catch (UnknownHostException e) {
 							// TODO Auto-generated catch block
@@ -70,7 +74,7 @@ public class Utilisateur {
 				} 
 				else 
 				{
-					System.out.println("Echec de Création de compte");
+					System.out.println("Echec de Crï¿½ation de compte");
 					return(0);
 				}
 		} catch (SQLException e) {
@@ -102,7 +106,7 @@ public class Utilisateur {
 					{
 						if(pmdp.equals(rs.getString("mdp")))
 						{
-							System.out.println("Connexion réussie");
+							System.out.println("Connexion rï¿½ussie");
 							return(rs.getInt("numero_fiche"));
 						}
 						else

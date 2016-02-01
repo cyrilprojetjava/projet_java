@@ -21,7 +21,10 @@ public class Client extends Object {
 		PrintStream     fluxSortieSocket;
 		BufferedReader  fluxEntreeSocket;
 		Socket sockCom;
-		
+		/*
+		PrintStream     fluxSortieSocket2;
+		BufferedReader  fluxEntreeSocket2;
+		Socket sockCom2;*/
 		try {
 			sockCom = new Socket("localhost",13214);
 			fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
@@ -33,11 +36,11 @@ public class Client extends Object {
 			while (menuIncorrect == 1)
 			{
 				
-				System.out.println("Annuaire partagé");
+				System.out.println("Annuaire partagÃ©");
 				System.out.println("------------------------------------------------------------");
 				System.out.println("MENU");
 				System.out.println("Tapez 0 pour quitter");
-				System.out.println("Tapez 1 pour vous connecter si vous avez déjà  un compte");
+				System.out.println("Tapez 1 pour vous connecter si vous avez dÃ©jÃ  un compte");
 				System.out.println("Tapez 2 pour vous inscrire");
 				System.out.println("------------------------------------------------------------");
 
@@ -45,7 +48,7 @@ public class Client extends Object {
 				switch (choixMenu) {
 				case 0:
 				{
-					System.out.println("Deconnexion de l'annuaire partagé");
+					System.out.println("Deconnexion de l'annuaire partagÃ©");
 					return;
 				}
 				case 1:
@@ -63,8 +66,35 @@ public class Client extends Object {
 						System.out.println("DEBUG :"+retour);
 						if(retour.indexOf("CONNEXIONOK") != -1)
 						{
-							System.out.println("Connexion réussi");
-							System.out.println("Fonctionnalités recherches annuaire");
+							System.out.println("Connexion rÃ©ussi");
+							System.out.println("FonctionnalitÃ©s recherches annuaire");
+							/*
+							System.out.println("Tapez 1 pour consulter vos informations dans l'annuaire");
+							System.out.println("Tapez 2 pour modifier une information");
+							Integer choixMenu2 = LireIntClavier();
+							switch (choixMenu2) {
+							case 1:
+							{
+								sockCom2 = new Socket("localhost",13215);
+								fluxSortieSocket2 = new PrintStream(sockCom.getOutputStream());
+								fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+								String messageConsultInfoPerso = "CONSULTINFOPERSO".concat("#")+(user1.getNumeroFiche());
+								fluxSortieSocket.println(messageConsultInfoPerso);
+								String retour2 = fluxEntreeSocket.readLine();
+								System.out.println("DEBUG :"+retour2);
+								sockCom2.close();
+							}
+							case 2:
+							{
+								sockCom2 = new Socket("localhost",13215);
+								fluxSortieSocket2 = new PrintStream(sockCom.getOutputStream());
+								fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+								String modifInfoPerso = "MODIFINFOPERSO".concat("#")+(user1.getNumeroFiche());
+							}
+							}
+							*/
+							
+							
 						}else if(retour.equalsIgnoreCase("CONNEXIONREFUSEE"))
 						{
 							menuIncorrect=1;
@@ -72,7 +102,7 @@ public class Client extends Object {
 						}
 					}
 					catch(IOException ioe){
-						System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
+						System.out.println("Erreur de crÃ©ation ou de connexion : "+ioe.getMessage());
 						return;
 					}
 					break;
@@ -83,7 +113,7 @@ public class Client extends Object {
 					System.out.println("Inscription");
 					System.out.println("Veuillez entrer votre nom");
 					String nom = LireStringClavier();
-					System.out.println("Veuillez entrer votre prénom");
+					System.out.println("Veuillez entrer votre prÃ©nom");
 					String prenom = LireStringClavier();
 					System.out.println("Veuillez entrer votre adresse mail");
 					String adresseMail = LireStringClavier();
@@ -93,7 +123,7 @@ public class Client extends Object {
 					String numTel = LireStringClavier();
 					System.out.println("Veuillez entrer le nom de votre formation");
 					String formation = LireStringClavier();
-					System.out.println("Veuillez entrer votre année de diplomation");
+					System.out.println("Veuillez entrer votre annÃ©e de diplomation");
 					int anneeDiplomation = LireIntClavier();
 					String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
 					try {
@@ -110,17 +140,17 @@ public class Client extends Object {
 						}else if(retour.equalsIgnoreCase("CREATIONREFUSEE"))
 						{
 							menuIncorrect=1;
-							System.out.println("Email déjà utilisé, veuillez réessayer.");
+							System.out.println("Email dï¿½jï¿½ utilisï¿½, veuillez rï¿½essayer.");
 						}
 					}
 					catch(IOException ioe){
-						System.out.println("Erreur de création ou de connexion : "+ioe.getMessage());
+						System.out.println("Erreur de crï¿½ation ou de connexion : "+ioe.getMessage());
 						return;
 					}
 					break;
 				}
 				default:
-					System.out.println("Choix inconnu, veuillez réessayer.");
+					System.out.println("Choix inconnu, veuillez rï¿½essayer.");
 					menuIncorrect = 1;
 					break;
 				}
