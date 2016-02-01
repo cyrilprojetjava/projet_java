@@ -11,9 +11,9 @@ import java.io.DataOutputStream;
 
 public class ServAuth {
 
-	ServerSocket sockEcoute;  // Déclaration du ServerSocket 
+	ServerSocket sockEcoute;  // DÃ©claration du ServerSocket 
 	
-	//constructeur par défaut sans paramètre
+	//constructeur par dÃ©faut sans paramÃ¨tre
 	public ServAuth(){
 
 		//  Instanciation du ServerSocket en utilisant le constr. le plus simple (choix port) 
@@ -21,7 +21,7 @@ public class ServAuth {
 			sockEcoute = new ServerSocket(13214); 
 		} 
 		catch(IOException ioe) { 
-			System.out.println("Erreur de création du server socket: " + ioe.getMessage()); 
+			System.out.println("Erreur de crÃ©ation du server socket: " + ioe.getMessage()); 
 			return; 
 		}
 	}
@@ -29,7 +29,7 @@ public class ServAuth {
 	public void Service(){
 		Socket sockService; // Declaration du socket de service
 
-		// On appelle accept() sur le ServerSocket pour accepter les connections, // quand une connexion est reçue, un nouvel objet de la classe Socket est // renvoyé
+		// On appelle accept() sur le ServerSocket pour accepter les connections, // quand une connexion est recÌ§ue, un nouvel objet de la classe Socket est // renvoyeÌ�
 		GestionProtoAuth gp = new GestionProtoAuth();  
 		while(true) {
 
@@ -40,7 +40,7 @@ public class ServAuth {
 			}
 			catch(IOException ioe) 
 			{
-				System.out.println("Erreur d’écriture : " + ioe.getMessage());
+				System.out.println("Erreur d ecriture : " + ioe.getMessage());
 			}
 		}
 		

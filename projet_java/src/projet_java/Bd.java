@@ -8,12 +8,12 @@ import java.sql.Statement;
 
 public class Bd {
 
-	Statement st =null;
-	Connection cn =null;
+	Statement st = null;
+	Connection cn = null;
 
-	/*
+	
 	 public void ConnexionBdAnnuaire(){
-		String url = "jdbc:mysql://binary-digit.net:3305/bd_annuaire";
+		String url = "jdbc:mysql://binary-digit.net:3306/bd_annuaire";
 	    String login = "cyrilloicludo";
 	    String passwd = "cyrilloicludo";
 	    Connection cn =null;
@@ -22,15 +22,15 @@ public class Bd {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			System.out.println("Connexion BD reussie");
+			System.out.println("Connexion BD Annuaire reussie");
         	}
 		catch (SQLException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-		e.printStackTrace();
+			e.printStackTrace();}
 		} 
-	 */
-	public void ConnexionBd(){
+	
+	public void ConnexionBdAuth(){
 		String url = "jdbc:mysql://binary-digit.net:3305/bd_auth";
 	    String login = "cyrilloicludo";
 	    String passwd = "cyrilloicludo";
@@ -40,7 +40,7 @@ public class Bd {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			System.out.println("Connexion BD reussie");
+			System.out.println("Connexion BD Authentification reussie");
         	}
 		catch (SQLException e) {
 		e.printStackTrace();
@@ -58,7 +58,7 @@ public class Bd {
 		}
 	}
 	
-	public ResultSet requete(String req){
+	public ResultSet RequeteSelect(String req){
 		try {
 				return (st.executeQuery(req));
 				
@@ -71,7 +71,7 @@ public class Bd {
 
 	}
 	
-	public int updateRequete(String req){
+	public int RequeteAutre(String req){
 		try {
 				st.executeUpdate(req);
 				return(1);
@@ -83,11 +83,6 @@ public class Bd {
 		}
 		return 0;
 
-	}
-	
-	public void insererBd(String nom, String prenom, String telephone, String mail, String formation, String anneeDiplomation) {
-		//String sql = "INSERT INTO Authentification VALUES ('"
-		
 	}
 	
 	/*

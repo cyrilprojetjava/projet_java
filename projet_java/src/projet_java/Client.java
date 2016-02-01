@@ -40,7 +40,7 @@ public class Client extends Object {
 				System.out.println("------------------------------------------------------------");
 				System.out.println("MENU");
 				System.out.println("Tapez 0 pour quitter");
-				System.out.println("Tapez 1 pour vous connecter si vous avez déjà un compte");
+				System.out.println("Tapez 1 pour vous connecter si vous avez deja� un compte");
 				System.out.println("Tapez 2 pour vous inscrire");
 				System.out.println("------------------------------------------------------------");
 
@@ -48,7 +48,7 @@ public class Client extends Object {
 				switch (choixMenu) {
 				case 0:
 				{
-					System.out.println("Deconnexion de l'annuaire partagé");
+					System.out.println("Deconnexion de l'annuaire partage");
 					return;
 				}
 				case 1:
@@ -66,8 +66,8 @@ public class Client extends Object {
 						System.out.println("DEBUG :"+retour);
 						if(retour.indexOf("CONNEXIONOK") != -1)
 						{
-							System.out.println("Connexion réussi");
-							System.out.println("Fonctionnalités recherches annuaire");
+							System.out.println("Connexion reussi");
+							System.out.println("Fonctionnalites recherches annuaire");
 							/*
 							System.out.println("Tapez 1 pour consulter vos informations dans l'annuaire");
 							System.out.println("Tapez 2 pour modifier une information");
@@ -113,7 +113,7 @@ public class Client extends Object {
 					System.out.println("Inscription");
 					System.out.println("Veuillez entrer votre nom");
 					String nom = LireStringClavier();
-					System.out.println("Veuillez entrer votre prénom");
+					System.out.println("Veuillez entrer votre prenom");
 					String prenom = LireStringClavier();
 					System.out.println("Veuillez entrer votre adresse mail");
 					String adresseMail = LireStringClavier();
@@ -123,7 +123,7 @@ public class Client extends Object {
 					String numTel = LireStringClavier();
 					System.out.println("Veuillez entrer le nom de votre formation");
 					String formation = LireStringClavier();
-					System.out.println("Veuillez entrer votre année de diplomation");
+					System.out.println("Veuillez entrer votre annee de diplomation");
 					int anneeDiplomation = LireIntClavier();
 					String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
 					try {
@@ -133,24 +133,25 @@ public class Client extends Object {
 						fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
 						fluxSortieSocket.println(messageInscription);
 						String retour = fluxEntreeSocket.readLine();
-						System.out.println("DEBUG :"+retour);
+						System.out.println("DEBUG : "+retour);
+						
 						if(retour.indexOf("CREATIONOK") != -1)
 						{
 							menuIncorrect=1;
 						}else if(retour.equalsIgnoreCase("CREATIONREFUSEE"))
 						{
 							menuIncorrect=1;
-							System.out.println("Email d�j� utilis�, veuillez r�essayer.");
+							System.out.println("Email deja utilise, veuillez reessayer.");
 						}
 					}
 					catch(IOException ioe){
-						System.out.println("Erreur de cr�ation ou de connexion : "+ioe.getMessage());
+						System.out.println("Erreur de creation ou de connexion : "+ioe.getMessage());
 						return;
 					}
 					break;
 				}
 				default:
-					System.out.println("Choix inconnu, veuillez r�essayer.");
+					System.out.println("Choix inconnu, veuillez reessayer.");
 					menuIncorrect = 1;
 					break;
 				}

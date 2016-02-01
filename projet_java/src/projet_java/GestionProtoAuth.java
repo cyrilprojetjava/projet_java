@@ -23,7 +23,7 @@ public class GestionProtoAuth {
 				user.setFormation(requete[6]);
 				user.setAnneeDiplome(requete[7]);
 				validerCreation = user.creerCompte(user);
-				if(validerCreation == 0)
+				if(validerCreation == -1)
 				{	
 					return ("CREATIONREFUSEE");
 				}

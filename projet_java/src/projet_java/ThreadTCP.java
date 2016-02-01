@@ -9,14 +9,14 @@ import java.net.Socket;
 public class ThreadTCP extends Thread{
 
 	private Socket sockService;
-	private GestionProtoAuth gpa;
+	private GestionProtoAuth gpauth;
 	private GestionProtoAnnuaire gpannuaire;
 	
 	
-public ThreadTCP(Socket sockService, GestionProtoAuth gpa) {
+public ThreadTCP(Socket sockService, GestionProtoAuth gpauth) {
 		super();
 		this.sockService = sockService;
-		this.gpa = gpa;
+		this.gpauth = gpauth;
 	}
 
 public ThreadTCP(Socket sockService, GestionProtoAnnuaire gpannuaire) {
@@ -28,22 +28,23 @@ public ThreadTCP(Socket sockService, GestionProtoAnnuaire gpannuaire) {
 
 public void run() {
 		
-		// Instancie un BufferedReader travaillant sur un InputStreamReader lié à  // l’input stream de la socket
+		// Instancie un BufferedReader travaillant sur un InputStreamReader lieÌ� aÌ€  // lâ€™input stream de la socket
 		BufferedReader reader;
 		try {
 			reader = new BufferedReader (new InputStreamReader(sockService.getInputStream()));
 			PrintStream pStream = new PrintStream(sockService.getOutputStream());
 			while(true){
-				// Lit une ligne de caractères depuix le flux, et donc la reçoit du client
+				// Lit une ligne de caracteÌ€res depuix le flux, et donc la recÌ§oit du client
 				String requete = reader.readLine();
 				System.out.println(requete);
 				if (requete == null){
 					break;
 				}
-				String reponse = gpa.analyserTraiter(requete);
+				String reponse = gpauth.analyserTraiter(requete);
+				String reponse = gpannuaire.analyserTraiter(requete);
 				
-				// Instancie un PrintStream travaillant sur l’output stream de la socket PrintStream pStream = new PrintStream(sockService.getOutputStream());
-				// écrit une ligne de caractères sur le flux, et donc l’envoie au client
+				// Instancie un PrintStream travaillant sur lâ€™output stream de la socket PrintStream pStream = new PrintStream(sockService.getOutputStream());
+				// eÌ�crit une ligne de caracteÌ€res sur le flux, et donc lâ€™envoie au client
 				pStream.println(reponse); 
 			}
 			sockService.close();

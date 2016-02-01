@@ -27,25 +27,32 @@ public class Utilisateur {
 	private String formation;
 	private String anneeDiplome;
 	private Integer numeroFiche;
+	private String visibilite;
 	
 	private Bd BdAuth = new Bd();
 	private Bd BdAnnuaire = new Bd();
 	
 	public int creerCompte(Utilisateur user) {
-		System.out.println("Essaie de Crï¿½ation de compte");
-		BdAuth.ConnexionBd();
-		ResultSet rs = BdAuth.requete("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+user.email+"';");
+		System.out.println("Essaie de Création de compte");
+		BdAuth.ConnexionBdAuth();
+		ResultSet rs = BdAuth.RequeteSelect("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+user.email+"';");
 		try {
 			rs.last(); 
 		    Integer nbItem = rs.getRow(); 
 		    rs.beforeFirst();
 		    if(nbItem ==0)
 				{
-					    System.out.println("Crï¿½ation de compte rï¿½alisï¿½");
-					    BdAuth.updateRequete("INSERT INTO Authentification(email,mdp) VALUES('"+user.email+"','"+user.mdp+"');");
-					    rs =  BdAuth.requete("SELECT numero_fiche FROM Authentification WHERE email ='"+user.email+"';");
-					    Integer numFiche = rs.getInt("numero_fiche");
+					    System.out.println("Creation de compte réalisé !");
+					    BdAuth.RequeteAutre("INSERT INTO Authentification(email,mdp) VALUES('"+user.email+"','"+user.mdp+"');");
+					    rs =  BdAuth.RequeteSelect("SELECT numero_fiche FROM Authentification WHERE email ='"+user.email+"';");
+					    Integer numFiche = -1;
+					    while(rs.next()){
+							numFiche = rs.getInt(1);
+						 }
 					    this.numeroFiche = numFiche;
+					    System.out.println(numFiche);
+					    //BdAuth.DeconnexionBd();
+
 					    PrintStream     fluxSortieSocket;
 						BufferedReader  fluxEntreeSocket;
 						Socket sockCom;
@@ -55,14 +62,19 @@ public class Utilisateur {
 							fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
 							fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
 							String messageInscription = "CREATE#"+user.getNumeroFiche()+"#"+user.getNom()+"#"+user.getPrenom()+"#"+user.getTelephone()+"#"+user.getFormation()+"#"+user.getAnneeDiplome();
+							System.out.println(messageInscription);
 							fluxSortieSocket.println(messageInscription);
 							if(fluxEntreeSocket.equals("CREATIONOK"))
 							{
+								BdAnnuaire.ConnexionBdAnnuaire();
+								BdAnnuaire.RequeteAutre("INSERT INTO Annuaire VALUES('"+user.getNumeroFiche()+"','"+user.getNom()+"','"+user.getPrenom()+"','"+user.getTelephone()+"','"+user.getFormation()+"','"+user.getAnneeDiplome()+"','0');");
+								BdAnnuaire.DeconnexionBd();
 								return(1);
-								/*
-								 BdAnnuaire.ConnexionBdAnnuaire(); a creer avec un copiercoller dans Bd.
-							Remplacer les bons parametres	 BdAnnuaire.insererBd(String nom, String prenom, String telephone, String mail, String formation, String anneeDiplomation);
-								 */
+							}
+							else
+							{
+								System.out.println("Erreur de creation dans l annuaire !");
+								return(-1);
 							}
 						} catch (UnknownHostException e) {
 							// TODO Auto-generated catch block
@@ -74,8 +86,8 @@ public class Utilisateur {
 				} 
 				else 
 				{
-					System.out.println("Echec de Crï¿½ation de compte");
-					return(0);
+					System.out.println("Echec de Creation de compte");
+					return(-1);
 				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -87,18 +99,18 @@ public class Utilisateur {
 	
 	public int connexion(String pemail, String pmdp){
 		System.out.println("Essaie de connexion d'un client en cours");
-		BdAuth.ConnexionBd();
+		BdAuth.ConnexionBdAuth();
 		String sql="SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+pemail+"';";
 		
 		try {
-			ResultSet rs = BdAuth.requete(sql);
+			ResultSet rs = BdAuth.RequeteSelect(sql);
 			rs.last(); 
 		    Integer nbItem = rs.getRow(); 
 		    rs.beforeFirst();
 		    if(nbItem ==0)
 				{
 					System.out.println("Echec de connexion");    
-					return(0);
+					return(-1);
 				} 
 			else 
 				{
@@ -112,7 +124,7 @@ public class Utilisateur {
 						else
 						{
 							System.out.println("Echec de connexion");
-							return(0);
+							return(-1);
 						}
 					}
 				}
@@ -127,7 +139,7 @@ public class Utilisateur {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Bd BdAuth = new Bd();
-		BdAuth.ConnexionBd();
+		BdAuth.ConnexionBdAuth();
 		
 		
 	}
@@ -137,6 +149,13 @@ public class Utilisateur {
 		return nom;
 	}
 
+	public void setVisibilite(String visibilite) {
+		this.visibilite = visibilite;
+	}
+	
+	public String getVisibilite() {
+		return visibilite;
+	}
 
 	public void setNom(String nom) {
 		this.nom = nom;

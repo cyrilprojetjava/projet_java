@@ -11,9 +11,9 @@ import java.io.DataOutputStream;
 
 public class ServAnnuaire {
 
-	ServerSocket sockEcoute;  // Déclaration du ServerSocket 
+	ServerSocket sockEcoute;  // DÃ©claration du ServerSocket 
 	
-	//constructeur par défaut sans paramètre
+	//constructeur par dÃ©faut sans paramÃ¨tre
 	public ServAnnuaire(){
 
 		//  Instanciation du ServerSocket en utilisant le constr. le plus simple (choix port) 
@@ -21,7 +21,7 @@ public class ServAnnuaire {
 			sockEcoute = new ServerSocket(13215); 
 		} 
 		catch(IOException ioe) { 
-			System.out.println("Erreur de création du server socket: " + ioe.getMessage()); 
+			System.out.println("Erreur de creation du server socket: " + ioe.getMessage()); 
 			return; 
 		}
 	}
@@ -29,18 +29,18 @@ public class ServAnnuaire {
 	public void Service(){
 		Socket sockService; // Declaration du socket de service
 
-		// On appelle accept() sur le ServerSocket pour accepter les connections, // quand une connexion est reçue, un nouvel objet de la classe Socket est // renvoyé
-		GestionProtoAnnuaire gpa = new GestionProtoAnnuaire();  
+		// On appelle accept() sur le ServerSocket pour accepter les connections, // quand une connexion est recÌ§ue, un nouvel objet de la classe Socket est // renvoyeÌ�
+		GestionProtoAnnuaire gpannuaire = new GestionProtoAnnuaire();  
 		while(true) {
 
 			try {
 				sockService = sockEcoute.accept(); 
-				ThreadTCP th = new ThreadTCP(sockService,gpa);
+				ThreadTCP th = new ThreadTCP(sockService,gpannuaire);
 				th.start();
 			}
 			catch(IOException ioe) 
 			{
-				System.out.println("Erreur d’écriture : " + ioe.getMessage());
+				System.out.println("Erreur d ecriture : " + ioe.getMessage());
 			}
 		}
 		
