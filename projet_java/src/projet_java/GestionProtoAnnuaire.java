@@ -8,11 +8,13 @@ public class GestionProtoAnnuaire {
 	private Bd bdAnnu = new Bd();
 
 	public String analyserTraiter(String req) {
-		String[] requete = req.split("#");	
+		String[] requete = req.split("#");
+		
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
 			
-			if (requete.length==7 ){
+			if (requete.length==7 )
+			{
 				return ("CREATIONOK");
 
 			}
@@ -25,21 +27,19 @@ public class GestionProtoAnnuaire {
 	
 		else if(requete[0].equalsIgnoreCase("CONSULTINFOPERSO"))
 		{
-			if (requete.length==2 ){
+			if (requete.length==2 ) /* ne pas oublier de modif suivant le nb de parametre */
+			{
 				//bdAnnu.consulterBdAnnuaire(requete[1]);
-				
-				if (requete.length==3 )
-				{
-					return("CONSULTATION ERROR");
-				}
-				else
-					return ("CONNEXIONOK#");
+				return("CONSULTINFOPERSO");
 			}
 			else
+			{
 				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
 		}
-	
-		return("ERREURSRV");
+		
+		return("ERREURSRVAnnuaire");
 	}
 
 }

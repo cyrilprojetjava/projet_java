@@ -33,7 +33,7 @@ public class Utilisateur {
 	private Bd BdAnnuaire = new Bd();
 	
 	public int creerCompte(Utilisateur user) {
-		System.out.println("Essaie de Cr�ation de compte");
+		System.out.println("Essaie de Creation de compte");
 		BdAuth.ConnexionBdAuth();
 		ResultSet rs = BdAuth.RequeteSelect("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+user.email+"';");
 		try {
@@ -42,7 +42,7 @@ public class Utilisateur {
 		    rs.beforeFirst();
 		    if(nbItem ==0)
 				{
-					    System.out.println("Creation de compte r�alis� !");
+					    System.out.println("Creation de compte realise !");
 					    BdAuth.RequeteAutre("INSERT INTO Authentification(email,mdp) VALUES('"+user.email+"','"+user.mdp+"');");
 					    rs =  BdAuth.RequeteSelect("SELECT numero_fiche FROM Authentification WHERE email ='"+user.email+"';");
 					    Integer numFiche = -1;
@@ -122,7 +122,7 @@ public class Utilisateur {
 					{
 						if(pmdp.equals(rs.getString("mdp")))
 						{
-							System.out.println("Connexion r�ussie");
+							System.out.println("Connexion reussie");
 							return(rs.getInt("numero_fiche"));
 						}
 						else
@@ -139,7 +139,18 @@ public class Utilisateur {
 		return -1;
 	}
 	
+	public int Consultinformation(){
+		// A FAIRE
+		// voir pour les admins
+		return 0;
+	}
 	
+	public int modificationformation(){
+		// A FAIRE
+		// voir pour les admins
+		return 0;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Bd BdAuth = new Bd();

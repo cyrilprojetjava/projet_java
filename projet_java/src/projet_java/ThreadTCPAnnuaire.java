@@ -37,12 +37,10 @@ public void run() {
 					break;
 				}
 				String reponse = gpannuaire.analyserTraiter(requete);
-				//System.out.println(reponse);
 				
 				// Instancie un PrintStream travaillant sur lâ€™output stream de la socket PrintStream pStream = new PrintStream(sockService.getOutputStream());
 				// eÌ�crit une ligne de caracteÌ€res sur le flux, et donc lâ€™envoie au client
 				pStream.println(reponse);
-				System.out.println(reponse);
 			}
 			sockService.close();
 		} catch (IOException e) {

@@ -28,7 +28,7 @@ public class GestionProtoAuth {
 					return ("CREATIONREFUSEE");
 				}
 				else
-					return ("CREATIONOK"+user.getNumeroFiche());
+					return ("CREATIONOK#"+user.getNumeroFiche());
 			}
 			else
 				return("ERREUR : REQUETE MAL FORMEE");
@@ -46,7 +46,7 @@ public class GestionProtoAuth {
 			else
 				return("ERREUR : REQUETE MAL FORMEE");
 		}
-		return("ERREURSRV");
+		return("ERREURSRVAuth");
 	}
 
 }
