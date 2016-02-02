@@ -85,9 +85,9 @@ public class Bd {
 
 	}
 	
-	/*
+	
 	 public void consulterBdAnnuaire(int pNumeroFiche){
-		 ResultSet rs =  requete("SELECT * FROM Annuaire WHERE numeroFiche ='"+pNumeroFiche+"';");
+		 ResultSet rs =  RequeteSelect("SELECT * FROM Annuaire WHERE numeroFiche ='"+pNumeroFiche+"';");
 		 try {
 			while(rs.next()){
 				int numfiche = rs.getInt(1);
@@ -103,6 +103,6 @@ public class Bd {
 			e.printStackTrace();
 		}
 	 }
-	 */
+	 
 	
 }

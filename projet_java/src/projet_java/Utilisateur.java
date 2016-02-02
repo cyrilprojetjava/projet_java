@@ -33,7 +33,7 @@ public class Utilisateur {
 	private Bd BdAnnuaire = new Bd();
 	
 	public int creerCompte(Utilisateur user) {
-		System.out.println("Essaie de Création de compte");
+		System.out.println("Essaie de Crï¿½ation de compte");
 		BdAuth.ConnexionBdAuth();
 		ResultSet rs = BdAuth.RequeteSelect("SELECT numero_fiche,email,mdp FROM Authentification WHERE email = '"+user.email+"';");
 		try {
@@ -42,7 +42,7 @@ public class Utilisateur {
 		    rs.beforeFirst();
 		    if(nbItem ==0)
 				{
-					    System.out.println("Creation de compte réalisé !");
+					    System.out.println("Creation de compte rï¿½alisï¿½ !");
 					    BdAuth.RequeteAutre("INSERT INTO Authentification(email,mdp) VALUES('"+user.email+"','"+user.mdp+"');");
 					    rs =  BdAuth.RequeteSelect("SELECT numero_fiche FROM Authentification WHERE email ='"+user.email+"';");
 					    Integer numFiche = -1;
@@ -64,17 +64,21 @@ public class Utilisateur {
 							String messageInscription = "CREATE#"+user.getNumeroFiche()+"#"+user.getNom()+"#"+user.getPrenom()+"#"+user.getTelephone()+"#"+user.getFormation()+"#"+user.getAnneeDiplome();
 							System.out.println(messageInscription);
 							fluxSortieSocket.println(messageInscription);
-							if(fluxEntreeSocket.equals("CREATIONOK"))
+							while(true){
+								String requete = fluxEntreeSocket.readLine();
+								
+							if(requete.equals("CREATIONOK"))
 							{
 								BdAnnuaire.ConnexionBdAnnuaire();
 								BdAnnuaire.RequeteAutre("INSERT INTO Annuaire VALUES('"+user.getNumeroFiche()+"','"+user.getNom()+"','"+user.getPrenom()+"','"+user.getTelephone()+"','"+user.getFormation()+"','"+user.getAnneeDiplome()+"','0');");
-								BdAnnuaire.DeconnexionBd();
+								//BdAnnuaire.DeconnexionBd();
 								return(1);
 							}
 							else
 							{
-								System.out.println("Erreur de creation dans l annuaire !");
+								System.out.println("Erreur de creation dans l'annuaire !");
 								return(-1);
+							}
 							}
 						} catch (UnknownHostException e) {
 							// TODO Auto-generated catch block
