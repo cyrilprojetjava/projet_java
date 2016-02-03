@@ -31,6 +31,8 @@ public class Utilisateur {
 	
 	private Bd BdAuth = new Bd();
 	private Bd BdAnnuaire = new Bd();
+	Statement st = null;
+
 	
 	public int creerCompte(Utilisateur user) {
 		System.out.println("Essaie de Creation de compte");
@@ -139,18 +141,78 @@ public class Utilisateur {
 		return -1;
 	}
 	
-	public int Consultinformation(){
-		// A FAIRE
-		// voir pour les admins
-		return 0;
-	}
+	public void consulterInfoPerso(int pNumeroFiche){
+		 BdAnnuaire.ConnexionBdAnnuaire();
+		 ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE numero_Fiche ='"+pNumeroFiche+"';");
+		 try {
+			while(rs.next()){
+				int numfiche = rs.getInt(1);
+				String nom = rs.getString(2);
+				String prenom = rs.getString(3);
+				String telephone = rs.getString(4);
+				String formation = rs.getString(5);
+				String anneeDiplomation = rs.getString(6);
+				System.out.println("Nom : "+nom+"\nPrenom : "+prenom+ "\nTelephone : "+telephone+"\nFormation : "+formation+"\nAnnée obtention Diplome : "+anneeDiplomation);
+				//BdAnnuaire.DeconnexionBd();
+			 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
 	
-	public int modificationformation(){
-		// A FAIRE
-		// voir pour les admins
+	public int modificationInformationNom(String pNumeroFiche, String pNom){
+		
+		BdAnnuaire.ConnexionBdAnnuaire();
+		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET nom = '"+pNom+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			System.out.println("La modification du nom a ete correctement effectuee");
+		}
 		return 0;
 	}
 
+	public int modificationInformationPrenom(String pNumeroFiche, String pPrenom){
+		BdAnnuaire.ConnexionBdAnnuaire();
+		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET prenom = '"+pPrenom+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			System.out.println("La modification du prenom a ete correctement effectuee");
+		}
+		return 0;
+	}
+	
+	public int modificationInformationTel(String pNumeroFiche, String pTel){
+		BdAnnuaire.ConnexionBdAnnuaire();
+		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET telephone = '"+pTel+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			System.out.println("La modification du numero de telephone a ete correctement effectuee");
+		}
+		return 0;
+	}
+	
+	public int modificationInformationFormation(String pNumeroFiche, String pFormation){
+		BdAnnuaire.ConnexionBdAnnuaire();
+		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET formation = '"+pFormation+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			System.out.println("La modification de votre formation a ete correctement effectuee");
+		}
+		return 0;
+	}
+	
+	public int modificationInformationAnneeDiplome(String pNumeroFiche, String pAnneeDiplome){
+		BdAnnuaire.ConnexionBdAnnuaire();
+		//Corriger dans la BDannuaire le nom de la colonne annnediplome en "anneediplome" et du coup modifier le nom de la colonne dans la requete ci-dessous
+		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET annnediplome = '"+pAnneeDiplome+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			System.out.println("La modification de votre formation a ete correctement effectuee");
+		}
+		return 0;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Bd BdAuth = new Bd();

@@ -84,25 +84,6 @@ public class Bd {
 		return 0;
 
 	}
-	
-	
-	 public void consulterBdAnnuaire(int pNumeroFiche){
-		 ResultSet rs =  RequeteSelect("SELECT * FROM Annuaire WHERE numeroFiche ='"+pNumeroFiche+"';");
-		 try {
-			while(rs.next()){
-				int numfiche = rs.getInt(1);
-				String nom = rs.getString(2);
-				String prenom = rs.getString(3);
-				String telephone = rs.getString(4);
-				String formation = rs.getString(5);
-				String anneeDiplomation = rs.getString(6);
-				System.out.println("nom : "+nom+" prenom : "+prenom+ " telephone : "+telephone+" formation : "+formation+" année de Diplomation : "+anneeDiplomation);
-			 }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	 }
 	 
 	
 }
