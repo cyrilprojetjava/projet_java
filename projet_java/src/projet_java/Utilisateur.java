@@ -27,7 +27,6 @@ public class Utilisateur {
 	private String formation;
 	private String anneeDiplome;
 	private Integer numeroFiche;
-	private String visibilite;
 	
 	private Bd BdAuth = new Bd();
 	private Bd BdAnnuaire = new Bd();
@@ -72,7 +71,7 @@ public class Utilisateur {
 							if(requete.equals("CREATIONOK"))
 							{
 								BdAnnuaire.ConnexionBdAnnuaire();
-								BdAnnuaire.RequeteAutre("INSERT INTO Annuaire VALUES('"+user.getNumeroFiche()+"','"+user.getNom()+"','"+user.getPrenom()+"','"+user.getTelephone()+"','"+user.getFormation()+"','"+user.getAnneeDiplome()+"','0');");
+								BdAnnuaire.RequeteAutre("INSERT INTO Annuaire VALUES('"+user.getNumeroFiche()+"','"+user.getNom()+"','"+user.getPrenom()+"','"+user.getTelephone()+"','"+user.getFormation()+"','"+user.getAnneeDiplome()+"');");
 								//BdAnnuaire.DeconnexionBd();
 								return(1);
 							}
@@ -267,14 +266,6 @@ public class Utilisateur {
 
 	public String getNom() {
 		return nom;
-	}
-
-	public void setVisibilite(String visibilite) {
-		this.visibilite = visibilite;
-	}
-	
-	public String getVisibilite() {
-		return visibilite;
 	}
 
 	public void setNom(String nom) {

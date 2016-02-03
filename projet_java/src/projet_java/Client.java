@@ -275,6 +275,7 @@ public class Client extends Object {
 						if(retour.indexOf("CREATIONOK") != -1)
 						{
 							System.out.println("Vous etes inscrit !");
+							System.out.println("Pour modifier la visibilite de vos informations aller dans le menu Confidentialite !");
 							menuIncorrect=1;
 						}else if(retour.equalsIgnoreCase("CREATIONREFUSEE"))
 						{
