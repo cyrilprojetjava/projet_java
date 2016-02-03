@@ -29,8 +29,9 @@ public class GestionProtoAnnuaire {
 		{
 			if (requete.length==2 ) /* ne pas oublier de modif suivant le nb de parametre */
 			{
-				//bdAnnu.consulterBdAnnuaire(requete[1]);
-				return("CONSULTINFOPERSO");
+				String numFiche = requete[1];
+				String reponse = user.consulterInfoPerso(numFiche);
+				return(reponse);
 			}
 			else
 			{
@@ -45,8 +46,8 @@ public class GestionProtoAnnuaire {
 			{
 				String numFiche = requete[1];
 				String nom = requete[2];
-				user.modificationInformationNom(numFiche, nom);
-				return("MODIFINFOPERSONOMOK");
+				String reponse = user.modificationInformationNom(numFiche, nom);
+				return(reponse);
 			}
 			else
 			{
@@ -60,8 +61,8 @@ public class GestionProtoAnnuaire {
 			{
 				String numFiche = requete[1];
 				String prenom = requete[2];
-				user.modificationInformationPrenom(numFiche, prenom);
-				return("MODIFINFOPERSOPRENOMOK");
+				String reponse = user.modificationInformationPrenom(numFiche, prenom);
+				return("reponse");
 			}
 			else
 			{
@@ -76,8 +77,8 @@ public class GestionProtoAnnuaire {
 			{
 				String numFiche = requete[1];
 				String tel = requete[2];
-				user.modificationInformationTel(numFiche, tel);
-				return("MODIFINFOTELOK");
+				String rep = user.modificationInformationTel(numFiche, tel);
+				return(rep);
 			}
 			else
 			{
@@ -92,8 +93,8 @@ public class GestionProtoAnnuaire {
 			{
 				String numFiche = requete[1];
 				String formation = requete[2];
-				user.modificationInformationFormation(numFiche, formation);
-				return("MODIFINFOFORMATIONOK");
+				String reponse = user.modificationInformationFormation(numFiche, formation);
+				return(reponse);
 			}
 			else
 			{
@@ -108,8 +109,40 @@ public class GestionProtoAnnuaire {
 			{
 				String numFiche = requete[1];
 				String anneeDiplome = requete[2];
-				user.modificationInformationAnneeDiplome(numFiche, anneeDiplome);
-				return("MODIFINFOANDIPLOMEOK");
+				String reponse = user.modificationInformationAnneeDiplome(numFiche, anneeDiplome);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("MODIFINFOPERSOMAIL"))
+		{
+			if (requete.length==3) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String numFiche = requete[1];
+				String mail = requete[2];
+				String reponse = user.modificationInformationMail(numFiche, mail);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("MODIFINFOPERSOMDP"))
+		{
+			if (requete.length==3) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String numFiche = requete[1];
+				String mdp = requete[2];
+				String reponse = user.modificationInformationMotDePasse(numFiche, mdp);
+				return(reponse);
 			}
 			else
 			{

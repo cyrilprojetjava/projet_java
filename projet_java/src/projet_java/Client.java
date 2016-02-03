@@ -65,7 +65,7 @@ public class Client extends Object {
 					try {
 						fluxSortieSocket.println(messageConnect);
 						String retour = fluxEntreeSocket.readLine();
-						System.out.println("DEBUG :"+retour);
+						System.out.println(retour);
 						String[] tabretour = retour.split("#");
 						Integer verificationUtil = Integer.parseInt(tabretour[1]);
 						if(verificationUtil != -1)
@@ -100,12 +100,11 @@ public class Client extends Object {
 										fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
 										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
 										System.out.println("Consultation d'information");
-										user1.consulterInfoPerso(user1.getNumeroFiche());
 										String messageConsultInfoPerso = "CONSULTINFOPERSO#"+(user1.getNumeroFiche());
-										System.out.println("message :"+messageConsultInfoPerso);
+										//System.out.println("message :"+messageConsultInfoPerso);
 										fluxSortieSocket2.println(messageConsultInfoPerso);
 										String retour2 = fluxEntreeSocket2.readLine();
-										System.out.println("DEBUG :"+retour2);
+										System.out.println(retour2);
 										sockCom2.close();
 										break;
 									}
@@ -121,6 +120,8 @@ public class Client extends Object {
 										System.out.println("Tapez 3 pour modifier votre telephone");
 										System.out.println("Tapez 4 pour modifier votre formation");
 										System.out.println("Tapez 5 pour modifier votre année obtention diplome");
+										System.out.println("Tapez 6 pour modifier votre identifiant mail");
+										System.out.println("Tapez 7 pour modifier votre mot de passe");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu3 = LireIntClavier();
 										switch (choixMenu3) 
@@ -132,10 +133,10 @@ public class Client extends Object {
 													String newNom = LireStringClavier();
 													String modifInfoPersoNom = "MODIFINFOPERSONOM#"+(user1.getNumeroFiche());
 													String newInfoPersoNom = modifInfoPersoNom.concat("#").concat(newNom);
-													System.out.println("message :"+newInfoPersoNom);
+													//System.out.println("message :"+newInfoPersoNom);
 													fluxSortieSocket2.println(newInfoPersoNom);
 													String retour3 = fluxEntreeSocket2.readLine();
-													System.out.println("DEBUG :"+retour3);
+													System.out.println(retour3);
 													break;
 												}
 												
@@ -146,10 +147,10 @@ public class Client extends Object {
 													String newPrenom = LireStringClavier();
 													String modifInfoPersoPrenom = "MODIFINFOPERSOPRENOM#"+(user1.getNumeroFiche());
 													String newInfoPersoPrenom = modifInfoPersoPrenom.concat("#").concat(newPrenom);
-													System.out.println("message :"+newInfoPersoPrenom);
+													//System.out.println("message :"+newInfoPersoPrenom);
 													fluxSortieSocket2.println(newInfoPersoPrenom);
 													String retour4 = fluxEntreeSocket2.readLine();
-													System.out.println("DEBUG :"+retour4);
+													System.out.println(retour4);
 													break;
 												}
 												
@@ -160,10 +161,10 @@ public class Client extends Object {
 													String newTel = LireStringClavier();
 													String modifInfoPersoTel = "MODIFINFOPERSOTEL#"+(user1.getNumeroFiche());
 													String newInfoPersoTel = modifInfoPersoTel.concat("#").concat(newTel);
-													System.out.println("message :"+newInfoPersoTel);
+													//System.out.println("message :"+newInfoPersoTel);
 													fluxSortieSocket2.println(newInfoPersoTel);
 													String retour5 = fluxEntreeSocket2.readLine();
-													System.out.println("DEBUG :"+retour5);
+													System.out.println(retour5);
 													break;
 												}
 												
@@ -174,10 +175,10 @@ public class Client extends Object {
 													String newFormation = LireStringClavier();
 													String modifInfoPersoFormation = "MODIFINFOPERSOFORMATION#"+(user1.getNumeroFiche());
 													String newInfoPersoFormation = modifInfoPersoFormation.concat("#").concat(newFormation);
-													System.out.println("message :"+newInfoPersoFormation);
+													//System.out.println("message :"+newInfoPersoFormation);
 													fluxSortieSocket2.println(newInfoPersoFormation);
 													String retour6 = fluxEntreeSocket2.readLine();
-													System.out.println("DEBUG :"+retour6);
+													System.out.println(retour6);
 													break;
 												}
 												
@@ -188,10 +189,37 @@ public class Client extends Object {
 													String newAnneeDiplome = LireStringClavier();
 													String modifInfoPersoAnneeDiplome = "MODIFINFOPERSOANDIPLOME#"+(user1.getNumeroFiche());
 													String newInfoPersoAnneeDiplome = modifInfoPersoAnneeDiplome.concat("#").concat(newAnneeDiplome);
-													System.out.println("message :"+newInfoPersoAnneeDiplome);
+													//System.out.println("message :"+newInfoPersoAnneeDiplome);
 													fluxSortieSocket2.println(newInfoPersoAnneeDiplome);
 													String retour7 = fluxEntreeSocket2.readLine();
-													System.out.println("DEBUG :"+retour7);
+													System.out.println(retour7);
+													break;
+												}
+												case 6:
+												{
+													
+													System.out.println("Veuillez entrer votre nouvelle adresse mail");
+													String newAdresseMail = LireStringClavier();
+													String modifInfoPersoAdresseMail = "MODIFINFOPERSOMAIL#"+(user1.getNumeroFiche());
+													String newInfoPersoAdresseMail = modifInfoPersoAdresseMail.concat("#").concat(newAdresseMail);
+													//System.out.println("message :"+newInfoPersoAdresseMail);
+													fluxSortieSocket2.println(newInfoPersoAdresseMail);
+													String retour8 = fluxEntreeSocket2.readLine();
+													System.out.println(retour8);
+													break;
+												}
+												
+												case 7:
+												{
+													
+													System.out.println("Veuillez entrer votre nouveau mot de passe");
+													String newMotDePasse = LireStringClavier();
+													String modifInfoPersoMotDePasse = "MODIFINFOPERSOMDP#"+(user1.getNumeroFiche());
+													String newInfoPersoMotDePasse = modifInfoPersoMotDePasse.concat("#").concat(newMotDePasse);
+													//System.out.println("message :"+newInfoPersoAdresseMail);
+													fluxSortieSocket2.println(newInfoPersoMotDePasse);
+													String retour9 = fluxEntreeSocket2.readLine();
+													System.out.println(retour9);
 													break;
 												}
 									

@@ -141,76 +141,119 @@ public class Utilisateur {
 		return -1;
 	}
 	
-	public void consulterInfoPerso(int pNumeroFiche){
-		 BdAnnuaire.ConnexionBdAnnuaire();
-		 ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE numero_Fiche ='"+pNumeroFiche+"';");
-		 try {
-			while(rs.next()){
-				int numfiche = rs.getInt(1);
-				String nom = rs.getString(2);
-				String prenom = rs.getString(3);
-				String telephone = rs.getString(4);
-				String formation = rs.getString(5);
-				String anneeDiplomation = rs.getString(6);
-				System.out.println("Nom : "+nom+"\nPrenom : "+prenom+ "\nTelephone : "+telephone+"\nFormation : "+formation+"\nAnnée obtention Diplome : "+anneeDiplomation);
-				//BdAnnuaire.DeconnexionBd();
-			 }
-		} catch (SQLException e) {
+	public String consulterInfoPerso(String pNumeroFiche){
+		
+		PrintStream     fluxSortieSocket;
+		BufferedReader  fluxEntreeSocket;
+		Socket sockCom;
+		
+		try {
+			sockCom = new Socket("localhost",13215);
+			fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
+			fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+			
+			 BdAnnuaire.ConnexionBdAnnuaire();
+			 ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE numero_Fiche ='"+pNumeroFiche+"';");
+			 try {
+				while(rs.next()){
+					int numfiche = rs.getInt(1);
+					String nom = rs.getString(2);
+					String prenom = rs.getString(3);
+					String telephone = rs.getString(4);
+					String formation = rs.getString(5);
+					String anneeDiplomation = rs.getString(6);
+					String message = "Nom : "+nom+"  Prenom : "+prenom+ "  Telephone : "+telephone+"  Formation : "+formation+"  Année obtention Diplome : "+anneeDiplomation;
+					return(message);
+					//BdAnnuaire.DeconnexionBd();
+					
+				 }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		return("Erreur consultation informations personnelles");
+		
 	 }
 	
-	public int modificationInformationNom(String pNumeroFiche, String pNom){
+	public String modificationInformationNom(String pNumeroFiche, String pNom){
 		
 		BdAnnuaire.ConnexionBdAnnuaire();
 		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET nom = '"+pNom+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
 		if(rs == 1)
 		{
-			System.out.println("La modification du nom a ete correctement effectuee");
+			return("La modification du nom a ete correctement effectuee");
 		}
-		return 0;
+		return ("erreur modif nom");
 	}
 
-	public int modificationInformationPrenom(String pNumeroFiche, String pPrenom){
+	public String modificationInformationPrenom(String pNumeroFiche, String pPrenom){
 		BdAnnuaire.ConnexionBdAnnuaire();
 		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET prenom = '"+pPrenom+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
 		if(rs == 1)
 		{
-			System.out.println("La modification du prenom a ete correctement effectuee");
+			return("La modification du prenom a ete correctement effectuee");
 		}
-		return 0;
+		return ("erreur modif prenom");
 	}
 	
-	public int modificationInformationTel(String pNumeroFiche, String pTel){
+	public String modificationInformationTel(String pNumeroFiche, String pTel){
 		BdAnnuaire.ConnexionBdAnnuaire();
 		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET telephone = '"+pTel+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
 		if(rs == 1)
 		{
-			System.out.println("La modification du numero de telephone a ete correctement effectuee");
+			return ("La modification du numero de telephone a ete correctement effectuee");
 		}
-		return 0;
+		return ("erreur modif tel");
 	}
 	
-	public int modificationInformationFormation(String pNumeroFiche, String pFormation){
+	public String modificationInformationFormation(String pNumeroFiche, String pFormation){
 		BdAnnuaire.ConnexionBdAnnuaire();
 		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET formation = '"+pFormation+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
 		if(rs == 1)
 		{
-			System.out.println("La modification de votre formation a ete correctement effectuee");
+			return("La modification de votre formation a ete correctement effectuee");
 		}
-		return 0;
+		return ("erreur modif formation");
 	}
 	
-	public int modificationInformationAnneeDiplome(String pNumeroFiche, String pAnneeDiplome){
+	public String modificationInformationAnneeDiplome(String pNumeroFiche, String pAnneeDiplome){
 		BdAnnuaire.ConnexionBdAnnuaire();
 		//Corriger dans la BDannuaire le nom de la colonne annnediplome en "anneediplome" et du coup modifier le nom de la colonne dans la requete ci-dessous
 		int rs =  BdAnnuaire.RequeteAutre("UPDATE Annuaire SET annnediplome = '"+pAnneeDiplome+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
 		if(rs == 1)
 		{
-			System.out.println("La modification de votre formation a ete correctement effectuee");
+			return("La modification de votre formation a ete correctement effectuee");
 		}
-		return 0;
+		return ("erreur modif annee diplome");
+	}
+	
+	public String modificationInformationMail(String pNumeroFiche, String pMail){
+		BdAuth.ConnexionBdAuth();
+		//Corriger dans la BDannuaire le nom de la colonne annnediplome en "anneediplome" et du coup modifier le nom de la colonne dans la requete ci-dessous
+		int rs =  BdAuth.RequeteAutre("UPDATE Authentification SET email = '"+pMail+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			return("La modification de votre mail a ete correctement effectuee");
+		}
+		return ("erreur modif mail");
+	}
+	
+	public String modificationInformationMotDePasse(String pNumeroFiche, String pMotDePasse){
+		BdAuth.ConnexionBdAuth();
+		//Corriger dans la BDannuaire le nom de la colonne annnediplome en "anneediplome" et du coup modifier le nom de la colonne dans la requete ci-dessous
+		int rs =  BdAuth.RequeteAutre("UPDATE Authentification SET mdp = '"+pMotDePasse+"' WHERE numero_Fiche = '"+pNumeroFiche+"';");
+		if(rs == 1)
+		{
+			return("La modification de votre mot de passe a ete correctement effectuee");
+		}
+		return ("erreur modif mot de passe");
 	}
 	
 	public static void main(String[] args) {
