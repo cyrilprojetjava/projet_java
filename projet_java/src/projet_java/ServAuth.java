@@ -21,7 +21,7 @@ public class ServAuth {
 			sockEcoute = new ServerSocket(13214); 
 		} 
 		catch(IOException ioe) { 
-			System.out.println("Erreur de crÃ©ation du server socket: " + ioe.getMessage()); 
+			System.out.println("Erreur de creation du server socket: " + ioe.getMessage()); 
 			return; 
 		}
 	}
