@@ -80,6 +80,8 @@ public class Client extends Object {
 								System.out.println("Tapez 0 pour vous deconnecter");
 								System.out.println("Tapez 1 pour consulter vos informations dans l'annuaire");
 								System.out.println("Tapez 2 pour modifier une information");
+								System.out.println("Tapez 3 pour modifier la confidentialite d'une de vos information");
+								System.out.println("Tapez 4 pour faire une recherche sur l'annuaire");
 								System.out.println("------------------------------------------------------------");
 								Integer choixMenu2 = LireIntClavier();
 								switch (choixMenu2) 
@@ -224,13 +226,200 @@ public class Client extends Object {
 												}
 									
 								}
+								sockCom2.close();		 
 								
 							}
+									case 3:
+									{
+										System.out.println("------------------------------------------------------------");
+										System.out.println("Modification de la confidentialité de vos informations");
+										System.out.println("Tapez 1 pour voir la confidentialité de votre nom");
+										System.out.println("Tapez 2 pour modifier la confidentialité de votre nom");
+										System.out.println("Tapez 3 pour voir la confidentialité de votre prenom");
+										System.out.println("Tapez 4 pour modifier la confidentialité de votre prenom");
+										System.out.println("Tapez 5 pour voir la confidentialité de numero de telephone");
+										System.out.println("Tapez 6 pour modifier la confidentialité de numero de telephone");
+										System.out.println("Tapez 7 pour voir la confidentialité de votre formation");
+										System.out.println("Tapez 8 pour modifier la confidentialité de votre formation");
+										System.out.println("Tapez 9 pour voir la confidentialité de votre annee d'obtention de diplome");
+										System.out.println("Tapez 10 pour modifier la confidentialité de votre annee d'obtention de diplome");
+										System.out.println("------------------------------------------------------------");
+										int choixMenu4 = LireIntClavier();
+										sockCom2 = new Socket("localhost",13215);
+										fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
+										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
+										
+										switch (choixMenu4) {
+											case 1 : 
+											{
+												String messageVisibiliteNom = "VISIBILITENOM#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageVisibiliteNom);
+												String retour1 = fluxEntreeSocket2.readLine();
+												System.out.println(retour1);
+												break;
+											}
+											case 2 :
+											{
+												String messageModifVisibiliteNom = "MODIFVISINOM#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageModifVisibiliteNom);
+												String retour2 = fluxEntreeSocket2.readLine();
+												System.out.println(retour2);
+												break;
+											}
+											case 3 : 
+											{
+												String messageVisibilitePrenom = "VISIBILITEPRENOM#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageVisibilitePrenom);
+												String retour3 = fluxEntreeSocket2.readLine();
+												System.out.println(retour3);
+												break;
+											}
+											case 4 :
+											{
+												String messageModifVisibilitePrenom = "MODIFVISIPRENOM#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageModifVisibilitePrenom);
+												String retour4 = fluxEntreeSocket2.readLine();
+												System.out.println(retour4);
+												break;
+											}
+											case 5 : 
+											{
+												String messageVisibiliteTel = "VISIBILITETEL#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageVisibiliteTel);
+												String retour5 = fluxEntreeSocket2.readLine();
+												System.out.println(retour5);
+												break;
+											}
+											case 6 :
+											{
+												String messageModifVisibiliteTel = "MODIFVISITEL#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageModifVisibiliteTel);
+												String retour6 = fluxEntreeSocket2.readLine();
+												System.out.println(retour6);
+												break;
+											}
+											case 7 : 
+											{
+												String messageVisibiliteFormation = "VISIBILITEFORM#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageVisibiliteFormation);
+												String retour7 = fluxEntreeSocket2.readLine();
+												System.out.println(retour7);
+												break;
+											}
+											case 8 :
+											{
+												String messageModifVisibiliteFormation = "MODIFVISIFORM#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageModifVisibiliteFormation);
+												String retour8 = fluxEntreeSocket2.readLine();
+												System.out.println(retour8);
+												break;
+											}
+											case 9 : 
+											{
+												String messageVisibiliteAnDiplome = "VISIBILITEANDIPLOME#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageVisibiliteAnDiplome);
+												String retour9 = fluxEntreeSocket2.readLine();
+												System.out.println(retour9);
+												break;
+											}
+											case 10 :
+											{
+												String messageModifVisibiliteFormation = "MODIFVISIANDIPLOME#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageModifVisibiliteFormation);
+												String retour10 = fluxEntreeSocket2.readLine();
+												System.out.println(retour10);
+												break;
+											}
+										
+										
+										}
+										
+										break;
+									}
+									
+									
+									case 4 :
+									{
+										sockCom2 = new Socket("localhost",13215);
+										fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
+										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
+										System.out.println("------------------------------------------------------------");
+										System.out.println("Recherche de personne dans l'annuaire");
+										System.out.println("Tapez 1 pour effectuer une recherche par nom");
+										System.out.println("Tapez 2 pour effectuer une recherche par prenom");
+										System.out.println("Tapez 3 pour effectuer une recherche par adresse mail");
+										System.out.println("Tapez 4 pour effectuer une recherche par formation");
+										System.out.println("Tapez 5 pour effectuer une recherche par annee d'obtention de diplome");
+										System.out.println("------------------------------------------------------------");
+										Integer choixMenu5 = LireIntClavier();
+										switch (choixMenu5) {
+											case 1:
+											{
+												System.out.println("Veuillez entrer le nom de la personne que vous souhaitez rechercher");
+												String nomPersonne = LireStringClavier();
+												String messageRechercheNom = "RECHERCHENOM#".concat(nomPersonne);
+												fluxSortieSocket2.println(messageRechercheNom);
+												String retour1 = fluxEntreeSocket2.readLine();
+												System.out.println(retour1);
+												break;
+											}
+											
+											case 2:
+											{
+												System.out.println("Veuillez entrer le prenom de la personne que vous souhaitez rechercher");
+												String prenomPersonne = LireStringClavier();
+												String messageRecherchePrenom = "RECHERCHEPRENOM#".concat(prenomPersonne);
+												fluxSortieSocket2.println(messageRecherchePrenom);
+												String retour2 = fluxEntreeSocket2.readLine();
+												System.out.println(retour2);
+												break;
+											}
+											
+											case 3:
+											{
+												System.out.println("Veuillez entrer le mail de la personne que vous souhaitez rechercher");
+												String mailPersonne = LireStringClavier();
+												String messageRechercheMail = "RECHERCHEMAIL#".concat(mailPersonne);
+												fluxSortieSocket2.println(messageRechercheMail);
+												String retour3 = fluxEntreeSocket2.readLine();
+												System.out.println(retour3);
+												break;
+											}
+											
+											case 4:
+											{
+												System.out.println("Veuillez entrer la formation de la personne que vous souhaitez rechercher");
+												String formationPersonne = LireStringClavier();
+												String messageRechercheFormation = "RECHERCHEFORMATION#".concat(formationPersonne);
+												fluxSortieSocket2.println(messageRechercheFormation);
+												String retour4 = fluxEntreeSocket2.readLine();
+												System.out.println(retour4);
+												break;
+											}
+											
+											case 5:
+											{
+												System.out.println("Veuillez entrer l'année d'obtention du diplome de la personne que vous souhaitez rechercher");
+												String AnneeDiplomePersonne = LireStringClavier();
+												String messageRechercheAnneeDiplome = "RECHERCHEANDIPLOME#".concat(AnneeDiplomePersonne);
+												fluxSortieSocket2.println(messageRechercheAnneeDiplome);
+												String retour5 = fluxEntreeSocket2.readLine();
+												System.out.println(retour5);
+												break;
+											}
+
+										
+									}
+						
+								}
+							
+					
+							}
+							
+				
 						}
-							
-					}
-							
-				}
+						}
+					
 						
 						else
 						{
@@ -262,6 +451,7 @@ public class Client extends Object {
 					String formation = LireStringClavier();
 					System.out.println("Veuillez entrer votre annee de votre diplome");
 					int anneeDiplomation = LireIntClavier();
+					System.out.println("ATTENTION : par défaut, la politique de confidentialité de vos données est ouverte à tous.\nVous pouvez modifier la confidentialité de vos paramètres une fois connecté sur votre compte personnel");
 					String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
 					try {
 						

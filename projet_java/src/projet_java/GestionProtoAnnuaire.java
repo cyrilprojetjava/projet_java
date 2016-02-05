@@ -151,7 +151,227 @@ public class GestionProtoAnnuaire {
 			
 		}
 		
+		else if(requete[0].equalsIgnoreCase("RECHERCHENOM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String nom = requete[1];
+				String reponse = user.rechercheNom(nom);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("RECHERCHEPRENOM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String prenom = requete[1];
+				String reponse = user.recherchePrenom(prenom);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("RECHERCHEMAIL"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String mail = requete[1];
+				String reponse = user.rechercheMail(mail);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("RECHERCHEFORMATION"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String formation = requete[1];
+				String reponse = user.rechercheFormation(formation);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("RECHERCHEANDIPLOME"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String anneeDiplome = requete[1];
+				String reponse = user.rechercheAnneeDiplome(anneeDiplome);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("VISIBILITENOM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.visibiliteNom(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MODIFVISINOM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.modifVisibiliteNom(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("VISIBILITEPRENOM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.visibilitePrenom(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MODIFVISIPRENOM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.modifVisibilitePrenom(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("VISIBILITETEL"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.visibiliteTel(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MODIFVISITEL"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.modifVisibiliteTel(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("VISIBILITEFORM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.visibiliteFormation(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MODIFVISIFORM"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.modifVisibiliteFormation(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
+		else if(requete[0].equalsIgnoreCase("VISIBILITEANDIPLOME"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.visibiliteAnneeDiplome(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MODIFVISIANDIPLOME"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.modifVisibiliteAnneeDiplome(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		
 		return("ERREURSRVAnnuaire");
 	}
+	
+	
 
 }

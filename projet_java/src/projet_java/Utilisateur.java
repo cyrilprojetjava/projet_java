@@ -11,9 +11,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.print.attribute.standard.NumberOfInterveningJobs;
 
+import com.mysql.jdbc.ResultSetMetaData;
 import com.sun.javafx.geom.transform.GeneralTransform3D;
 
 public class Utilisateur {
@@ -72,6 +75,7 @@ public class Utilisateur {
 							{
 								BdAnnuaire.ConnexionBdAnnuaire();
 								BdAnnuaire.RequeteAutre("INSERT INTO Annuaire VALUES('"+user.getNumeroFiche()+"','"+user.getNom()+"','"+user.getPrenom()+"','"+user.getTelephone()+"','"+user.getFormation()+"','"+user.getAnneeDiplome()+"');");
+								BdAnnuaire.RequeteAutre("INSERT INTO visibilite (numero_fiche,visi_nom,visi_prenom,visi_telephone,visi_formation,visi_anneediplome) VALUES('"+user.getNumeroFiche()+"',1,1,1,1,1);");
 								//BdAnnuaire.DeconnexionBd();
 								return(1);
 							}
@@ -255,6 +259,408 @@ public class Utilisateur {
 		return ("erreur modif mot de passe");
 	}
 	
+	public String rechercheNom(String pNom){
+		BdAnnuaire.ConnexionBdAnnuaire();
+		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE nom = '"+pNom+"';");
+		//ArrayList Resultat= new ArrayList();
+			try {
+				while(rs.next()){
+					//Utilisateur user = new Utilisateur(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+					int numfiche = rs.getInt(1);
+					String nom = rs.getString(2);
+					String prenom = rs.getString(3);
+					String telephone = rs.getString(4);
+					String formation = rs.getString(5);
+					String anneeDiplomation = rs.getString(6);
+					//Resultat.add(user);
+					/*Iterator<String> itr = al.iterator();
+				    while (itr.hasNext()) {
+				      String element = itr.next();
+				      System.out.print(element + " ");
+				    }*/
+					String message = "Nom : "+nom+"  Prenom : "+prenom+ "  Telephone : "+telephone+"  Formation : "+formation+"  Année obtention Diplome : "+anneeDiplomation;
+					return(message);
+					//BdAnnuaire.DeconnexionBd();
+				
+					}				
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return ("Le nom saisi n'existe pas");
+	}
+	
+	public String recherchePrenom(String pPrenom){
+		
+		BdAnnuaire.ConnexionBdAnnuaire();
+		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE prenom = '"+pPrenom+"';");
+	    java.sql.ResultSetMetaData resultMeta = null;
+		try {
+			resultMeta = rs.getMetaData();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+			try {
+				while(rs.next()){
+					int numfiche = rs.getInt(1);
+					String nom = rs.getString(2);
+					String prenom = rs.getString(3);
+					String telephone = rs.getString(4);
+					String formation = rs.getString(5);
+					String anneeDiplomation = rs.getString(6);
+					String message = "Nom : "+nom+"  Prenom : "+prenom+ "  Telephone : "+telephone+"  Formation : "+formation+"  Année obtention Diplome : "+anneeDiplomation;
+					return(message);
+					
+					//BdAnnuaire.DeconnexionBd();
+				
+					}				
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return("Le prenom saisi n'existe pas");
+	}
+	
+public String rechercheMail(String pMail){
+		
+		BdAuth.ConnexionBdAuth();
+		ResultSet rs = BdAuth.RequeteSelect("SELECT * FROM Authentification WHERE email = '"+pMail+"';");
+		
+		
+			try {
+				while(rs.next()){
+					int numfiche = rs.getInt(1);
+					String email = rs.getString(2);
+					String mdp = rs.getString(3);
+					//BdAnnuaire.DeconnexionBd();
+					BdAnnuaire.ConnexionBdAnnuaire();
+					ResultSet rs1 = BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE numero_fiche = '"+numfiche+"';");
+					
+					while(rs1.next()){
+						String nom = rs1.getString(2);
+						String prenom = rs1.getString(3);
+						String telephone = rs1.getString(4);
+						String formation = rs1.getString(5);
+						String anneeDiplomation = rs1.getString(6);
+						String message = "Nom : "+nom+"  Prenom : "+prenom+ "  Telephone : "+telephone+"  Formation : "+formation+"  Année obtention Diplome : "+anneeDiplomation;
+						return(message);	
+					}
+				}
+				
+					
+				
+					
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return("Le mail saisi n'existe pas");
+	}
+
+public String rechercheFormation(String pFormation){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE formation = '"+pFormation+"';");
+	
+		try {
+			while(rs.next()){
+				int numfiche = rs.getInt(1);
+				String nom = rs.getString(2);
+				String prenom = rs.getString(3);
+				String telephone = rs.getString(4);
+				String formation = rs.getString(5);
+				String anneeDiplomation = rs.getString(6);
+				String message = "Nom : "+nom+"  Prenom : "+prenom+ "  Telephone : "+telephone+"  Formation : "+formation+"  Année obtention Diplome : "+anneeDiplomation;
+				return(message);
+				//BdAnnuaire.DeconnexionBd();
+			
+				}				
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return("La formation saisie n'existe pas");
+}
+	
+public String rechercheAnneeDiplome(String pAnDiplome){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT * FROM Annuaire WHERE annnediplome = '"+pAnDiplome+"';");
+	
+		try {
+			while(rs.next()){
+				int numfiche = rs.getInt(1);
+				String nom = rs.getString(2);
+				String prenom = rs.getString(3);
+				String telephone = rs.getString(4);
+				String formation = rs.getString(5);
+				String anneeDiplomation = rs.getString(6);
+				String message = "Nom : "+nom+"  Prenom : "+prenom+ "  Telephone : "+telephone+"  Formation : "+formation+"  Année obtention Diplome : "+anneeDiplomation;
+				return(message);
+				//BdAnnuaire.DeconnexionBd();
+			
+				}				
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return("Personne n'a obtenu de diplome pour cette annee");
+}
+
+public String visibiliteNom(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_nom FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	try {
+		while(rs.next()){
+			int visi_nom = rs.getInt(1);
+			if(visi_nom == 1)
+				return("Votre nom est actuellement visible");
+			else
+				return("Votre nom est actuellement caché aux yeux des autres utilisateurs");
+			}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur visibilité");
+	
+}
+
+public String modifVisibiliteNom(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_nom FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	
+		try{
+		while(rs.next()){
+			int visi_nom = rs.getInt(1);
+			if(visi_nom == 1){
+				int rs1 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_nom = 0 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre nom est maintenant caché aux yeux des autres utilisateurs");
+			}
+			else
+			{
+				int rs2 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_nom = 1 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre nom maintenant visible aux yeux des autres utilisateurs");
+			}
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur modif visibilité nom");
+	
+}
+
+public String visibilitePrenom(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_prenom FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	try {
+		while(rs.next()){
+			int visi_prenom = rs.getInt(1);
+			if(visi_prenom == 1)
+				return("Votre prenom est actuellement visible");
+			else
+				return("Votre prenom est actuellement caché aux yeux des autres utilisateurs");
+			}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur visibilité");
+	
+}
+
+public String modifVisibilitePrenom(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_prenom FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	
+		try{
+		while(rs.next()){
+			int visi_prenom = rs.getInt(1);
+			if(visi_prenom == 1){
+				int rs1 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_prenom = 0 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre prenom est maintenant caché aux yeux des autres utilisateurs");
+			}
+			else
+			{
+				int rs2 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_prenom = 1 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre nom est maintenant visible aux yeux des autres utilisateurs");
+			}
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur modif visibilité prenom");
+	
+}
+
+public String visibiliteTel(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_telephone FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	try {
+		while(rs.next()){
+			int visi_tel = rs.getInt(1);
+			if(visi_tel == 1)
+				return("Votre numero de telephone est actuellement visible");
+			else
+				return("Votre numero de telephone est actuellement caché aux yeux des autres utilisateurs");
+			}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur visibilité");
+	
+}
+
+public String modifVisibiliteTel(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_telephone FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	
+		try{
+		while(rs.next()){
+			int visi_tel = rs.getInt(1);
+			if(visi_tel == 1){
+				int rs1 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_telephone = 0 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre numero de telephone est maintenant caché aux yeux des autres utilisateurs");
+			}
+			else
+			{
+				int rs2 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_telephone = 1 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre numero de telephone est maintenant visible aux yeux des autres utilisateurs");
+			}
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur modif visibilité telephone");
+	
+}
+
+public String visibiliteFormation(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_formation FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	try {
+		while(rs.next()){
+			int visi_formation = rs.getInt(1);
+			if(visi_formation == 1)
+				return("Votre nom de formation est actuellement visible");
+			else
+				return("Votre nom de formation est actuellement caché aux yeux des autres utilisateurs");
+			}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur visibilité");
+	
+}
+
+public String modifVisibiliteFormation(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_formation FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	
+		try{
+		while(rs.next()){
+			int visi_formation = rs.getInt(1);
+			if(visi_formation == 1){
+				int rs1 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_formation = 0 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre nom de formation est maintenant caché aux yeux des autres utilisateurs");
+			}
+			else
+			{
+				int rs2 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_formation = 1 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre nom de formation est maintenant visible aux yeux des autres utilisateurs");
+			}
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur modif visibilité formation");
+	
+}
+
+public String visibiliteAnneeDiplome(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_anneediplome FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	try {
+		while(rs.next()){
+			int visi_anneeDiplome = rs.getInt(1);
+			if(visi_anneeDiplome == 1)
+				return("Votre annee de d'obtention de diplome est actuellement visible");
+			else
+				return("Votre annee de d'obtention de diplome est actuellement caché aux yeux des autres utilisateurs");
+			}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur visibilité");
+	
+}
+
+public String modifVisibiliteAnneeDiplome(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT visi_anneediplome FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+	
+		try{
+		while(rs.next()){
+			int visi_anneeDiplome = rs.getInt(1);
+			if(visi_anneeDiplome == 1){
+				int rs1 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_anneediplome = 0 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre annee d'obtention de votre diplome est maintenant caché aux yeux des autres utilisateurs");
+			}
+			else
+			{
+				int rs2 = BdAnnuaire.RequeteAutre("UPDATE visibilite SET visi_anneediplome = 1 WHERE numero_fiche = '"+pNumFiche+"';");
+				return("Votre annee d'obtention de votre diplome est maintenant visible aux yeux des autres utilisateurs");
+			}
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("erreur modif visibilité telephone");
+	
+}
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Bd BdAuth = new Bd();
