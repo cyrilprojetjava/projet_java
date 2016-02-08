@@ -49,8 +49,10 @@ public class Client extends Object {
 				switch (choixMenu) {
 				case 0:
 				{
+					
 					System.out.println("Vous etes deconnecte");
 					menuIncorrect = 0;
+					
 					break;
 				}
 				case 1:
@@ -117,17 +119,24 @@ public class Client extends Object {
 										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
 										System.out.println("------------------------------------------------------------");
 										System.out.println("Modification d'information");
+										System.out.println("Tapez 0 pour quitter le menu");
 										System.out.println("Tapez 1 pour modifier votre nom");
 										System.out.println("Tapez 2 pour modifier votre prenom");
 										System.out.println("Tapez 3 pour modifier votre telephone");
 										System.out.println("Tapez 4 pour modifier votre formation");
-										System.out.println("Tapez 5 pour modifier votre année obtention diplome");
+										System.out.println("Tapez 5 pour modifier votre annee obtention diplome");
 										System.out.println("Tapez 6 pour modifier votre identifiant mail");
 										System.out.println("Tapez 7 pour modifier votre mot de passe");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu3 = LireIntClavier();
-										switch (choixMenu3) 
+										switch (choixMenu3)
 										{
+												case 0:
+												{
+													System.out.println("Vous avez quitter le menu");
+													
+													break;
+												}
 												case 1:
 												{
 													
@@ -226,23 +235,25 @@ public class Client extends Object {
 												}
 									
 								}
-								sockCom2.close();		 
+								sockCom2.close();
+								break;
 								
 							}
 									case 3:
 									{
 										System.out.println("------------------------------------------------------------");
-										System.out.println("Modification de la confidentialité de vos informations");
-										System.out.println("Tapez 1 pour voir la confidentialité de votre nom");
-										System.out.println("Tapez 2 pour modifier la confidentialité de votre nom");
-										System.out.println("Tapez 3 pour voir la confidentialité de votre prenom");
-										System.out.println("Tapez 4 pour modifier la confidentialité de votre prenom");
-										System.out.println("Tapez 5 pour voir la confidentialité de numero de telephone");
-										System.out.println("Tapez 6 pour modifier la confidentialité de numero de telephone");
-										System.out.println("Tapez 7 pour voir la confidentialité de votre formation");
-										System.out.println("Tapez 8 pour modifier la confidentialité de votre formation");
-										System.out.println("Tapez 9 pour voir la confidentialité de votre annee d'obtention de diplome");
-										System.out.println("Tapez 10 pour modifier la confidentialité de votre annee d'obtention de diplome");
+										System.out.println("Modification de la confidentialite de vos informations");
+										System.out.println("Tapez 0 pour quitter le menu");
+										System.out.println("Tapez 1 pour voir la confidentialite de votre nom");
+										System.out.println("Tapez 2 pour modifier la confidentialite de votre nom");
+										System.out.println("Tapez 3 pour voir la confidentialite de votre prenom");
+										System.out.println("Tapez 4 pour modifier la confidentialite de votre prenom");
+										System.out.println("Tapez 5 pour voir la confidentialite de numero de telephone");
+										System.out.println("Tapez 6 pour modifier la confidentialite de numero de telephone");
+										System.out.println("Tapez 7 pour voir la confidentialite de votre formation");
+										System.out.println("Tapez 8 pour modifier la confidentialite de votre formation");
+										System.out.println("Tapez 9 pour voir la confidentialite de votre annee d'obtention de diplome");
+										System.out.println("Tapez 10 pour modifier la confidentialite de votre annee d'obtention de diplome");
 										System.out.println("------------------------------------------------------------");
 										int choixMenu4 = LireIntClavier();
 										sockCom2 = new Socket("localhost",13215);
@@ -250,6 +261,11 @@ public class Client extends Object {
 										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
 										
 										switch (choixMenu4) {
+											case 0:
+											{
+												System.out.println("Vous avez quitter le menu");
+												break;
+											}
 											case 1 : 
 											{
 												String messageVisibiliteNom = "VISIBILITENOM#"+(user1.getNumeroFiche());
@@ -345,6 +361,7 @@ public class Client extends Object {
 										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
 										System.out.println("------------------------------------------------------------");
 										System.out.println("Recherche de personne dans l'annuaire");
+										System.out.println("Tapez 0 pour quitter");
 										System.out.println("Tapez 1 pour effectuer une recherche par nom");
 										System.out.println("Tapez 2 pour effectuer une recherche par prenom");
 										System.out.println("Tapez 3 pour effectuer une recherche par adresse mail");
@@ -353,6 +370,11 @@ public class Client extends Object {
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu5 = LireIntClavier();
 										switch (choixMenu5) {
+											case 0:
+											{
+												System.out.println("Vous avez quitter le menu");
+												break;
+											}
 											case 1:
 											{
 												System.out.println("Veuillez entrer le nom de la personne que vous souhaitez rechercher");
@@ -360,7 +382,13 @@ public class Client extends Object {
 												String messageRechercheNom = "RECHERCHENOM#".concat(nomPersonne);
 												fluxSortieSocket2.println(messageRechercheNom);
 												String retour1 = fluxEntreeSocket2.readLine();
-												System.out.println(retour1);
+												String[] tabretour1 = retour1.split("]");
+												System.out.println("Resultat de votre recherche :\n");
+												for (String i : tabretour1)
+												{
+												    System.out.println(i);
+												}
+												System.out.println("\n");
 												break;
 											}
 											
@@ -371,7 +399,13 @@ public class Client extends Object {
 												String messageRecherchePrenom = "RECHERCHEPRENOM#".concat(prenomPersonne);
 												fluxSortieSocket2.println(messageRecherchePrenom);
 												String retour2 = fluxEntreeSocket2.readLine();
-												System.out.println(retour2);
+												String[] tabretour2 = retour2.split("]");
+												System.out.println("Resultat de votre recherche :\n");
+												for (String i : tabretour2)
+												{
+												    System.out.println(i);
+												}
+												System.out.println("\n");
 												break;
 											}
 											
@@ -382,7 +416,13 @@ public class Client extends Object {
 												String messageRechercheMail = "RECHERCHEMAIL#".concat(mailPersonne);
 												fluxSortieSocket2.println(messageRechercheMail);
 												String retour3 = fluxEntreeSocket2.readLine();
-												System.out.println(retour3);
+												String[] tabretour3 = retour3.split("]");
+												System.out.println("Resultat de votre recherche :\n");
+												for (String i : tabretour3)
+												{
+												    System.out.println(i);
+												}
+												System.out.println("\n");
 												break;
 											}
 											
@@ -393,18 +433,30 @@ public class Client extends Object {
 												String messageRechercheFormation = "RECHERCHEFORMATION#".concat(formationPersonne);
 												fluxSortieSocket2.println(messageRechercheFormation);
 												String retour4 = fluxEntreeSocket2.readLine();
-												System.out.println(retour4);
+												String[] tabretour4 = retour4.split("]");
+												System.out.println("Resultat de votre recherche :\n");
+												for (String i : tabretour4)
+												{
+												    System.out.println(i);
+												}
+												System.out.println("\n");
 												break;
 											}
 											
 											case 5:
 											{
-												System.out.println("Veuillez entrer l'année d'obtention du diplome de la personne que vous souhaitez rechercher");
+												System.out.println("Veuillez entrer l'annee d'obtention du diplome de la personne que vous souhaitez rechercher");
 												String AnneeDiplomePersonne = LireStringClavier();
 												String messageRechercheAnneeDiplome = "RECHERCHEANDIPLOME#".concat(AnneeDiplomePersonne);
 												fluxSortieSocket2.println(messageRechercheAnneeDiplome);
 												String retour5 = fluxEntreeSocket2.readLine();
-												System.out.println(retour5);
+												String[] tabretour5 = retour5.split("]");
+												System.out.println("Resultat de votre recherche :\n");
+												for (String i : tabretour5)
+												{
+												    System.out.println(i);
+												}
+												System.out.println("\n");
 												break;
 											}
 
@@ -412,8 +464,8 @@ public class Client extends Object {
 									}
 						
 								}
-							
-					
+								break;
+									
 							}
 							
 				
@@ -451,7 +503,7 @@ public class Client extends Object {
 					String formation = LireStringClavier();
 					System.out.println("Veuillez entrer votre annee de votre diplome");
 					int anneeDiplomation = LireIntClavier();
-					System.out.println("ATTENTION : par défaut, la politique de confidentialité de vos données est ouverte à tous.\nVous pouvez modifier la confidentialité de vos paramètres une fois connecté sur votre compte personnel");
+					System.out.println("ATTENTION : par defaut, la politique de confidentialite de vos donnees est ouverte a tous.\nVous pouvez modifier la confidentialite de vos parametres une fois connecte sur votre compte personnel");
 					String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
 					try {
 						
