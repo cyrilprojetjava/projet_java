@@ -51,9 +51,9 @@ public class Bd {
 	
 	public void DeconnexionBd(){
 		try {
-			System.out.println("Deconnexion BD Annuaire reussie");
-			//cn.close();
+			System.out.println("Deconnexion BD reussie");
 			st.close();
+			//cn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

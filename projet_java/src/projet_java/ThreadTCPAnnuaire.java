@@ -30,7 +30,7 @@ public void run() {
 			reader = new BufferedReader (new InputStreamReader(sockService.getInputStream()));
 			PrintStream pStream = new PrintStream(sockService.getOutputStream());
 			while(true){
-				// Lit une ligne de caracteÌ€res depuix le flux, et donc la recÌ§oit du client
+				// Lit une ligne de caracteres depuix le flux, et donc la recÌ§oit du client
 				String requete = reader.readLine();
 				System.out.println(requete);
 				if (requete == null){

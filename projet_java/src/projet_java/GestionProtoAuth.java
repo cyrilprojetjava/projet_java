@@ -14,7 +14,7 @@ public class GestionProtoAuth {
 		
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
-			if (requete.length==8 ){
+			if (requete.length==9 ){
 				user.setNom(requete[1]);
 				user.setPrenom(requete[2]);
 				user.setEmail(requete[3]);
@@ -22,6 +22,7 @@ public class GestionProtoAuth {
 				user.setTelephone(requete[5]);
 				user.setFormation(requete[6]);
 				user.setAnneeDiplome(requete[7]);
+				user.setCompetence(requete[8]);
 				validerCreation = user.creerCompte(user);
 				if(validerCreation == -1)
 				{	

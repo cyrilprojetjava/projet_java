@@ -13,7 +13,7 @@ public class GestionProtoAnnuaire {
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
 			
-			if (requete.length==7 )
+			if (requete.length==8 )
 			{
 				return ("CREATIONOK");
 
@@ -62,7 +62,7 @@ public class GestionProtoAnnuaire {
 				String numFiche = requete[1];
 				String prenom = requete[2];
 				String reponse = user.modificationInformationPrenom(numFiche, prenom);
-				return("reponse");
+				return(reponse);
 			}
 			else
 			{
@@ -150,6 +150,21 @@ public class GestionProtoAnnuaire {
 			}
 			
 		}
+		else if(requete[0].equalsIgnoreCase("MODIFINFOPERSOCOMPETENCE"))
+		{
+			if (requete.length==3) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String numFiche = requete[1];
+				String competence = requete[2];
+				String reponse = user.modificationInformationCompetence(numFiche, competence);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
 		
 		else if(requete[0].equalsIgnoreCase("RECHERCHENOM"))
 		{
@@ -217,6 +232,20 @@ public class GestionProtoAnnuaire {
 			{
 				String anneeDiplome = requete[1];
 				String reponse = user.rechercheAnneeDiplome(anneeDiplome);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("RECHERCHECOMPETENCE"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String competence = requete[1];
+				String reponse = user.rechercheCompetence(competence);
 				return(reponse);
 			}
 			else
@@ -368,7 +397,34 @@ public class GestionProtoAnnuaire {
 			}
 			
 		}
-		
+		else if(requete[0].equalsIgnoreCase("VISIBILITECOMPETENCE"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.visibiliteCompetence(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MODIFVISICOMPETENCE"))
+		{
+			if (requete.length==2) /* ne pas oublier de modif suivant le nb de parametre */
+			{
+				String NumFiche = requete[1];
+				String reponse = user.modifVisibiliteCompetence(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
 		return("ERREURSRVAnnuaire");
 	}
 	

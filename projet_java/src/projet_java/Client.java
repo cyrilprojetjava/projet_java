@@ -127,6 +127,7 @@ public class Client extends Object {
 										System.out.println("Tapez 5 pour modifier votre annee obtention diplome");
 										System.out.println("Tapez 6 pour modifier votre identifiant mail");
 										System.out.println("Tapez 7 pour modifier votre mot de passe");
+										System.out.println("Tapez 8 pour modifier votre competence");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu3 = LireIntClavier();
 										switch (choixMenu3)
@@ -233,6 +234,18 @@ public class Client extends Object {
 													System.out.println(retour9);
 													break;
 												}
+												case 8:
+												{
+													
+													System.out.println("Veuillez entrer votre nouvelle competence");
+													String newCompetence = LireStringClavier();
+													String modifInfoPersoCompetence = "MODIFINFOPERSOCOMPETENCE#"+(user1.getNumeroFiche());
+													String newInfoPersoCompetence = modifInfoPersoCompetence.concat("#").concat(newCompetence);
+													fluxSortieSocket2.println(newInfoPersoCompetence);
+													String retour10 = fluxEntreeSocket2.readLine();
+													System.out.println(retour10);
+													break;
+												}
 									
 								}
 								sockCom2.close();
@@ -254,6 +267,8 @@ public class Client extends Object {
 										System.out.println("Tapez 8 pour modifier la confidentialite de votre formation");
 										System.out.println("Tapez 9 pour voir la confidentialite de votre annee d'obtention de diplome");
 										System.out.println("Tapez 10 pour modifier la confidentialite de votre annee d'obtention de diplome");
+										System.out.println("Tapez 11 pour voir la confidentialite de votre competence");
+										System.out.println("Tapez 12 pour modifier la confidentialite de votre competence");
 										System.out.println("------------------------------------------------------------");
 										int choixMenu4 = LireIntClavier();
 										sockCom2 = new Socket("localhost",13215);
@@ -346,6 +361,22 @@ public class Client extends Object {
 												System.out.println(retour10);
 												break;
 											}
+											case 11 : 
+											{
+												String messageVisibiliteCompetence = "VISIBILITECOMPETENCE#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageVisibiliteCompetence);
+												String retour11 = fluxEntreeSocket2.readLine();
+												System.out.println(retour11);
+												break;
+											}
+											case 12 :
+											{
+												String messageModifVisibiliteCompetence = "MODIFVISICompetence#"+(user1.getNumeroFiche());
+												fluxSortieSocket2.println(messageModifVisibiliteCompetence);
+												String retour12 = fluxEntreeSocket2.readLine();
+												System.out.println(retour12);
+												break;
+											}
 										
 										
 										}
@@ -367,6 +398,7 @@ public class Client extends Object {
 										System.out.println("Tapez 3 pour effectuer une recherche par adresse mail");
 										System.out.println("Tapez 4 pour effectuer une recherche par formation");
 										System.out.println("Tapez 5 pour effectuer une recherche par annee d'obtention de diplome");
+										System.out.println("Tapez 6 pour effectuer une recherche par competence");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu5 = LireIntClavier();
 										switch (choixMenu5) {
@@ -459,6 +491,22 @@ public class Client extends Object {
 												System.out.println("\n");
 												break;
 											}
+											case 6:
+											{
+												System.out.println("Veuillez entrer la competence de la personne que vous souhaitez rechercher");
+												String competencePersonne = LireStringClavier();
+												String messageRechercheCompetence = "RECHERCHECOMPETENCE#".concat(competencePersonne);
+												fluxSortieSocket2.println(messageRechercheCompetence);
+												String retour6 = fluxEntreeSocket2.readLine();
+												String[] tabretour6 = retour6.split("]");
+												System.out.println("Resultat de votre recherche :\n");
+												for (String i : tabretour6)
+												{
+												    System.out.println(i);
+												}
+												System.out.println("\n");
+												break;
+											}
 
 										
 									}
@@ -503,8 +551,10 @@ public class Client extends Object {
 					String formation = LireStringClavier();
 					System.out.println("Veuillez entrer votre annee de votre diplome");
 					int anneeDiplomation = LireIntClavier();
+					System.out.println("Veuillez entrer votre competence");
+					String competence = LireStringClavier();
 					System.out.println("ATTENTION : par defaut, la politique de confidentialite de vos donnees est ouverte a tous.\nVous pouvez modifier la confidentialite de vos parametres une fois connecte sur votre compte personnel");
-					String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation));
+					String messageInscription = "CREATE".concat("#").concat(nom).concat("#").concat(prenom).concat("#").concat(adresseMail).concat("#").concat(motdepasse).concat("#").concat(numTel).concat("#").concat(formation).concat("#").concat(String.valueOf(anneeDiplomation).concat("#").concat(competence));
 					try {
 						
 						sockCom = new Socket("localhost",13214);
