@@ -1,11 +1,9 @@
 package projet_java;
 
-import java.util.*;
-
 public class GestionProtoAnnuaire {
 
 	private Utilisateur user = new Utilisateur();
-	private Bd bdAnnu = new Bd();
+
 
 	public String analyserTraiter(String req) {
 		String[] requete = req.split("#");

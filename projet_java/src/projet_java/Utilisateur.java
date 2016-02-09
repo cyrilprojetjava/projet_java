@@ -6,18 +6,11 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.print.attribute.standard.NumberOfInterveningJobs;
-
-import com.mysql.jdbc.ResultSetMetaData;
-import com.sun.javafx.geom.transform.GeneralTransform3D;
 
 public class Utilisateur {
 	

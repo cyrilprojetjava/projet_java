@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 
 
 
@@ -41,7 +39,7 @@ public class Client extends Object {
 				System.out.println("------------------------------------------------------------");
 				System.out.println("MENU :");
 				System.out.println("Tapez 0 pour quitter");
-				System.out.println("Tapez 1 pour vous connecter si vous avez deja� un compte");
+				System.out.println("Tapez 1 pour vous connecter si vous avez deja un compte");
 				System.out.println("Tapez 2 pour vous inscrire");
 				System.out.println("------------------------------------------------------------");
 
@@ -562,8 +560,6 @@ public class Client extends Object {
 						fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
 						fluxSortieSocket.println(messageInscription);
 						String retour = fluxEntreeSocket.readLine();
-						System.out.println("DEBUG : "+retour);
-						
 						if(retour.indexOf("CREATIONOK") != -1)
 						{
 							System.out.println("Vous etes inscrit !");

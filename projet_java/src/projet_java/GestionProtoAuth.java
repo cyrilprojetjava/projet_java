@@ -1,7 +1,5 @@
 package projet_java;
 
-import java.util.*;
-
 public class GestionProtoAuth {
 
 	private Utilisateur user = new Utilisateur();

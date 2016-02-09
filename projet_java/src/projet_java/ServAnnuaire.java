@@ -11,12 +11,9 @@ import java.io.DataOutputStream;
 
 public class ServAnnuaire {
 
-	ServerSocket sockEcoute;  // DÃ©claration du ServerSocket 
-	
-	//constructeur par dÃ©faut sans paramÃ¨tre
+	ServerSocket sockEcoute;  
 	public ServAnnuaire(){
 
-		//  Instanciation du ServerSocket en utilisant le constr. le plus simple (choix port) 
 		try { 
 			sockEcoute = new ServerSocket(13215); 
 		} 
@@ -27,9 +24,8 @@ public class ServAnnuaire {
 	}
 
 	public void Service(){
-		Socket sockService; // Declaration du socket de service
+		Socket sockService; 
 
-		// On appelle accept() sur le ServerSocket pour accepter les connections, // quand une connexion est recÌ§ue, un nouvel objet de la classe Socket est // renvoyeÌ�
 		GestionProtoAnnuaire gpannuaire = new GestionProtoAnnuaire();  
 		while(true) {
 
