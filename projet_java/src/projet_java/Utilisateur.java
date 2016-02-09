@@ -275,6 +275,7 @@ public class Utilisateur {
 		try {
 			String message ="";
 			int i=0;
+			int j=0;
 			rs.last();
 			Integer nbItem = rs.getRow();
 			rs.beforeFirst();
@@ -292,63 +293,59 @@ public class Utilisateur {
 			{
 				numero_fiche.add(rs.getInt(1));
 				BdVisibilite.ConnexionBdAnnuaire();
-				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(i)+"';");
+				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(j)+"';");
 				while(rs_visi.next())
 				{
 					if (rs_visi.getInt(3) == 1)
 					{
 						nom.add(rs.getString(2));
-					}
-					else
-					{
-						nom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(4) == 1)
-					{
-						prenom.add(rs.getString(3));
-					}
-					else
-					{
-						prenom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(5) == 1)
-					{
-						telephone.add(rs.getString(4));
-					}
-					else
-					{
-						telephone.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(6) == 1)
-					{
-						formation.add(rs.getString(5));
-					}
-					else
-					{
-						formation.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(7) == 1)
-					{
-						anneediplome.add(rs.getString(6));
-					}
-					else
-					{
-						anneediplome.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(8) == 1)
-					{
-						competence.add(rs.getString(7));
-					}
-					else
-					{
-						competence.add("NON VISIBLE");
+						if (rs_visi.getInt(4) == 1)
+						{
+							prenom.add(rs.getString(3));
+						}
+						else
+						{
+							prenom.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(5) == 1)
+						{
+							telephone.add(rs.getString(4));
+						}
+						else
+						{
+							telephone.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(6) == 1)
+						{
+							formation.add(rs.getString(5));
+						}
+						else
+						{
+							formation.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(7) == 1)
+						{
+							anneediplome.add(rs.getString(6));
+						}
+						else
+						{
+							anneediplome.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(8) == 1)
+						{
+							competence.add(rs.getString(7));
+						}
+						else
+						{
+							competence.add("NON VISIBLE");
+						}
+						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message = message + message1.get(i);
+						i++;
 					}
 				}
-				message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
-				
-				message = message + message1.get(i);
-				i++;
-				}
+				j++;
+			}
 			return(message);
 			
 		
@@ -366,6 +363,7 @@ public class Utilisateur {
 		try {
 			String message ="";
 			int i=0;
+			int j=0;
 			rs.last();
 			Integer nbItem = rs.getRow();
 			rs.beforeFirst();
@@ -383,63 +381,60 @@ public class Utilisateur {
 			{
 				numero_fiche.add(rs.getInt(1));
 				BdVisibilite.ConnexionBdAnnuaire();
-				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(i)+"';");
+				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(j)+"';");
 				while(rs_visi.next())
 				{
-					if (rs_visi.getInt(3) == 1)
-					{
-						nom.add(rs.getString(2));
-					}
-					else
-					{
-						nom.add("NON VISIBLE");
-					}
+					
 					if (rs_visi.getInt(4) == 1)
 					{
 						prenom.add(rs.getString(3));
-					}
-					else
-					{
-						prenom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(5) == 1)
-					{
-						telephone.add(rs.getString(4));
-					}
-					else
-					{
-						telephone.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(6) == 1)
-					{
-						formation.add(rs.getString(5));
-					}
-					else
-					{
-						formation.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(7) == 1)
-					{
-						anneediplome.add(rs.getString(6));
-					}
-					else
-					{
-						anneediplome.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(8) == 1)
-					{
-						competence.add(rs.getString(7));
-					}
-					else
-					{
-						competence.add("NON VISIBLE");
-					}
+						if (rs_visi.getInt(3) == 1)
+						{
+							nom.add(rs.getString(2));
+						}
+						else
+						{
+							nom.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(5) == 1)
+						{
+							telephone.add(rs.getString(4));
+						}
+						else
+						{
+							telephone.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(6) == 1)
+						{
+							formation.add(rs.getString(5));
+						}
+						else
+						{
+							formation.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(7) == 1)
+						{
+							anneediplome.add(rs.getString(6));
+						}
+						else
+						{
+							anneediplome.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(8) == 1)
+						{
+							competence.add(rs.getString(7));
+						}
+						else
+						{
+							competence.add("NON VISIBLE");
+						}
+						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message = message + message1.get(i);
+						i++;
+					}	
 				}
-				message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
-				
-				message = message + message1.get(i);
-				i++;
-				}
+				j++;
+			}
 			return(message);
 			
 		
@@ -561,6 +556,7 @@ public String rechercheFormation(String pFormation){
 	try {
 		String message ="";
 		int i=0;
+		int j=0;
 		rs.last();
 		Integer nbItem = rs.getRow();
 		rs.beforeFirst(); 
@@ -578,63 +574,60 @@ public String rechercheFormation(String pFormation){
 		{
 			numero_fiche.add(rs.getInt(1));
 			BdVisibilite.ConnexionBdAnnuaire();
-			ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(i)+"';");
+			ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(j)+"';");
 			while(rs_visi.next())
 			{
-				if (rs_visi.getInt(3) == 1)
-				{
-					nom.add(rs.getString(2));
-				}
-				else
-				{
-					nom.add("NON VISIBLE");
-				}
-				if (rs_visi.getInt(4) == 1)
-				{
-					prenom.add(rs.getString(3));
-				}
-				else
-				{
-					prenom.add("NON VISIBLE");
-				}
-				if (rs_visi.getInt(5) == 1)
-				{
-					telephone.add(rs.getString(4));
-				}
-				else
-				{
-					telephone.add("NON VISIBLE");
-				}
+				
 				if (rs_visi.getInt(6) == 1)
 				{
 					formation.add(rs.getString(5));
-				}
-				else
-				{
-					formation.add("NON VISIBLE");
-				}
-				if (rs_visi.getInt(7) == 1)
-				{
-					anneediplome.add(rs.getString(6));
-				}
-				else
-				{
-					anneediplome.add("NON VISIBLE");
-				}
-				if (rs_visi.getInt(8) == 1)
-				{
-					competence.add(rs.getString(7));
-				}
-				else
-				{
-					competence.add("NON VISIBLE");
-				}
+					if (rs_visi.getInt(3) == 1)
+					{
+						nom.add(rs.getString(2));
+					}
+					else
+					{
+						nom.add("NON VISIBLE");
+					}
+					if (rs_visi.getInt(4) == 1)
+					{
+						prenom.add(rs.getString(3));
+					}
+					else
+					{
+						prenom.add("NON VISIBLE");
+					}
+					if (rs_visi.getInt(5) == 1)
+					{
+						telephone.add(rs.getString(4));
+					}
+					else
+					{
+						telephone.add("NON VISIBLE");
+					}
+					if (rs_visi.getInt(7) == 1)
+					{
+						anneediplome.add(rs.getString(6));
+					}
+					else
+					{
+						anneediplome.add("NON VISIBLE");
+					}
+					if (rs_visi.getInt(8) == 1)
+					{
+						competence.add(rs.getString(7));
+					}
+					else
+					{
+						competence.add("NON VISIBLE");
+					}
+					message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+					message = message + message1.get(i);
+					i++;
+				}	
 			}
-			message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
-			
-			message = message + message1.get(i);
-			i++;
-			}
+			j++;
+		}
 		return(message);
 		
 	
@@ -653,6 +646,7 @@ public String rechercheAnneeDiplome(String pAnDiplome){
 		try {
 			String message ="";
 			int i=0;
+			int j=0;
 			rs.last();
 			Integer nbItem = rs.getRow();
 			rs.beforeFirst(); 
@@ -670,63 +664,61 @@ public String rechercheAnneeDiplome(String pAnDiplome){
 			{
 				numero_fiche.add(rs.getInt(1));
 				BdVisibilite.ConnexionBdAnnuaire();
-				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(i)+"';");
+				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(j)+"';");
 				while(rs_visi.next())
 				{
-					if (rs_visi.getInt(3) == 1)
-					{
-						nom.add(rs.getString(2));
-					}
-					else
-					{
-						nom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(4) == 1)
-					{
-						prenom.add(rs.getString(3));
-					}
-					else
-					{
-						prenom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(5) == 1)
-					{
-						telephone.add(rs.getString(4));
-					}
-					else
-					{
-						telephone.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(6) == 1)
-					{
-						formation.add(rs.getString(5));
-					}
-					else
-					{
-						formation.add("NON VISIBLE");
-					}
+					
 					if (rs_visi.getInt(7) == 1)
 					{
 						anneediplome.add(rs.getString(6));
-					}
-					else
-					{
-						anneediplome.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(8) == 1)
-					{
-						competence.add(rs.getString(7));
-					}
-					else
-					{
-						competence.add("NON VISIBLE");
-					}
+						if (rs_visi.getInt(3) == 1)
+						{
+							nom.add(rs.getString(2));
+						}
+						else
+						{
+							nom.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(4) == 1)
+						{
+							prenom.add(rs.getString(3));
+						}
+						else
+						{
+							prenom.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(5) == 1)
+						{
+							telephone.add(rs.getString(4));
+						}
+						else
+						{
+							telephone.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(6) == 1)
+						{
+							formation.add(rs.getString(5));
+						}
+						else
+						{
+							formation.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(8) == 1)
+						{
+							competence.add(rs.getString(7));
+						}
+						else
+						{
+							competence.add("NON VISIBLE");
+						}
+						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						
+						message = message + message1.get(i);
+						i++;
+					}		
 				}
-				message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
-				
-				message = message + message1.get(i);
-				i++;
-				}
+				j++;
+			}
 			return(message);
 			
 		
@@ -744,6 +736,7 @@ public String rechercheCompetence(String pCompetence){
 	
 		try {
 			String message ="";
+			int j=0;
 			int i=0;
 			rs.last();
 			Integer nbItem = rs.getRow();
@@ -762,63 +755,59 @@ public String rechercheCompetence(String pCompetence){
 			{
 				numero_fiche.add(rs.getInt(1));
 				BdVisibilite.ConnexionBdAnnuaire();
-				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(i)+"';");
+				ResultSet rs_visi = BdVisibilite.RequeteSelect("SELECT * FROM visibilite WHERE numero_fiche = '"+numero_fiche.get(j)+"';");
 				while(rs_visi.next())
 				{
-					if (rs_visi.getInt(3) == 1)
-					{
-						nom.add(rs.getString(2));
-					}
-					else
-					{
-						nom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(4) == 1)
-					{
-						prenom.add(rs.getString(3));
-					}
-					else
-					{
-						prenom.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(5) == 1)
-					{
-						telephone.add(rs.getString(4));
-					}
-					else
-					{
-						telephone.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(6) == 1)
-					{
-						formation.add(rs.getString(5));
-					}
-					else
-					{
-						formation.add("NON VISIBLE");
-					}
-					if (rs_visi.getInt(7) == 1)
-					{
-						anneediplome.add(rs.getString(6));
-					}
-					else
-					{
-						anneediplome.add("NON VISIBLE");
-					}
 					if (rs_visi.getInt(8) == 1)
 					{
 						competence.add(rs.getString(7));
-					}
-					else
-					{
-						competence.add("NON VISIBLE");
-					}
+						if (rs_visi.getInt(3) == 1)
+						{
+							nom.add(rs.getString(2));
+						}
+						else
+						{
+							nom.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(4) == 1)
+						{
+							prenom.add(rs.getString(3));
+						}
+						else
+						{
+							prenom.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(5) == 1)
+						{
+							telephone.add(rs.getString(4));
+						}
+						else
+						{
+							telephone.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(6) == 1)
+						{
+							formation.add(rs.getString(5));
+						}
+						else
+						{
+							formation.add("NON VISIBLE");
+						}
+						if (rs_visi.getInt(7) == 1)
+						{
+							anneediplome.add(rs.getString(6));
+						}
+						else
+						{
+							anneediplome.add("NON VISIBLE");
+						}
+						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message = message + message1.get(i);
+						i++;	
+					}	
 				}
-				message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
-				
-				message = message + message1.get(i);
-				i++;
-				}
+				j++;
+			}
 			return(message);
 			
 		
