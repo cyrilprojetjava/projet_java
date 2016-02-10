@@ -1105,6 +1105,18 @@ public String modifVisibiliteCompetence(String pNumFiche){
 	
 }
 
+    public String supprimerCompte(String pNumFiche){
+    	
+    	BdAnnuaire.ConnexionBdAnnuaire();
+    	BdAuth.ConnexionBdAuth();
+    	
+    	BdAnnuaire.RequeteAutre("DELETE FROM visibilite WHERE numero_fiche = '"+pNumFiche+"';");
+    	BdAnnuaire.RequeteAutre("DELETE FROM annuaire WHERE numero_fiche = '"+pNumFiche+"';");
+    	BdAuth.RequeteAutre("DELETE FROM authentification WHERE numero_fiche = '"+pNumFiche+"';");
+    	return("Votre compte a bien ete supprime");	
+    }
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Bd BdAuth = new Bd();

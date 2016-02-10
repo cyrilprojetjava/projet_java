@@ -65,7 +65,7 @@ public class Client extends Object {
 					try {
 						fluxSortieSocket.println(messageConnect);
 						String retour = fluxEntreeSocket.readLine();
-						System.out.println(retour);
+						//System.out.println(retour);
 						String[] tabretour = retour.split("#");
 						Integer verificationUtil = Integer.parseInt(tabretour[1]);
 						if(verificationUtil != -1)
@@ -82,6 +82,7 @@ public class Client extends Object {
 								System.out.println("Tapez 2 pour modifier une information");
 								System.out.println("Tapez 3 pour modifier la confidentialite d'une de vos information");
 								System.out.println("Tapez 4 pour faire une recherche sur l'annuaire");
+								System.out.println("Tapez 5 pour supprimer votre compte");
 								System.out.println("------------------------------------------------------------");
 								Integer choixMenu2 = LireIntClavier();
 								switch (choixMenu2) 
@@ -511,7 +512,21 @@ public class Client extends Object {
 						
 								}
 								break;
-									
+							
+									case 5:
+									{
+										sockCom = new Socket("localhost",13214);
+										fluxSortieSocket = new PrintStream(sockCom.getOutputStream());
+										fluxEntreeSocket = new BufferedReader(new InputStreamReader(sockCom.getInputStream()));
+										String messageSuppressionCompte = "SUPPRESSIONCOMPTE#"+(user1.getNumeroFiche());
+										//System.out.println(messageSuppressionCompte);
+										fluxSortieSocket.println(messageSuppressionCompte);
+										String retour1 = fluxEntreeSocket.readLine();
+										System.out.println(retour1);
+										sockCom.close();
+										return;
+										
+									}
 							}
 							
 				
@@ -547,7 +562,7 @@ public class Client extends Object {
 					String numTel = LireStringClavier();
 					System.out.println("Veuillez entrer le nom de votre formation");
 					String formation = LireStringClavier();
-					System.out.println("Veuillez entrer votre annee de votre diplome");
+					System.out.println("Veuillez entrer votre annee d'obtention de votre diplome");
 					int anneeDiplomation = LireIntClavier();
 					System.out.println("Veuillez entrer votre competence");
 					String competence = LireStringClavier();

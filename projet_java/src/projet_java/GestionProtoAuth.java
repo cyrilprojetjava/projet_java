@@ -45,6 +45,15 @@ public class GestionProtoAuth {
 			else
 				return("ERREUR : REQUETE MAL FORMEE");
 		}
+		else if(requete[0].equalsIgnoreCase("SUPPRESSIONCOMPTE"))
+		{
+			if (requete.length==2 ){
+				 String reponse = user.supprimerCompte(requete[1]);
+				 return(reponse);
+			}
+			else
+				return("ERREUR : REQUETE MAL FORMEE");
+		}
 		return("ERREURSRVAuth");
 	}
 

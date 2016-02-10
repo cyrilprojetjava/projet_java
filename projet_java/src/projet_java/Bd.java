@@ -22,7 +22,7 @@ public class Bd {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			System.out.println("Connexion BD Annuaire reussie");
+			//System.out.println("Connexion BD Annuaire reussie");
         	}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -40,7 +40,7 @@ public class Bd {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			System.out.println("Connexion BD Authentification reussie");
+			//System.out.println("Connexion BD Authentification reussie");
         	}
 		catch (SQLException e) {
 		e.printStackTrace();
@@ -51,7 +51,7 @@ public class Bd {
 	
 	public void DeconnexionBd(){
 		try {
-			System.out.println("Deconnexion BD reussie");
+			//System.out.println("Deconnexion BD reussie");
 			st.close();
 			//cn.close();
 		} catch (SQLException e) {
