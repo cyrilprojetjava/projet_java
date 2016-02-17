@@ -72,6 +72,19 @@ public class Client extends Object {
 						{
 							user1.setNumeroFiche(Integer.parseInt(tabretour[1]));
 							System.out.println("Connexion reussie");
+							
+							sockCom2 = new Socket("localhost",13215);
+							fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
+							fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
+							Socket sockMessagerie; 
+							sockMessagerie = new Socket(sockCom2.getLocalAddress(), 0);
+							PrintStream     fluxSortieSocket3;
+							BufferedReader  fluxEntreeSocket3;
+							fluxSortieSocket3 = new PrintStream(sockMessagerie.getOutputStream());
+							fluxEntreeSocket3 = new BufferedReader(new InputStreamReader(sockMessagerie.getInputStream()));
+							String initMessagerie = "INITMESSAGERIE#"+user1.getNumeroFiche()+"#"+sockMessagerie.getLocalAddress()+"#"+sockMessagerie.getLocalPort();
+							fluxSortieSocket2.println(initMessagerie);
+							String msgInst = fluxEntreeSocket3.readLine();
 							Integer menu2 = 1;
 							while (menu2 == 1)
 							{
@@ -94,6 +107,7 @@ public class Client extends Object {
 										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
 										System.out.println("Vous etes deconnecte");
 										sockCom2.close();
+										sockMessagerie.close();
 										menu2 = 0;
 										break;
 									}

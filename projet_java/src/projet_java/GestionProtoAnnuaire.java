@@ -423,6 +423,22 @@ public class GestionProtoAnnuaire {
 			}
 			
 		}
+		else if(requete[0].equalsIgnoreCase("INITMESSAGERIE"))
+		{
+			if (requete.length==4)
+			{
+				String numFiche = requete[1];
+				String adresseIp = requete[2];
+				String numPort = requete[3];
+				String reponse = user.initialiserSocketMessagerie(numFiche,adresseIp,numPort);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
 		return("ERREURSRVAnnuaire");
 	}
 	

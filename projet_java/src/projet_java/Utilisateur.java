@@ -1115,6 +1115,14 @@ public String modifVisibiliteCompetence(String pNumFiche){
     	BdAuth.RequeteAutre("DELETE FROM authentification WHERE numero_fiche = '"+pNumFiche+"';");
     	return("Votre compte a bien ete supprime");	
     }
+    
+public String initialiserSocketMessagerie(String pNumFiche,String pAdresseIp,String pNumPort){
+    	
+    	BdAnnuaire.ConnexionBdAnnuaire();
+    	
+    	BdAnnuaire.RequeteAutre("INSERT INTO ip_port_connexion VALUES('"+pNumFiche+"','"+pAdresseIp+"','"+pNumPort+"');");
+    	return("INITMESSAGERIEOK");	
+    }
 
 
 	public static void main(String[] args) {
