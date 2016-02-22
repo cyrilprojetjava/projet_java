@@ -1124,6 +1124,48 @@ public String initialiserSocketMessagerie(String pNumFiche,String pAdresseIp,Str
     	return("INITMESSAGERIEOK");	
     }
 
+public String rechercheUserInLine(String pNumFiche){
+	
+	ArrayList<Object> message1 = new ArrayList<Object> ();
+	ArrayList<Object> numero_fiche = new ArrayList<>();
+	ArrayList<Object> nom = new ArrayList<>();
+	ArrayList<Object> prenom = new ArrayList<>();
+	ArrayList<Object> formation = new ArrayList<>();
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT a.numero_fiche, nom, prenom, formation FROM Annuaire a, ip_port_connexion ip WHERE a.numero_fiche = ip.numero_fiche AND ip.numero_Fiche <> "+pNumFiche+";");
+	 try {
+		int i =0;
+		String message = "";
+		while(rs.next()){
+			
+			numero_fiche.add(rs.getInt(1));
+			nom.add(rs.getString(2));
+			prenom.add(rs.getString(3));
+			formation.add(rs.getString(4));
+			message1.add("Numero de conversation : "+numero_fiche.get(i)+"  Nom : "+nom.get(i)+ "  Prenom : "+prenom.get(i)+"  Formation : "+formation.get(i)+"]");
+			//BdAnnuaire.DeconnexionBd();
+			message = message + message1.get(i);
+			i++;
+		 }
+		return(message);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 return("Erreur de recherche utilisateurs InLine");
+}
+
+public String decoUserInLine(String pNumFiche){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	
+	BdAnnuaire.RequeteAutre("DELETE FROM ip_port_connexion WHERE numero_fiche = "+pNumFiche+";");
+	return("Deconnexion OK");	
+}
+
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -1,7 +1,9 @@
 package projet_java;
 
 import java.util.Scanner;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -77,14 +79,18 @@ public class Client extends Object {
 							fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
 							fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
 							Socket sockMessagerie; 
-							sockMessagerie = new Socket(sockCom2.getLocalAddress(), 0);
+							//InetAddress ipAddress = sockCom2.getLocalAddress();
+							//System.out.println(ipAddress);
+							sockMessagerie = new Socket("localhost", 15000);
 							PrintStream     fluxSortieSocket3;
 							BufferedReader  fluxEntreeSocket3;
 							fluxSortieSocket3 = new PrintStream(sockMessagerie.getOutputStream());
 							fluxEntreeSocket3 = new BufferedReader(new InputStreamReader(sockMessagerie.getInputStream()));
 							String initMessagerie = "INITMESSAGERIE#"+user1.getNumeroFiche()+"#"+sockMessagerie.getLocalAddress()+"#"+sockMessagerie.getLocalPort();
-							fluxSortieSocket2.println(initMessagerie);
+							System.out.println(initMessagerie);
+							fluxSortieSocket3.println(initMessagerie);
 							String msgInst = fluxEntreeSocket3.readLine();
+							System.out.println(msgInst);
 							Integer menu2 = 1;
 							while (menu2 == 1)
 							{
@@ -96,6 +102,7 @@ public class Client extends Object {
 								System.out.println("Tapez 3 pour modifier la confidentialite d'une de vos information");
 								System.out.println("Tapez 4 pour faire une recherche sur l'annuaire");
 								System.out.println("Tapez 5 pour supprimer votre compte");
+								System.out.println("Tapez 6 pour rentrer dans le menu de messagerie instantanee");
 								System.out.println("------------------------------------------------------------");
 								Integer choixMenu2 = LireIntClavier();
 								switch (choixMenu2) 
@@ -541,6 +548,48 @@ public class Client extends Object {
 										return;
 										
 									}
+									case 6:
+									{
+										String messageUserInLine = "USERCONNECT#"+(user1.getNumeroFiche());
+										fluxSortieSocket3.println(messageUserInLine);
+										String retour1 = fluxEntreeSocket3.readLine();
+										String[] tabretour1 = retour1.split("]");
+										System.out.println("Resultat des utilisateurs connectes :\n");
+										for (String i : tabretour1)
+										{
+										    System.out.println(i);
+										}
+										System.out.println("\n");
+										System.out.println("------------------------------------------------------------");
+										System.out.println("Menu conversation instantanee");
+										System.out.println("Tapez 0 pour vous déconnectez");
+										System.out.println("Tapez 1 pour entrer le numero de conversation");
+										System.out.println("------------------------------------------------------------");
+										Integer choixMenu6 = LireIntClavier();
+										switch (choixMenu6) {
+										
+										case 0 : {
+											String messageDecoUserInLine = "DECONNECTINLINE#"+(user1.getNumeroFiche());
+											fluxSortieSocket3.println(messageDecoUserInLine);
+											String retour2 = fluxEntreeSocket3.readLine();
+											System.out.println(retour2);
+											menu2 = 0;
+											break;
+										}
+										
+										case 1 : {
+											
+											
+										}
+										
+										
+										}
+										
+										//sockMessagerie.close();
+							
+										
+									}
+									
 							}
 							
 				
