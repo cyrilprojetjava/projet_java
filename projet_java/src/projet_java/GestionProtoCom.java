@@ -52,6 +52,20 @@ public class GestionProtoCom {
 			}
 			
 		}
+		else if(requete[0].equalsIgnoreCase("CONVINSTANT"))
+		{
+			if (requete.length==2)
+			{
+				String numConv = requete[1];
+				String reponse = user.convInLine(numConv);
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
 		return("ERREURSRVCom");
 	}
 	

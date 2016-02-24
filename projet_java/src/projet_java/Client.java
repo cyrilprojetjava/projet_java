@@ -2,6 +2,7 @@ package projet_java;
 
 import java.util.Scanner;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
@@ -87,6 +88,9 @@ public class Client extends Object {
 							fluxSortieSocket3 = new PrintStream(sockMessagerie.getOutputStream());
 							fluxEntreeSocket3 = new BufferedReader(new InputStreamReader(sockMessagerie.getInputStream()));
 							String initMessagerie = "INITMESSAGERIE#"+user1.getNumeroFiche()+"#"+sockMessagerie.getLocalAddress()+"#"+sockMessagerie.getLocalPort();
+							ServerSocket sockEcouteClient = new ServerSocket(sockMessagerie.getLocalPort());
+							ThreadEcoute thEcoute = new ThreadEcoute(sockEcouteClient);
+							thEcoute.start();
 							System.out.println(initMessagerie);
 							fluxSortieSocket3.println(initMessagerie);
 							String msgInst = fluxEntreeSocket3.readLine();
@@ -112,6 +116,9 @@ public class Client extends Object {
 										sockCom2 = new Socket("localhost",13215);
 										fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
 										fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
+										String messageDecoUserInLine = "DECONNECTINLINE#"+(user1.getNumeroFiche());
+										fluxSortieSocket3.println(messageDecoUserInLine);
+										String retour2 = fluxEntreeSocket3.readLine();
 										System.out.println("Vous etes deconnecte");
 										sockCom2.close();
 										sockMessagerie.close();
@@ -562,24 +569,34 @@ public class Client extends Object {
 										System.out.println("\n");
 										System.out.println("------------------------------------------------------------");
 										System.out.println("Menu conversation instantanee");
-										System.out.println("Tapez 0 pour vous déconnectez");
+										System.out.println("Tapez 0 pour vous deconnecter");
 										System.out.println("Tapez 1 pour entrer le numero de conversation");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu6 = LireIntClavier();
 										switch (choixMenu6) {
 										
 										case 0 : {
-											String messageDecoUserInLine = "DECONNECTINLINE#"+(user1.getNumeroFiche());
-											fluxSortieSocket3.println(messageDecoUserInLine);
-											String retour2 = fluxEntreeSocket3.readLine();
-											System.out.println(retour2);
-											menu2 = 0;
+											System.out.println("Vous avez quitte la discution instantanee");
+											menu2 = 1;
 											break;
 										}
 										
 										case 1 : {
-											
-											
+											System.out.println("Entrez le numero de conversation");
+											Integer numConversation = LireIntClavier();
+											String messageConversation = "CONVINSTANT#"+(numConversation);
+											fluxSortieSocket3.println(messageConversation);
+											String retour2 = fluxEntreeSocket3.readLine();
+											String requete[] = retour2.split("#");
+											int numeroPort = Integer.parseInt(requete[2]);
+											System.out.println(requete[1]+numeroPort);
+											Socket sockComClient = new Socket("localhost", numeroPort);
+											System.out.println("Entrez votre message :");
+											String message = LireStringClavier();
+											PrintStream     fluxSortieSocket4;
+											fluxSortieSocket4 = new PrintStream(sockComClient.getOutputStream());
+											fluxSortieSocket4.println(message);
+											break;
 										}
 										
 										
@@ -675,7 +692,7 @@ public class Client extends Object {
 	}
 		
 
-	private static String LireStringClavier() {
+	static String LireStringClavier() {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		String str = sc.nextLine();

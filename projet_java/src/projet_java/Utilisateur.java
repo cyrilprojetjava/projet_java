@@ -1165,6 +1165,27 @@ public String decoUserInLine(String pNumFiche){
 	return("Deconnexion OK");	
 }
 
+public String convInLine(String pNumConv){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT adresse_Ip, numero_port FROM ip_port_connexion WHERE numero_fiche = "+pNumConv+";");
+	try {
+		String adresseIp = "NONDISPO";
+		int numPort = -1;
+		while(rs.next()){
+			 adresseIp = rs.getString(1);
+			 numPort = rs.getInt(2);
+		 }
+		String message = "CONVINSTANT#"+adresseIp+"#"+numPort;
+		return(message);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("ERREUR");	
+}
 
 
 	public static void main(String[] args) {
