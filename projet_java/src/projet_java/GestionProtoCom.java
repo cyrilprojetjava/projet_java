@@ -66,6 +66,41 @@ public class GestionProtoCom {
 			}
 			
 		}
+		else if(requete[0].equalsIgnoreCase("USERNOTCONNECT"))
+		{
+			if (requete.length==1)
+			{
+				String reponse = user.rechercheUserOffLine();
+				return(reponse);
+			}
+			else
+			{
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("DEPOTMESSAGE"))
+		{
+			if (requete.length==4)
+			{
+				String numMessagerie = requete[1];
+				String messageDepose = requete[2];
+				String numFicheUserDeposeMessage = requete[3];
+				String reponse = user.depotMessagerie(numMessagerie,messageDepose,numFicheUserDeposeMessage);
+				return(reponse);
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("MESSAGERECU"))
+		{
+			if (requete.length==2)
+			{
+				String numFiche = requete[1];
+				String reponse = user.LireMessage(numFiche);
+				return(reponse);
+			}
+			
+		}
 		return("ERREURSRVCom");
 	}
 	

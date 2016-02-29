@@ -1157,6 +1157,39 @@ public String rechercheUserInLine(String pNumFiche){
 	 return("Erreur de recherche utilisateurs InLine");
 }
 
+public String rechercheUserOffLine(){
+	ArrayList<Object> message1 = new ArrayList<Object> ();
+	ArrayList<Object> numero_fiche = new ArrayList<>();
+	ArrayList<Object> nom = new ArrayList<>();
+	ArrayList<Object> prenom = new ArrayList<>();
+	ArrayList<Object> formation = new ArrayList<>();
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT a.numero_fiche, nom, prenom, formation FROM Annuaire a, ip_port_connexion ip WHERE a.numero_fiche <> ip.numero_fiche;");
+	 try {
+		int i =0;
+		String message = "";
+		while(rs.next()){
+			
+			numero_fiche.add(rs.getInt(1));
+			nom.add(rs.getString(2));
+			prenom.add(rs.getString(3));
+			formation.add(rs.getString(4));
+			message1.add("Numero de messagerie : "+numero_fiche.get(i)+"  Nom : "+nom.get(i)+ "  Prenom : "+prenom.get(i)+"  Formation : "+formation.get(i)+"]");
+			//BdAnnuaire.DeconnexionBd();
+			message = message + message1.get(i);
+			i++;
+		 }
+		return(message);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 return("Erreur de recherche utilisateurs OffLine");
+	
+}
+
 public String decoUserInLine(String pNumFiche){
 	
 	BdAnnuaire.ConnexionBdAnnuaire();
@@ -1185,6 +1218,49 @@ public String convInLine(String pNumConv){
 	}
 	
 	return("ERREUR");	
+}
+
+public String depotMessagerie(String pNumMessagerie, String pMessageDepose, String pNumFicheUserDeposeMessage){
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	BdAnnuaire.RequeteAutre("INSERT INTO messagerie SET num_messagerie = '"+pNumMessagerie+"', message = '"+pMessageDepose+"', numero_fiche_depose_message = '"+pNumFicheUserDeposeMessage+"'" );
+	return("Votre message a bien ete depose");
+
+}
+
+public String LireMessage(String pNumFiche){
+	
+	ArrayList<Object> message1 = new ArrayList<Object> ();
+	ArrayList<Object> messageDepose = new ArrayList<>();
+	ArrayList<Object> nom = new ArrayList<>();
+	ArrayList<Object> prenom = new ArrayList<>();
+	
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT message, a.nom, a.prenom FROM messagerie m, annuaire a WHERE num_messagerie = '"+pNumFiche+"' AND m.numero_fiche_depose_message = a.numero_fiche");
+	
+	try {
+		int i =0;
+		String message = "";
+		while(rs.next()){
+			
+			messageDepose.add(rs.getString(1));
+			nom.add(rs.getString(2));
+			prenom.add(rs.getString(3));
+			message1.add("Message depose par : "+nom.get(i)+" "+prenom.get(i)+"   Contenu du message : "+messageDepose.get(i)+"]");
+			//BdAnnuaire.DeconnexionBd();
+			message = message + message1.get(i);
+			i++;
+		 }
+		return(message);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return("");
+
 }
 
 

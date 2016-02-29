@@ -1,6 +1,9 @@
 package projet_java;
 
 import java.util.Scanner;
+
+import com.mysql.jdbc.Blob;
+
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -106,7 +109,7 @@ public class Client extends Object {
 								System.out.println("Tapez 3 pour modifier la confidentialite d'une de vos information");
 								System.out.println("Tapez 4 pour faire une recherche sur l'annuaire");
 								System.out.println("Tapez 5 pour supprimer votre compte");
-								System.out.println("Tapez 6 pour rentrer dans le menu de messagerie instantanee");
+								System.out.println("Tapez 6 pour rentrer dans le menu de messagerie");
 								System.out.println("------------------------------------------------------------");
 								Integer choixMenu2 = LireIntClavier();
 								switch (choixMenu2) 
@@ -568,39 +571,90 @@ public class Client extends Object {
 										}
 										System.out.println("\n");
 										System.out.println("------------------------------------------------------------");
-										System.out.println("Menu conversation instantanee");
+										System.out.println("Menu messagerie");
 										System.out.println("Tapez 0 pour vous deconnecter");
-										System.out.println("Tapez 1 pour entrer le numero de conversation");
+										System.out.println("Tapez 1 pour entrer le numero de conversation et avoir une discussion instantanee");
+										System.out.println("Tapez 2 pour laisser un message à un utilisateur non connecte");
+										System.out.println("Tapez 3 pour consulter vos messages");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu6 = LireIntClavier();
 										switch (choixMenu6) {
 										
-										case 0 : {
-											System.out.println("Vous avez quitte la discution instantanee");
-											menu2 = 1;
-											break;
-										}
-										
-										case 1 : {
-											System.out.println("Entrez le numero de conversation");
-											Integer numConversation = LireIntClavier();
-											String messageConversation = "CONVINSTANT#"+(numConversation);
-											fluxSortieSocket3.println(messageConversation);
-											String retour2 = fluxEntreeSocket3.readLine();
-											String requete[] = retour2.split("#");
-											int numeroPort = Integer.parseInt(requete[2]);
-											System.out.println(requete[1]+numeroPort);
-											Socket sockComClient = new Socket("localhost", numeroPort);
-											System.out.println("Entrez votre message :");
-											String message = LireStringClavier();
-											PrintStream     fluxSortieSocket4;
-											fluxSortieSocket4 = new PrintStream(sockComClient.getOutputStream());
-											fluxSortieSocket4.println(message);
-											break;
-										}
-										
-										
-										}
+												case 0 : {
+													System.out.println("Vous avez quitte la discution instantanee");
+													menu2 = 1;
+													break;
+												}
+												
+												case 1 : {
+													System.out.println("Entrez le numero de conversation");
+													Integer numConversation = LireIntClavier();
+													String messageConversation = "CONVINSTANT#"+(numConversation);
+													fluxSortieSocket3.println(messageConversation);
+													String retour2 = fluxEntreeSocket3.readLine();
+													String requete[] = retour2.split("#");
+													int numeroPort = Integer.parseInt(requete[2]);
+													System.out.println(requete[1]+numeroPort);
+													Socket sockComClient = new Socket("localhost", numeroPort);
+													System.out.println("Entrez votre message :");
+													String message = LireStringClavier();
+													PrintStream     fluxSortieSocket4;
+													fluxSortieSocket4 = new PrintStream(sockComClient.getOutputStream());
+													fluxSortieSocket4.println(message);
+													break;
+												}
+												
+												case 2 : {
+													String messageUserOffLine = "USERNOTCONNECT#";
+													fluxSortieSocket3.println(messageUserOffLine);
+													String retour2 = fluxEntreeSocket3.readLine();
+													String[] tabretour2 = retour2.split("]");
+													System.out.println("Resultat des utilisateurs deconnectes :\n");
+													for (String j : tabretour2)
+													{
+													    System.out.println(j);
+													}
+													System.out.println("\n");
+													System.out.println("------------------------------------------------------------");
+													System.out.println("Tapez 0 pour quitter");
+													System.out.println("Tapez 1 pour entrer le numero de messagerie d'un utilisateur et lui laisser un message");
+													System.out.println("------------------------------------------------------------");
+													Integer choixMenu7 = LireIntClavier();
+													switch (choixMenu7) {
+														case 0:
+														{
+															System.out.println("Vous avez quitter le menu");
+															break;
+														}
+														case 1 : {
+															System.out.println("Tapez le numero de messagerie d'un utilisateur et laissez lui un message");
+															Integer numMessagerie = LireIntClavier();
+															System.out.println("Entrez votre message");
+															String messageDepose = LireStringClavier();
+															String messageGestionCom = "DEPOTMESSAGE#"+(numMessagerie)+"#"+(messageDepose)+"#"+user1.getNumeroFiche();															fluxSortieSocket3.println(messageGestionCom);
+															String retour3 = fluxEntreeSocket3.readLine();
+															System.out.println(retour3);
+
+														}
+														
+													}
+													
+												}
+													case 3 : {
+														String messageRecu = "MESSAGERECU#"+user1.getNumeroFiche();
+														fluxSortieSocket3.println(messageRecu);
+														String retour3 = fluxEntreeSocket3.readLine();
+														String[] tabretour3 = retour3.split("]");
+														System.out.println("Voici les messages que vous avez recues durant votre absence :\n");
+														for (String j : tabretour3)
+														{
+														    System.out.println(j);
+														}
+														
+													}
+												
+												
+												}
 										
 										//sockMessagerie.close();
 							
@@ -612,6 +666,7 @@ public class Client extends Object {
 				
 						}
 						}
+						
 					
 						
 						else
