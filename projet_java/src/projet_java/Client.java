@@ -90,11 +90,11 @@ public class Client extends Object {
 							BufferedReader  fluxEntreeSocket3;
 							fluxSortieSocket3 = new PrintStream(sockMessagerie.getOutputStream());
 							fluxEntreeSocket3 = new BufferedReader(new InputStreamReader(sockMessagerie.getInputStream()));
-							String initMessagerie = "INITMESSAGERIE#"+user1.getNumeroFiche()+"#"+sockMessagerie.getLocalAddress()+"#"+sockMessagerie.getLocalPort();
-							ServerSocket sockEcouteClient = new ServerSocket(sockMessagerie.getLocalPort());
+							ServerSocket sockEcouteClient = new ServerSocket(0);
+							String initMessagerie = "INITMESSAGERIE#"+user1.getNumeroFiche()+"#"+sockMessagerie.getLocalAddress()+"#"+sockEcouteClient.getLocalPort();
 							ThreadEcoute thEcoute = new ThreadEcoute(sockEcouteClient);
 							thEcoute.start();
-							System.out.println(initMessagerie);
+							//System.out.println(initMessagerie);
 							fluxSortieSocket3.println(initMessagerie);
 							String msgInst = fluxEntreeSocket3.readLine();
 							System.out.println(msgInst);

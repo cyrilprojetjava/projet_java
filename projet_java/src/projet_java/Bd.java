@@ -1,3 +1,6 @@
+//#####################################################################################
+// Class pour la connexion de la base de donnes										 
+//#####################################################################################
 package projet_java;
 
 import java.sql.Connection;
@@ -11,20 +14,20 @@ public class Bd {
 	Statement st = null;
 	Connection cn = null;
 
-	
+	//#####################################################################################
+	// Fonction pour la connexion a la base de donnees ou sont stocké les infos des utilisateurs
+	//#####################################################################################
 	 public void ConnexionBdAnnuaire(){
 		String url = "jdbc:mysql://binary-digit.net:3306/bd_annuaire";
-			//String url = "jdbc:mysql://ridercyril.ddns.net:3306/bd_annuaire";
-
 	    String login = "cyrilloicludo";
 	    String passwd = "cyrilloicludo";
 	    Connection cn =null;
         
         try {
 			Class.forName("com.mysql.jdbc.Driver");
+			// Connexion à la base de donnees
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			//System.out.println("Connexion BD Annuaire reussie");
         	}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -32,19 +35,20 @@ public class Bd {
 			e.printStackTrace();}
 		} 
 	
+	//#####################################################################################
+	// Fonction pour la connexion a la base de donnees ou sont stocké les infos de connexion des utilisateurs
+	//#####################################################################################
 	public void ConnexionBdAuth(){
 		String url = "jdbc:mysql://binary-digit.net:3305/bd_auth";
-		//String url = "jdbc:mysql://ridercyril.ddns.net:3305/bd_auth";
-
 	    String login = "cyrilloicludo";
 	    String passwd = "cyrilloicludo";
 	    Connection cn =null;
         
         try {
 			Class.forName("com.mysql.jdbc.Driver");
+			// Connexion à la base de donnees
 			cn = DriverManager.getConnection(url, login, passwd);
 			st = cn.createStatement();
-			//System.out.println("Connexion BD Authentification reussie");
         	}
 		catch (SQLException e) {
 		e.printStackTrace();
@@ -53,16 +57,20 @@ public class Bd {
 		} 
 	}
 	
+	//#####################################################################################
+	// Fonction pour la déconnexion des base de données
+	//#####################################################################################
 	public void DeconnexionBd(){
 		try {
-			//System.out.println("Deconnexion BD reussie");
 			st.close();
-			//cn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	//#####################################################################################
+	// Fonction pour executer une requette SELECT dans une base de données
+	//#####################################################################################
 	public ResultSet RequeteSelect(String req){
 		try {
 				return (st.executeQuery(req));
@@ -76,6 +84,9 @@ public class Bd {
 
 	}
 	
+	//#####################################################################################
+	// Fonction pour executer une requette dans une base de données
+	//#####################################################################################
 	public int RequeteAutre(String req){
 		try {
 				st.executeUpdate(req);

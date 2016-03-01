@@ -1,20 +1,23 @@
+//#####################################################################################
+// Class qui permet de lancer le serveur de communication										 
+//#####################################################################################
+
 package projet_java;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 
+//#####################################################################################
+//Fonction qui permet d'écouter les messages que le client lui envoi									 
+//#####################################################################################
 public class ServCom {
 
 	ServerSocket sockEcoute;  
 	public ServCom(){
 
 		try { 
+			// Creation du socket d'écoute du serveur de communication sur le port 15000
 			sockEcoute = new ServerSocket(15000); 
 		} 
 		catch(IOException ioe) { 
@@ -23,6 +26,9 @@ public class ServCom {
 		}
 	}
 
+	//#####################################################################################
+	// Fonction qui lance la classe GestionProtoCom pour traiter les messages du client									 
+	//#####################################################################################
 	public void Service(){
 		Socket sockService; 
 
@@ -30,6 +36,7 @@ public class ServCom {
 		while(true) {
 
 			try {
+				// Quand on reçoit un message on lance un thread qui va les traiter
 				sockService = sockEcoute.accept(); 
 				ThreadTCPCom th = new ThreadTCPCom(sockService,gpcom);
 				th.start();

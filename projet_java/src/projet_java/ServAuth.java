@@ -1,31 +1,50 @@
+//#####################################################################################
+// Class qui permet de lancer le serveur Authentification										 
+//#####################################################################################
+
 package projet_java;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
-public class ServAuth {
+//#####################################################################################
+//Fonction qui permet d'écouter les messages que le client lui envoi									 
+//#####################################################################################
+public class ServAuth 
+{
 
 	ServerSocket sockEcoute;  
 	public ServAuth(){
 
 		 
-		try { 
+		try 
+		{
+			// Creation du socket d'écoute du serveur Annuaire sur le port 13214
 			sockEcoute = new ServerSocket(13214); 
 		} 
-		catch(IOException ioe) { 
+		catch(IOException ioe) 
+		{ 
 			System.out.println("Erreur de creation du server socket: " + ioe.getMessage()); 
 			return; 
 		}
 	}
 
-	public void Service(){
-		Socket sockService; // Declaration du socket de service
+	//#####################################################################################
+	// Fonction qui lance la classe GestionProtoAuthentification pour traiter les messages du client									 
+	//#####################################################################################
+	public void Service()
+	{
+		// Declaration du socket de service
+		Socket sockService; 
 
 		GestionProtoAuth gp = new GestionProtoAuth();  
-		while(true) {
+		while(true) 
+		{
 
-			try {
+			try 
+			{
+				// Quand on reçoit un message on lance un thread qui va les traiter
 				sockService = sockEcoute.accept(); 
 				ThreadTCPAuth th = new ThreadTCPAuth(sockService,gp);
 				th.start();
@@ -37,7 +56,8 @@ public class ServAuth {
 		}
 		
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
 		ServAuth srv = new ServAuth();
 		srv.Service();
