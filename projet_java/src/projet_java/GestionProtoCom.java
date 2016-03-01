@@ -101,6 +101,16 @@ public class GestionProtoCom {
 			}
 			
 		}
+		else if(requete[0].equalsIgnoreCase("QUISUISJE"))
+		{
+			if (requete.length==2)
+			{
+				String numFiche = requete[1];
+				String reponse = user.quiSuisJe(numFiche);
+				return(reponse);
+			}
+			
+		}
 		return("ERREURSRVCom");
 	}
 	

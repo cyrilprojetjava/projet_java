@@ -14,6 +14,8 @@ public class Bd {
 	
 	 public void ConnexionBdAnnuaire(){
 		String url = "jdbc:mysql://binary-digit.net:3306/bd_annuaire";
+			//String url = "jdbc:mysql://ridercyril.ddns.net:3306/bd_annuaire";
+
 	    String login = "cyrilloicludo";
 	    String passwd = "cyrilloicludo";
 	    Connection cn =null;
@@ -32,6 +34,8 @@ public class Bd {
 	
 	public void ConnexionBdAuth(){
 		String url = "jdbc:mysql://binary-digit.net:3305/bd_auth";
+		//String url = "jdbc:mysql://ridercyril.ddns.net:3305/bd_auth";
+
 	    String login = "cyrilloicludo";
 	    String passwd = "cyrilloicludo";
 	    Connection cn =null;

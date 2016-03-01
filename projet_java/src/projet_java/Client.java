@@ -598,6 +598,16 @@ public class Client extends Object {
 													Socket sockComClient = new Socket("localhost", numeroPort);
 													System.out.println("Entrez votre message :");
 													String message = LireStringClavier();
+													String quiSuisJe = "QUISUISJE#"+user1.getNumeroFiche();
+													fluxSortieSocket3.println(quiSuisJe);
+													String retour3 = fluxEntreeSocket3.readLine();
+													String[] tabretour3 = retour3.split("]");
+													for (String j : tabretour3)
+													{
+														message = message +j;
+													    System.out.println();
+													}
+													
 													PrintStream     fluxSortieSocket4;
 													fluxSortieSocket4 = new PrintStream(sockComClient.getOutputStream());
 													fluxSortieSocket4.println(message);

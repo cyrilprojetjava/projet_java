@@ -1165,7 +1165,7 @@ public String rechercheUserOffLine(){
 	ArrayList<Object> formation = new ArrayList<>();
 	
 	BdAnnuaire.ConnexionBdAnnuaire();
-	ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT a.numero_fiche, nom, prenom, formation FROM Annuaire a, ip_port_connexion ip WHERE a.numero_fiche <> ip.numero_fiche;");
+	ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT numero_fiche, nom, prenom, formation FROM Annuaire a WHERE a.numero_fiche NOT IN(SELECT numero_fiche FROM ip_port_connexion);");
 	 try {
 		int i =0;
 		String message = "";
@@ -1259,6 +1259,34 @@ public String LireMessage(String pNumFiche){
 		e.printStackTrace();
 	}
 	
+	return("");
+
+}
+
+public String quiSuisJe(String pNumFiche){
+	
+	ArrayList<Object> message1 = new ArrayList<Object> ();
+	ArrayList<Object> nom = new ArrayList<>();
+	ArrayList<Object> prenom = new ArrayList<>();
+	
+	BdAnnuaire.ConnexionBdAnnuaire();
+	ResultSet rs = BdAnnuaire.RequeteSelect("SELECT nom, prenom FROM annuaire WHERE numero_fiche = '"+pNumFiche+"'" );
+	
+	try {
+		int i = 0;
+		String message = "";
+		while (rs.next()){
+			nom.add(rs.getString(1));
+			prenom.add(rs.getString(2));
+			message1.add("- Message envoye par "+nom.get(i)+" "+prenom.get(i)+"]");
+			message = message + message1.get(i);
+			i++;
+		}
+		return(message);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	return("");
 
 }
