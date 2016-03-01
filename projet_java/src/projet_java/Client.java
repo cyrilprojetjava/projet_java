@@ -594,7 +594,7 @@ public class Client extends Object {
 													String retour2 = fluxEntreeSocket3.readLine();
 													String requete[] = retour2.split("#");
 													int numeroPort = Integer.parseInt(requete[2]);
-													System.out.println(requete[1]+numeroPort);
+													//System.out.println(requete[1]+numeroPort);
 													Socket sockComClient = new Socket("localhost", numeroPort);
 													System.out.println("Entrez votre message :");
 													String message = LireStringClavier();
