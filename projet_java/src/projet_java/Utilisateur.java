@@ -1136,6 +1136,11 @@ public String rechercheUserInLine(String pNumFiche){
 	ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT a.numero_fiche, nom, prenom, formation FROM Annuaire a, ip_port_connexion ip WHERE a.numero_fiche = ip.numero_fiche AND ip.numero_Fiche <> "+pNumFiche+";");
 	 try {
 		int i =0;
+		rs.last();
+		Integer nbItem = rs.getRow();
+		rs.beforeFirst(); 
+	    if(nbItem ==0)
+			{ return ("Aucun utilisateur connecte.");}
 		String message = "";
 		while(rs.next()){
 			
@@ -1168,6 +1173,11 @@ public String rechercheUserOffLine(){
 	ResultSet rs =  BdAnnuaire.RequeteSelect("SELECT numero_fiche, nom, prenom, formation FROM Annuaire a WHERE a.numero_fiche NOT IN(SELECT numero_fiche FROM ip_port_connexion);");
 	 try {
 		int i =0;
+		rs.last();
+		Integer nbItem = rs.getRow();
+		rs.beforeFirst(); 
+	    if(nbItem ==0)
+			{ return ("Aucun utilisateur deconnecte.");}
 		String message = "";
 		while(rs.next()){
 			

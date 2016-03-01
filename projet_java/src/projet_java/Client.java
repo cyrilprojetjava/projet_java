@@ -97,7 +97,7 @@ public class Client extends Object {
 							//System.out.println(initMessagerie);
 							fluxSortieSocket3.println(initMessagerie);
 							String msgInst = fluxEntreeSocket3.readLine();
-							System.out.println(msgInst);
+							//System.out.println(msgInst);
 							Integer menu2 = 1;
 							while (menu2 == 1)
 							{
@@ -574,7 +574,7 @@ public class Client extends Object {
 										System.out.println("Menu messagerie");
 										System.out.println("Tapez 0 pour vous deconnecter");
 										System.out.println("Tapez 1 pour entrer le numero de conversation et avoir une discussion instantanee");
-										System.out.println("Tapez 2 pour laisser un message à un utilisateur non connecte");
+										System.out.println("Tapez 2 pour laisser un message a un utilisateur non connecte");
 										System.out.println("Tapez 3 pour consulter vos messages");
 										System.out.println("------------------------------------------------------------");
 										Integer choixMenu6 = LireIntClavier();
