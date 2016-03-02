@@ -9,18 +9,18 @@ import java.net.Socket;
 import java.io.IOException;
 
 //#####################################################################################
-// Fonction qui permet d'écouter les messages que le client lui envoi									 
+// Fonction qui permet d'ï¿½couter les messages que le client lui envoi									 
 //#####################################################################################
 public class ServAnnuaire {
 
 	// Declaration du socket de service
 	ServerSocket sockEcoute;
-	
+
 	public ServAnnuaire(){
 
 		try 
 		{ 
-			// Creation du socket d'écoute du serveur Annuaire sur le port 13215
+			// Creation du socket d'ï¿½coute du serveur Annuaire sur le port 13215
 			sockEcoute = new ServerSocket(13215); 
 		} 
 		catch(IOException ioe) 
@@ -44,7 +44,7 @@ public class ServAnnuaire {
 
 			try 
 			{
-				// Quand on reçoit un message on lance un thread qui va les traiter
+				// Quand on reï¿½oit un message on lance un thread qui va les traiter
 				sockService = sockEcoute.accept(); 
 				ThreadTCPAnnuaire th = new ThreadTCPAnnuaire(sockService,gpannuaire);
 				th.start();
@@ -54,7 +54,7 @@ public class ServAnnuaire {
 				System.out.println("Erreur d ecriture : " + ioe.getMessage());
 			}
 		}
-		
+
 	}
 	public static void main(String[] args) 
 	{

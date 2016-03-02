@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.io.IOException;
 
 //#####################################################################################
-//Fonction qui permet d'écouter les messages que le client lui envoi									 
+//Fonction qui permet d'ï¿½couter les messages que le client lui envoi									 
 //#####################################################################################
 public class ServAuth 
 {
@@ -17,10 +17,10 @@ public class ServAuth
 	ServerSocket sockEcoute;  
 	public ServAuth(){
 
-		 
+
 		try 
 		{
-			// Creation du socket d'écoute du serveur Annuaire sur le port 13214
+			// Creation du socket d'ï¿½coute du serveur Annuaire sur le port 13214
 			sockEcoute = new ServerSocket(13214); 
 		} 
 		catch(IOException ioe) 
@@ -44,7 +44,7 @@ public class ServAuth
 
 			try 
 			{
-				// Quand on reçoit un message on lance un thread qui va les traiter
+				// Quand on reï¿½oit un message on lance un thread qui va les traiter
 				sockService = sockEcoute.accept(); 
 				ThreadTCPAuth th = new ThreadTCPAuth(sockService,gp);
 				th.start();
@@ -54,7 +54,7 @@ public class ServAuth
 				System.out.println("Erreur d ecriture : " + ioe.getMessage());
 			}
 		}
-		
+
 	}
 	public static void main(String[] args) 
 	{
