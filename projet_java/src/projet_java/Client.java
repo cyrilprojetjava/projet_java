@@ -26,6 +26,7 @@ public class Client extends Object {
 		// TODO Auto-generated method stub
 		// On declare l'utilisateur que l'on va utiliser dans le code du cote client
 		Utilisateur user1 = new Utilisateur();
+		Client client1 = new Client();
 
 		// On declare les flux des sockets que l'on va utiliser pour se connecter sur les serveurs
 		PrintStream     fluxSortieSocket;
@@ -461,6 +462,7 @@ public class Client extends Object {
 											System.out.println(i);
 										}
 										System.out.println("\n");
+										client1.menuLike(user1,fluxSortieSocket2,fluxEntreeSocket2);
 										break;
 									}
 									case 2:
@@ -477,6 +479,7 @@ public class Client extends Object {
 											System.out.println(i);
 										}
 										System.out.println("\n");
+										client1.menuLike(user1,fluxSortieSocket2,fluxEntreeSocket2);
 										break;
 									}
 									case 3:
@@ -493,6 +496,7 @@ public class Client extends Object {
 											System.out.println(i);
 										}
 										System.out.println("\n");
+										client1.menuLike(user1,fluxSortieSocket2,fluxEntreeSocket2);
 										break;
 									}
 									case 4:
@@ -509,6 +513,7 @@ public class Client extends Object {
 											System.out.println(i);
 										}
 										System.out.println("\n");
+										client1.menuLike(user1,fluxSortieSocket2,fluxEntreeSocket2);
 										break;
 									}
 									case 5:
@@ -525,6 +530,7 @@ public class Client extends Object {
 											System.out.println(i);
 										}
 										System.out.println("\n");
+										client1.menuLike(user1,fluxSortieSocket2,fluxEntreeSocket2);
 										break;
 									}
 									case 6:
@@ -541,6 +547,7 @@ public class Client extends Object {
 											System.out.println(i);
 										}
 										System.out.println("\n");
+										client1.menuLike(user1,fluxSortieSocket2,fluxEntreeSocket2);
 										break;
 									}
 									}
@@ -762,5 +769,60 @@ public class Client extends Object {
 		Scanner sc = new Scanner(System.in);
 		Integer num = sc.nextInt();
 		return num;
+	}
+
+	public void menuLike(Utilisateur user1, PrintStream fluxSortieSocket2, BufferedReader fluxEntreeSocket2) throws IOException
+	{
+		Integer menuLike = 1;
+		while(menuLike == 1)
+		{
+			System.out.println("------------------------------------------------------------");
+			System.out.println("Tapez 0 pour ne pas liker la competence d'un utilisateur");
+			System.out.println("Tapez 1 pour voir les likes de la competence de l'utilisateur");
+			System.out.println("Tapez 2 pour liker une competence d'un utilisateur");
+			System.out.println("Tapez 3 pour ne plus liker une competence d'un utilisateur");
+			System.out.println("------------------------------------------------------------");
+			Integer choixMenuLike = LireIntClavier();
+			switch (choixMenuLike) 
+			{
+			case 0 : 
+			{
+				menuLike = 0;
+				break;
+			}
+			case 1 : 
+			{
+				System.out.println("Entrez le numero d'utilisateur pour voir les personnes qui ont like la competence de l'utilisateur");
+				Integer numUtilisateur = LireIntClavier();
+				String seeLike = "SEELIKE#"+(numUtilisateur);
+				System.out.println(seeLike);
+				break;
+			}
+			case 2 : 
+			{
+				System.out.println("Entrez le numero d'utilisateur pour mettre un like sur sa competence");
+				Integer numUtilisateur = LireIntClavier();
+				String like = "LIKE#"+user1.getNumeroFiche()+"#"+numUtilisateur;
+				System.out.println(like);
+				fluxSortieSocket2.println(like);
+				String retour1 = fluxEntreeSocket2.readLine();
+				System.out.println(retour1);
+				menuLike = 0;
+				break;
+			}
+			case 3 : 
+			{
+				System.out.println("Entrez le numero d'utilisateur pour ne plus liker sa competence");
+				Integer numUtilisateur = LireIntClavier();
+				String dontLike = "DONTLIKE#"+user1.getNumeroFiche()+"#"+numUtilisateur;
+				System.out.println(dontLike);
+				fluxSortieSocket2.println(dontLike);
+				String retour1 = fluxEntreeSocket2.readLine();
+				System.out.println(retour1);
+				menuLike = 0;
+				break;
+			}
+			}
+		}
 	}
 }

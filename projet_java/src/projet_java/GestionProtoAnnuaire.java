@@ -474,6 +474,57 @@ public class GestionProtoAnnuaire
 			}
 			
 		}
+		// Si le debut de la requette commence par SEELIKE
+		else if(requete[0].equalsIgnoreCase("SEELIKE"))
+		{
+			if (requete.length==2) 
+			{
+				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de voir les likes
+				String NumFiche = requete[1];
+				String reponse = user.seeLike(NumFiche);
+				return(reponse);
+			}
+			else
+			{
+				// Si la taille de la requette n'est pas bonnne on renvoi une erreur
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+		}
+		// Si le debut de la requette commence par LIKE
+		else if(requete[0].equalsIgnoreCase("LIKE"))
+		{
+			if (requete.length==3)
+			{
+				// On recupére le numero de fiche des utilisateurs
+				String numFicheLikeur = requete[1];
+				String numPersLike = requete[2];
+				String reponse = user.like(numFicheLikeur,numPersLike);
+				return(reponse);
+			}
+			else
+			{
+				// Si la taille de la requette n'est pas bonnne on renvoi une erreur
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+		}
+		// Si le debut de la requette commence par DONTLIKE
+		else if(requete[0].equalsIgnoreCase("DONTLIKE"))
+		{
+			if (requete.length==3) 
+			{
+				// On recupére le numero de fiche des utilisateurs
+				String numFicheLikeur = requete[1];
+				String numPersLike = requete[2];
+				String reponse = user.dontLike(numFicheLikeur,numPersLike);
+				return(reponse);
+			}
+			else
+			{
+				// Si la taille de la requette n'est pas bonnne on renvoi une erreur
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
 		
 		return("ERREURSRVAnnuaire");
 	}

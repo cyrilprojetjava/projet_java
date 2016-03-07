@@ -369,7 +369,7 @@ public class Utilisateur
 						{
 							competence.add("NON VISIBLE");
 						}
-						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message1.add("Numero utilisateur : "+numero_fiche.get(i)+" Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
 						message = message + message1.get(i);
 						i++;
 					}
@@ -461,7 +461,7 @@ public class Utilisateur
 						{
 							competence.add("NON VISIBLE");
 						}
-						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message1.add("Numero utilisateur : "+numero_fiche.get(i)+" Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
 						message = message + message1.get(i);
 						i++;
 					}	
@@ -564,7 +564,7 @@ public class Utilisateur
 							}
 
 						}
-						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message1.add("Numero utilisateur : "+numero_fiche.get(i)+" Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
 
 						message = message + message1.get(i);
 						i++;
@@ -660,7 +660,7 @@ public class Utilisateur
 						{
 							competence.add("NON VISIBLE");
 						}
-						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message1.add("Numero utilisateur : "+numero_fiche.get(j)+" Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
 						message = message + message1.get(i);
 						i++;
 					}	
@@ -753,7 +753,7 @@ public class Utilisateur
 						{
 							competence.add("NON VISIBLE");
 						}
-						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message1.add("Numero utilisateur : "+numero_fiche.get(i)+" Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
 
 						message = message + message1.get(i);
 						i++;
@@ -846,7 +846,7 @@ public class Utilisateur
 						{
 							anneediplome.add("NON VISIBLE");
 						}
-						message1.add("Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
+						message1.add("Numero utilisateur : "+numero_fiche.get(i)+" Nom : "+nom.get(i)+" Prenom : "+prenom.get(i)+" Telephone : "+telephone.get(i)+" Formation : "+formation.get(i)+" Annee Diplome : "+anneediplome.get(i)+" Competence : "+competence.get(i)+"]");
 						message = message + message1.get(i);
 						i++;	
 					}	
@@ -1414,6 +1414,88 @@ public class Utilisateur
 		}
 		return("");
 
+	}
+	
+	//#####################################################################################
+	// Fonction qui permet de voir les likes d'une competence d'un utilisateur								 
+	//#####################################################################################
+	public String seeLike(String pNumFiche){
+		return("");
+	}
+	
+	//#####################################################################################
+	// Fonction qui permet de liker une competence d'un utilisateur							 
+	//#####################################################################################
+	public String like(String pNumFicheLikeur,String pNumPersLike){
+		BdAnnuaire.ConnexionBdAnnuaire();
+		
+		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE num_likeur = "+pNumFicheLikeur+" AND num_pers_like ="+pNumPersLike+";");
+		try {
+			rs.last();
+			Integer nbItem = rs.getRow();
+			rs.beforeFirst();
+			//On cherche à savoir si l'utilisateur a déjà liké TRUE OU FALSE
+			if(nbItem ==0)
+			{
+				BdAnnuaire.RequeteAutre("INSERT INTO like_competence(num_likeur,num_pers_like,competence) VALUES("+pNumFicheLikeur+","+pNumPersLike+",TRUE);");
+				return ("LIKEOK#"+pNumFicheLikeur);
+			}
+			else
+			{
+				//On vérifie que le like est FALSE
+				while(rs.next())
+				{
+					String id_like = rs.getString(1);
+					ResultSet rs1 = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE id_like="+id_like+" AND competence = TRUE;");
+					rs1.last();
+					nbItem = rs1.getRow();
+					rs1.beforeFirst();
+					if(nbItem ==0)
+					{
+						BdAnnuaire.RequeteAutre("UPDATE like_competence SET competence = TRUE WHERE id_like="+id_like);
+						return ("LIKEOK#"+pNumFicheLikeur);
+					}
+					else
+						return("Vous avez deja mis un like a cet utilisateur.");
+				}
+			}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return("Erreur de communication avec le serveur de base de donnees");
+	}
+		
+	//#####################################################################################
+	// Fonction qui permet de ne plus liker une competence d'un utilisateur								 
+	//#####################################################################################
+	public String dontLike(String pNumFicheLikeur,String pNumPersLike){
+		BdAnnuaire.ConnexionBdAnnuaire();
+
+		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE num_likeur = '"+pNumFicheLikeur+"' AND num_pers_like = '"+pNumPersLike+"' AND competence = TRUE;");
+		try {
+			rs.last();
+			Integer nbItem = rs.getRow();
+			rs.beforeFirst();
+			//On vérifie que l'utilisateur a déjà liké
+			if(nbItem ==0)
+			{
+				return("Vous n'avez pas mis de like a cet utilisateur precedemment.");
+			}
+			else
+			{
+				while(rs.next())
+				{
+					String id_like = rs.getString(1);
+					BdAnnuaire.RequeteAutre("UPDATE like_competence SET competence = FALSE WHERE id_like="+id_like+";");
+				}
+				return ("DONTLIKEOK#"+pNumFicheLikeur);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return("Erreur de communication avec le serveur de base de donnees");
 	}
 
 
