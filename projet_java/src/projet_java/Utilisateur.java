@@ -1472,7 +1472,43 @@ public class Utilisateur
 	public String dontLike(String pNumFicheLikeur,String pNumPersLike){
 		BdAnnuaire.ConnexionBdAnnuaire();
 
-		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE num_likeur = '"+pNumFicheLikeur+"' AND num_pers_like = '"+pNumPersLike+"' AND competence = TRUE;");
+		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE num_likeur = "+pNumFicheLikeur+" AND num_pers_like ="+pNumPersLike+";");
+		try {
+			rs.last();
+			Integer nbItem = rs.getRow();
+			rs.beforeFirst();
+			if(nbItem ==0)
+			{
+				return("Vous n'avez pas mis de like a cet utilisateur precedemment.");
+			}
+			else
+			{
+				//On vérifie que le like est FALSE
+				while(rs.next())
+				{
+					String id_like = rs.getString(1);
+					ResultSet rs1 = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE id_like="+id_like+" AND competence = TRUE;");
+					rs1.last();
+					nbItem = rs1.getRow();
+					rs1.beforeFirst();
+					if(nbItem ==0)
+					{
+						return("Vous n'avez pas mis de like a cet utilisateur precedemment.");
+					}
+					else
+					{
+						BdAnnuaire.RequeteAutre("UPDATE like_competence SET competence = FALSE WHERE id_like="+id_like);
+						return ("DONTLIKEOK#"+pNumFicheLikeur);
+					}
+				}
+			}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return("Erreur de communication avec le serveur de base de donnees");
+		
+		/*ResultSet rs = BdAnnuaire.RequeteSelect("SELECT id_like FROM like_competence WHERE num_likeur = '"+pNumFicheLikeur+"' AND num_pers_like = '"+pNumPersLike+"' AND competence = TRUE;");
 		try {
 			rs.last();
 			Integer nbItem = rs.getRow();
@@ -1495,7 +1531,7 @@ public class Utilisateur
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return("Erreur de communication avec le serveur de base de donnees");
+		return("Erreur de communication avec le serveur de base de donnees");*/
 	}
 
 
