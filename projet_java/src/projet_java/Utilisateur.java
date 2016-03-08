@@ -1420,7 +1420,62 @@ public class Utilisateur
 	// Fonction qui permet de voir les likes d'une competence d'un utilisateur								 
 	//#####################################################################################
 	public String seeLike(String pNumFiche){
-		return("");
+		BdAnnuaire.ConnexionBdAnnuaire();
+		
+		ResultSet rs = BdAnnuaire.RequeteSelect("SELECT * FROM like_competence WHERE num_pers_like = "+pNumFiche+";");
+		try {
+			rs.last();
+			Integer nbItem = rs.getRow();
+			rs.beforeFirst();
+			//On cherche à savoir si l'utilisateur a déjà eu une compétence likée
+			if(nbItem ==0)
+			{
+				return ("Personne n'a deja mis un like sur la competence de cet utilisateur.");
+			}
+			else
+			{
+					ResultSet rs1 = BdAnnuaire.RequeteSelect("SELECT COUNT(*) FROM like_competence WHERE num_pers_like="+pNumFiche+" AND competence = TRUE;");
+					Integer nbLike = 0;
+					//On compte le nombre de like
+					while(rs1.next())
+					{
+						nbLike = rs1.getInt(1);
+					}
+					Utilisateur user1 = new Utilisateur();
+					rs1 =  BdAnnuaire.RequeteSelect("SELECT nom, prenom, formation, competence FROM Annuaire a WHERE a.numero_fiche = "+pNumFiche+";");
+					while(rs1.next())
+					{
+						user1.setNom(rs1.getString(1));
+						user1.setPrenom(rs1.getString(2));
+						user1.setFormation(rs1.getString(3));
+						user1.setCompetence(rs1.getString(4));
+					}
+					ArrayList<Object> message1 = new ArrayList<Object> ();
+					ArrayList<Object> numero_fiche = new ArrayList<>();
+					ArrayList<Object> nom = new ArrayList<>();
+					ArrayList<Object> prenom = new ArrayList<>();
+					ArrayList<Object> formation = new ArrayList<>();
+					String message = "L'utilisateur "+user1.getNom()+" "+user1.getPrenom()+" de la formation "+user1.getFormation()+" a "+nbLike+" like pour sa competence "+user1.getCompetence()+".]]";
+					Integer i = 0;
+					rs1 =  BdAnnuaire.RequeteSelect("SELECT num_likeur, nom, prenom, formation FROM Annuaire a, like_competence l WHERE a.numero_fiche = l.num_likeur AND l.competence = TRUE AND l.num_pers_like = "+pNumFiche+";");
+					while(rs1.next())
+					{
+						numero_fiche.add(rs1.getInt(1));
+						nom.add(rs1.getString(2));
+						prenom.add(rs1.getString(3));
+						formation.add(rs1.getString(4));
+						message1.add(nom.get(i)+ " "+prenom.get(i)+" de la formation "+formation.get(i)+" a mis un like.]");
+						message = message + message1.get(i);
+						i++;
+					}
+					System.out.println(message);
+					return(message);
+			}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return("Erreur de communication avec le serveur de base de donnees");
 	}
 	
 	//#####################################################################################

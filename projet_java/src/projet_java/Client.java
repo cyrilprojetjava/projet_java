@@ -795,7 +795,14 @@ public class Client extends Object {
 				System.out.println("Entrez le numero d'utilisateur pour voir les personnes qui ont like la competence de l'utilisateur");
 				Integer numUtilisateur = LireIntClavier();
 				String seeLike = "SEELIKE#"+(numUtilisateur);
-				System.out.println(seeLike);
+				//System.out.println(seeLike);
+				fluxSortieSocket2.println(seeLike);
+				String retour1 = fluxEntreeSocket2.readLine();
+				String[] tabretour1 = retour1.split("]");
+				for (String j : tabretour1)
+				{
+					System.out.println(j);
+				}
 				break;
 			}
 			case 2 : 
@@ -803,10 +810,10 @@ public class Client extends Object {
 				System.out.println("Entrez le numero d'utilisateur pour mettre un like sur sa competence");
 				Integer numUtilisateur = LireIntClavier();
 				String like = "LIKE#"+user1.getNumeroFiche()+"#"+numUtilisateur;
-				System.out.println(like);
+				//System.out.println(like);
 				fluxSortieSocket2.println(like);
 				String retour1 = fluxEntreeSocket2.readLine();
-				System.out.println(retour1);
+				//System.out.println(retour1);
 				menuLike = 0;
 				break;
 			}
@@ -815,10 +822,10 @@ public class Client extends Object {
 				System.out.println("Entrez le numero d'utilisateur pour ne plus liker sa competence");
 				Integer numUtilisateur = LireIntClavier();
 				String dontLike = "DONTLIKE#"+user1.getNumeroFiche()+"#"+numUtilisateur;
-				System.out.println(dontLike);
+				//System.out.println(dontLike);
 				fluxSortieSocket2.println(dontLike);
 				String retour1 = fluxEntreeSocket2.readLine();
-				System.out.println(retour1);
+				//System.out.println(retour1);
 				menuLike = 0;
 				break;
 			}
