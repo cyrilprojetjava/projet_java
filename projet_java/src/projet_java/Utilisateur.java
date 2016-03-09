@@ -1260,7 +1260,7 @@ public class Utilisateur
 	}
 
 	//#####################################################################################
-	// Fonction qui recherche les utilisateurs qui sont pas en ligne									 
+	// Fonction qui recherche les utilisateurs qui ne sont pas en ligne									 
 	//#####################################################################################
 	public String rechercheUserOffLine(){
 		ArrayList<Object> message1 = new ArrayList<Object> ();
@@ -1312,7 +1312,7 @@ public class Utilisateur
 	}
 
 	//#####################################################################################
-	// Fonction qui retourne l adresse ip et le port de la personne a qui on veut parler								 
+	// Fonction qui retourne l adresse ip et le port de la personne a qui l'on veut parler								 
 	//#####################################################################################
 	public String convInLine(String pNumConv){
 
@@ -1427,7 +1427,7 @@ public class Utilisateur
 			rs.last();
 			Integer nbItem = rs.getRow();
 			rs.beforeFirst();
-			//On cherche à savoir si l'utilisateur a déjà eu une compétence likée
+			//On cherche ï¿½ savoir si l'utilisateur a dï¿½jï¿½ eu une compï¿½tence likï¿½e
 			if(nbItem ==0)
 			{
 				return ("Personne n'a deja mis un like sur la competence de cet utilisateur.");
@@ -1489,7 +1489,7 @@ public class Utilisateur
 			rs.last();
 			Integer nbItem = rs.getRow();
 			rs.beforeFirst();
-			//On cherche à savoir si l'utilisateur a déjà liké TRUE OU FALSE
+			//On cherche ï¿½ savoir si l'utilisateur a dï¿½jï¿½ likï¿½ TRUE OU FALSE
 			if(nbItem ==0)
 			{
 				BdAnnuaire.RequeteAutre("INSERT INTO like_competence(num_likeur,num_pers_like,competence) VALUES("+pNumFicheLikeur+","+pNumPersLike+",TRUE);");
@@ -1497,7 +1497,7 @@ public class Utilisateur
 			}
 			else
 			{
-				//On vérifie que le like est FALSE
+				//On vï¿½rifie que le like est FALSE
 				while(rs.next())
 				{
 					String id_like = rs.getString(1);
@@ -1520,6 +1520,50 @@ public class Utilisateur
 			}
 		return("Erreur de communication avec le serveur de base de donnees");
 	}
+	
+	public String seeHisLike(String pNumFiche) 
+	{
+		BdAnnuaire.ConnexionBdAnnuaire();
+		/*ResultSet rs1 = BdAnnuaire.RequeteSelect("SELECT COUNT(*) FROM like_competence WHERE num_pers_like="+pNumFiche+" AND competence = TRUE;");
+		Integer nbLike = 0;
+		//On compte le nombre de like
+		try {
+			while(rs1.next())
+			{
+				nbLike = rs1.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		ArrayList<Object> message1 = new ArrayList<Object> ();
+		ArrayList<Object> numero_fiche = new ArrayList<>();
+		ArrayList<Object> nom = new ArrayList<>();
+		ArrayList<Object> prenom = new ArrayList<>();
+		ArrayList<Object> formation = new ArrayList<>();
+		String message ="";
+		Integer i = 0;
+		ResultSet rs2 =  BdAnnuaire.RequeteSelect("SELECT num_likeur, nom, prenom, formation FROM Annuaire a, like_competence l WHERE a.numero_fiche = l.num_likeur AND l.competence = TRUE AND l.num_pers_like = "+pNumFiche+";");
+		try {
+			while(rs2.next())
+			{
+				numero_fiche.add(rs2.getInt(1));
+				nom.add(rs2.getString(2));
+				prenom.add(rs2.getString(3));
+				formation.add(rs2.getString(4));
+				message1.add(nom.get(i)+ " "+prenom.get(i)+" de la formation "+formation.get(i)+" a mis un like a votre competence.]");
+				message = message + message1.get(i);
+				i++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return(message);
+		//return("Vous avez actuellement "+nbLike+" like sur votre competence");
+		
+		
+	}
 		
 	//#####################################################################################
 	// Fonction qui permet de ne plus liker une competence d'un utilisateur								 
@@ -1538,7 +1582,7 @@ public class Utilisateur
 			}
 			else
 			{
-				//On vérifie que le like est FALSE
+				//On vï¿½rifie que le like est FALSE
 				while(rs.next())
 				{
 					String id_like = rs.getString(1);
@@ -1568,7 +1612,7 @@ public class Utilisateur
 			rs.last();
 			Integer nbItem = rs.getRow();
 			rs.beforeFirst();
-			//On vérifie que l'utilisateur a déjà liké
+			//On vï¿½rifie que l'utilisateur a dï¿½jï¿½ likï¿½
 			if(nbItem ==0)
 			{
 				return("Vous n'avez pas mis de like a cet utilisateur precedemment.");

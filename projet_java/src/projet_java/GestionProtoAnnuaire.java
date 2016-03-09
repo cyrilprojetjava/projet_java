@@ -12,13 +12,13 @@ public class GestionProtoAnnuaire
 
 	public String analyserTraiter(String req) 
 	{
-		// On recupére les informations qui sont séparé par des #
+		// On recupï¿½re les informations qui sont sï¿½parï¿½ par des #
 		String[] requete = req.split("#");
 		
 		// Si le debut de la requette commence par CREATE
 		if(requete[0].equalsIgnoreCase("CREATE"))
 		{
-			// On regarde qu'il y ait bien 8 paramétres
+			// On regarde qu'il y ait bien 8 paramï¿½tres
 			if (requete.length == 8 )
 			{
 				return ("CREATIONOK");
@@ -33,10 +33,10 @@ public class GestionProtoAnnuaire
 		// Si le debut de la requette commence par CONSULTINFOPERSO
 		else if(requete[0].equalsIgnoreCase("CONSULTINFOPERSO"))
 		{
-			// On regarde qu'il y ait bien 8 paramétres
+			// On regarde qu'il y ait bien 8 paramï¿½tres
 			if (requete.length==2 )
 			{
-				// On récupére le numéro de la fiche de l'utilisateur
+				// On rï¿½cupï¿½re le numï¿½ro de la fiche de l'utilisateur
 				String numFiche = requete[1];
 				// On appelle la fonction qui permet de consulter les informations perso de l'utilisateur
 				String reponse = user.consulterInfoPerso(numFiche);
@@ -55,7 +55,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére le nom de l'utilisateur pour le changer dans la fonction modificationInformationNom
+				// On rï¿½cupï¿½re le nom de l'utilisateur pour le changer dans la fonction modificationInformationNom
 				String nom = requete[2];
 				String reponse = user.modificationInformationNom(numFiche, nom);
 				return(reponse);
@@ -72,7 +72,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére le prenom de l'utilisateur pour le changer dans la fonction modificationInformationPrenom
+				// On rï¿½cupï¿½re le prenom de l'utilisateur pour le changer dans la fonction modificationInformationPrenom
 				String prenom = requete[2];
 				String reponse = user.modificationInformationPrenom(numFiche, prenom);
 				return(reponse);
@@ -89,7 +89,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére le telephone de l'utilisateur pour le changer dans la fonction modificationInformationTel
+				// On rï¿½cupï¿½re le telephone de l'utilisateur pour le changer dans la fonction modificationInformationTel
 				String tel = requete[2];
 				String rep = user.modificationInformationTel(numFiche, tel);
 				return(rep);
@@ -106,7 +106,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére la formation de l'utilisateur pour le changer dans la fonction modificationInformationFormation
+				// On rï¿½cupï¿½re la formation de l'utilisateur pour le changer dans la fonction modificationInformationFormation
 				String formation = requete[2];
 				String reponse = user.modificationInformationFormation(numFiche, formation);
 				return(reponse);
@@ -123,7 +123,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére l'annee d'obtention du diplome de l'utilisateur pour le changer dans la fonction modificationInformationAnneeDiplome
+				// On rï¿½cupï¿½re l'annee d'obtention du diplome de l'utilisateur pour le changer dans la fonction modificationInformationAnneeDiplome
 				String anneeDiplome = requete[2];
 				String reponse = user.modificationInformationAnneeDiplome(numFiche, anneeDiplome);
 				return(reponse);
@@ -140,7 +140,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére le mail de l'utilisateur pour le changer dans la fonction modificationInformationMail
+				// On rï¿½cupï¿½re le mail de l'utilisateur pour le changer dans la fonction modificationInformationMail
 				String mail = requete[2];
 				String reponse = user.modificationInformationMail(numFiche, mail);
 				return(reponse);
@@ -157,7 +157,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére le mdp de l'utilisateur pour le changer dans la fonction modificationInformationMotDePasse
+				// On rï¿½cupï¿½re le mdp de l'utilisateur pour le changer dans la fonction modificationInformationMotDePasse
 				String mdp = requete[2];
 				String reponse = user.modificationInformationMotDePasse(numFiche, mdp);
 				return(reponse);
@@ -174,7 +174,7 @@ public class GestionProtoAnnuaire
 			if (requete.length==3)
 			{
 				String numFiche = requete[1];
-				// On récupére la compétence de l'utilisateur pour le changer dans la fonction modificationInformationCompetence
+				// On rï¿½cupï¿½re la compï¿½tence de l'utilisateur pour le changer dans la fonction modificationInformationCompetence
 				String competence = requete[2];
 				String reponse = user.modificationInformationCompetence(numFiche, competence);
 				return(reponse);
@@ -190,7 +190,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le nom de l'utilisateur pour le rechercher dans la base de donnee
+				// On recupï¿½re le nom de l'utilisateur pour le rechercher dans la base de donnee
 				String nom = requete[1];
 				String reponse = user.rechercheNom(nom);
 				return(reponse);
@@ -206,7 +206,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le prenom de l'utilisateur pour le rechercher dans la base de donnee
+				// On recupï¿½re le prenom de l'utilisateur pour le rechercher dans la base de donnee
 				String prenom = requete[1];
 				String reponse = user.recherchePrenom(prenom);
 				return(reponse);
@@ -222,7 +222,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le mail de l'utilisateur pour le rechercher dans la base de donnee
+				// On recupï¿½re le mail de l'utilisateur pour le rechercher dans la base de donnee
 				String mail = requete[1];
 				String reponse = user.rechercheMail(mail);
 				return(reponse);
@@ -238,7 +238,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére la formation de l'utilisateur pour le rechercher dans la base de donnee
+				// On recupï¿½re la formation de l'utilisateur pour le rechercher dans la base de donnee
 				String formation = requete[1];
 				String reponse = user.rechercheFormation(formation);
 				return(reponse);
@@ -254,7 +254,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére l'annee d'obtention du diplome de l'utilisateur pour le rechercher dans la base de donnee
+				// On recupï¿½re l'annee d'obtention du diplome de l'utilisateur pour le rechercher dans la base de donnee
 				String anneeDiplome = requete[1];
 				String reponse = user.rechercheAnneeDiplome(anneeDiplome);
 				return(reponse);
@@ -270,7 +270,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére la competence de l'utilisateur pour le rechercher dans la base de donnee
+				// On recupï¿½re la competence de l'utilisateur pour le rechercher dans la base de donnee
 				String competence = requete[1];
 				String reponse = user.rechercheCompetence(competence);
 				return(reponse);
@@ -286,7 +286,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.visibiliteNom(NumFiche);
 				return(reponse);
@@ -302,7 +302,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.modifVisibiliteNom(NumFiche);
 				return(reponse);
@@ -318,7 +318,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.visibilitePrenom(NumFiche);
 				return(reponse);
@@ -334,7 +334,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.modifVisibilitePrenom(NumFiche);
 				return(reponse);
@@ -350,7 +350,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.visibiliteTel(NumFiche);
 				return(reponse);
@@ -366,7 +366,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.modifVisibiliteTel(NumFiche);
 				return(reponse);
@@ -382,7 +382,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.visibiliteFormation(NumFiche);
 				return(reponse);
@@ -398,7 +398,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.modifVisibiliteFormation(NumFiche);
 				return(reponse);
@@ -414,7 +414,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.visibiliteAnneeDiplome(NumFiche);
 				return(reponse);
@@ -430,7 +430,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.modifVisibiliteAnneeDiplome(NumFiche);
 				return(reponse);
@@ -446,7 +446,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2)
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.visibiliteCompetence(NumFiche);
 				return(reponse);
@@ -462,7 +462,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe modification de la visibilite
 				String NumFiche = requete[1];
 				String reponse = user.modifVisibiliteCompetence(NumFiche);
 				return(reponse);
@@ -479,7 +479,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==2) 
 			{
-				// On recupére le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de voir les likes
+				// On recupï¿½re le numero de fiche de l'utilisateur pour appeler la fonction qui s'occupe de voir les likes
 				String NumFiche = requete[1];
 				String reponse = user.seeLike(NumFiche);
 				return(reponse);
@@ -495,7 +495,7 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==3)
 			{
-				// On recupére le numero de fiche des utilisateurs
+				// On recupï¿½re le numero de fiche des utilisateurs
 				String numFicheLikeur = requete[1];
 				String numPersLike = requete[2];
 				String reponse = user.like(numFicheLikeur,numPersLike);
@@ -512,10 +512,26 @@ public class GestionProtoAnnuaire
 		{
 			if (requete.length==3) 
 			{
-				// On recupére le numero de fiche des utilisateurs
+				// On recupï¿½re le numero de fiche des utilisateurs
 				String numFicheLikeur = requete[1];
 				String numPersLike = requete[2];
 				String reponse = user.dontLike(numFicheLikeur,numPersLike);
+				return(reponse);
+			}
+			else
+			{
+				// Si la taille de la requette n'est pas bonnne on renvoi une erreur
+				return("ERREUR : REQUETE MAL FORMEE");
+			}
+			
+		}
+		else if(requete[0].equalsIgnoreCase("CONSULTERLIKEPERSO"))
+		{
+			if (requete.length==2) 
+			{
+				// On recupï¿½re le numero de fiche des utilisateurs
+				String numFiche = requete[1];
+				String reponse = user.seeHisLike(numFiche);
 				return(reponse);
 			}
 			else

@@ -143,7 +143,7 @@ public class Client extends Object {
 									String messageDecoUserInLine = "DECONNECTINLINE#"+(user1.getNumeroFiche());
 									fluxSortieSocket3.println(messageDecoUserInLine);
 									System.out.println("Vous etes deconnecte");
-									// On ferme les socke
+									// On ferme les sockects
 									sockCom2.close();
 									sockMessagerie.close();
 									menu2 = 0;
@@ -151,8 +151,8 @@ public class Client extends Object {
 								}
 								case 1:
 								{
-									// Cas ou l'on veut consulter les informations
-									// Connexion on serveur annuaire
+									// Cas où l'on veut consulter les informations
+									// Connexion au serveur annuaire
 									sockCom2 = new Socket("localhost",13215);
 									fluxSortieSocket2 = new PrintStream(sockCom2.getOutputStream());
 									fluxEntreeSocket2 = new BufferedReader(new InputStreamReader(sockCom2.getInputStream()));
@@ -161,6 +161,7 @@ public class Client extends Object {
 									fluxSortieSocket2.println(messageConsultInfoPerso);
 									String retour2 = fluxEntreeSocket2.readLine();
 									System.out.println(retour2);
+									client1.ConsulterLikePerso(user1,fluxSortieSocket2,fluxEntreeSocket2);
 									sockCom2.close();
 									break;
 								}
@@ -770,6 +771,21 @@ public class Client extends Object {
 		Integer num = sc.nextInt();
 		return num;
 	}
+	
+	public void ConsulterLikePerso(Utilisateur user1, PrintStream fluxSortieSocket2, BufferedReader fluxEntreeSocket2) throws IOException
+	{
+		
+		String MessageConsulterLikePerso = "CONSULTERLIKEPERSO#"+user1.getNumeroFiche();
+		fluxSortieSocket2.println(MessageConsulterLikePerso);
+		String retour1 = fluxEntreeSocket2.readLine();
+		String[] tabretour1 = retour1.split("]");
+		for (String j : tabretour1)
+		{
+			System.out.println(j);
+		}
+		
+	}
+	
 
 	public void menuLike(Utilisateur user1, PrintStream fluxSortieSocket2, BufferedReader fluxEntreeSocket2) throws IOException
 	{
